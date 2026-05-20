@@ -1,0 +1,21 @@
+{
+  "name": "ai-design-engineer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI Agent Skills collection for UI design engineer prompts and blueprint documentation.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gamemun01/ai-design-engineer.git"
+  },
+  "scripts": {
+    "lint:md": "npx markdownlint-cli '**/*.md'",
+    "lint": "npm run lint:md",
+    "validate-skill": "node scripts/validate-skill.js",
+    "docs": "node -e \"console.log('Open docs/overview.md for repository documentation.')\"",
+    "preview": "npx serve ."
+  },
+  "devDependencies": {
+    "markdownlint-cli": "^0.33.0",
+    "serve": "^14.2.0"
+  }
+}
