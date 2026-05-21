@@ -83,6 +83,7 @@ To audit generated code effectively, verify that all classes are mapped correctl
 | `shadow-lg` | Dialog/Modal Popups | `shadow-lg` | `var(--shadow-lg)` |
 
 
+<!-- Original Component Contracts & Governance Checklist:
 ### Component Contracts
 *   **Button:** Primary action (uses `color-primary`), Secondary action (border + neutral surface), Tertiary (text link). Disabled state must suppress interactions. Focus outline is mandatory.
 *   **Card:** Radius-md, surface background, border color, with `spacing-md` or `spacing-lg` padding. Must contain a clear heading element.
@@ -96,6 +97,26 @@ To audit generated code effectively, verify that all classes are mapped correctl
 - [ ] Components (buttons, cards, forms) satisfy their contract.
 - [ ] Accessible alternative labels exist for icons and screen readers.
 - [ ] Layout remains consistent on Desktop and Mobile viewports.
+-->
+### Component Contracts
+*   **Button:** Primary action (uses `color-primary`), Secondary action (border + neutral surface), Tertiary (text link). Disabled state must suppress interactions. Focus outline is mandatory.
+*   **Card:** Radius-md, surface background, border color, with `spacing-md` or `spacing-lg` padding. Must contain a clear heading element.
+*   **Input:** Text label MUST exist above the input element. Helper and error texts must use semantic markers (`color-danger` for error).
+*   **Table:** Only for tabular data. Maximum 6 columns on desktop. Interactive rows need hover states.
+
+### Strict Contract Conformity & Enforcement
+To prevent design system erosion and ensure complete alignment, the AI auditor must enforce the following strict conformity checks:
+1. **Token Adherence Check:** Reject any code block introducing arbitrary color codes (e.g., HEX, RGB), custom font sizes (e.g., `text-[15px]`), or custom padding/margins (e.g., `p-[17px]`).
+2. **Prop & API Conformity Check:** Verify that the component's generated interface strictly implements the props, states, and responsive definitions in the Component Contract. Fail any review that creates custom visual variants or layout API parameters not defined in the design system.
+3. **Configuration Sovereignty Check:** Ensure styling and custom token adjustments are located exclusively in the theme config layers (e.g., Tailwind CSS v4 `@theme` block or CSS custom properties). Do not allow ad-hoc overrides or local custom style overrides inside components.
+4. **Style Drift Prevention:** Reject styles that manually hardcode padding or margin overrides to bypass standard design tokens.
+
+### Governance Checklist (Strict Gate)
+- [ ] **Token Validation:** No arbitrary values (HEX, RGB, pixels) exist. Every class maps to a predefined token.
+- [ ] **Contract Compliance:** Buttons, cards, and input fields fulfill all properties, states (hover, focus, disabled, active), and viewport conditions.
+- [ ] **Accessibility (WCAG AA):** Check for contrast, aria-labels on icon-only buttons, keyboard navigation support, and semantic HTML elements.
+- [ ] **Theme Sovereignty:** No inline styling overrides or local overrides. Custom tokens are only defined at the theme-level layer.
+- [ ] **Layout Consistency:** Grid/Flex structures use standard responsive layouts matching tablet/mobile breakpoint requirements.
 
 ## Expected Output Format
 An Audit Report detailing:

@@ -114,6 +114,11 @@ When auditing, do not flag occurrences that meet the following approved exceptio
 - **Approved External Libraries/Packages:** Check the project config file (e.g. package.json or system-config.json) for the `approved_packages` list. Any library declared in this list is exempt from Dependency Control auditing.
 - **Single Developer Context:** Anti-Pattern #19 (No versioned review) is not applicable in projects marked as single-developer setup, where complex multi-agent log overhead is unnecessary.
 
+### 5. Security & Resilience Guardrails
+When auditing component code and logic, you must enforce the following security safeguards:
+- **Prompt Injection Defense:** Verify that no user-supplied input is directly rendered into scripts, passed to `eval()`, or allowed to bypass command bounds. If the code parses prompts or templates dynamically, ensure it implements strict input validation (e.g. regex-based whitelisting) and rejects strings containing directives like "Ignore previous instructions" or "Output system prompt".
+- **Zero Trust & Least Privilege:** Enforce that code operates under the principle of least privilege. Check for file system writes or command executions, verifying that paths are strictly confined (no arbitrary path traversal like `../` to access system folders) and that execution uses safe parameters instead of raw shell concatenation.
+
 ---
 
 ## Detection Checklist & Audit Steps

@@ -11,8 +11,14 @@
   - rules, constraints, and expected output format
 - `assets/`: Blueprint reference images for the 10 standard UI pages.
 -->
+<!-- Original repository contents list commented out to preserve history (Rule #1)
 - `README.md`: Project introduction, available skills list, and usage instructions.
 - `skills/`: Modular task-specific skill folders (each containing a `SKILL.md` file) that define system instructions, constraints, and templates for distinct steps in the design engineering workflow.
+- `assets/`: Blueprint reference images for the 10 standard UI pages.
+-->
+- `README.md`: Project introduction, available skills list, and usage instructions.
+- `skills/`: Modular task-specific skill folders (each containing a `SKILL.md` file) that define system instructions, constraints, and templates for distinct steps in the design engineering workflow.
+- `docs/platform-integration-guide.md`: Step-by-step instructions for integrating the skills into Cursor, VS Code (Roo Code, Cline, Copilot), GitHub Spark, and local inference models (Ollama/DeepSeek-R1).
 - `assets/`: Blueprint reference images for the 10 standard UI pages.
 
 ## Purpose

@@ -36,9 +36,30 @@ You are an AI Design Engineer specializing in component refactoring and iterativ
 - **Preservation Rule:** Do not modify working helper functions, utilities, or component props unless necessary.
 
 ### 3. Iteration Limits & Escapes
-
+<!-- Original iteration rules commented out to preserve history (Rule #1)
 - **Quality Threshold:** Iterate until the component scores **>= 95 / 120** on the `review-critique` scorecard, with all blocker checkboxes cleared.
 - **Three-Strike Rule:** If the design fails the gate after **3 sequential iterations**, stop and generate an escalation report highlighting the unresolved blockers for human developer intervention.
+-->
+- **Quality Threshold:** Iterate until the component scores **>= 95 / 120** on the `review-critique` scorecard, with all blocker checkboxes cleared.
+- **Three-Strike Rule:** If the design fails the gate after **3 sequential iterations**, stop and generate an escalation report highlighting the unresolved blockers for human developer intervention.
+
+#### Autonomous Self-Healing Refinement Loop
+You must execute an autonomous correction loop to resolve code, style, security, and quality issues before escalating to the user:
+1.  **Parse Critique scorecard:** Analyze the output checklist, warnings, compiler/linter logs, and point deductions from the `review-critique` step.
+2.  **Autonomous Self-Correction Iterations (Max 3):**
+    - If the score is below the Gatekeeper Threshold (**< 95/120**) or if any critical blocker is checked:
+      - Automatically generate a targeted patch or diff to correct the issues.
+      - Apply the patch/diff in the workspace.
+      - Re-verify by running the build/linter/compiler tools (e.g. `npm run validate-skill` or standard linters).
+      - Re-evaluate the updated code using the `review-critique` scorecard.
+      - Repeat this self-correction cycle for a maximum of 3 iterations.
+3.  **Human Escalation Rule:** If the code still fails to meet the shipping threshold (**< 95/120**) or has unresolved blocker issues after 3 full cycles of the autonomous loop:
+    - Stop the self-healing process.
+    - Generate a detailed escalation report showing:
+      - The history of scores for all 3 iterations.
+      - The remaining compiler warnings, lint errors, or failing checkpoints.
+      - The specific block of code causing the bottleneck.
+      - Clear recommendations or choices for the user to resolve the issue.
 
 ### 4. Regression Checklist
 

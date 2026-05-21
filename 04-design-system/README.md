@@ -1,3 +1,4 @@
+<!-- markdownlint-disable -->
 # 04 Design System — AI-Friendly Tokens & Component Contracts
 
 > **"Design systems are the link between AI generation and production code."**
@@ -12,7 +13,10 @@ A good design system makes AI output **consistent, scalable, and production-read
 2. [Component Contracts](#component-contracts)
 3. [Accessibility Requirements](#accessibility-requirements)
 4. [JSON Export Format](#json-export-format)
+<!-- Original:
 5. [Token Examples](#token-examples)
+-->
+5. [Token Examples](#token-examples-in-real-projects)
 6. [How to Use with AI](#how-to-use-with-ai)
 
 ---
@@ -393,6 +397,32 @@ A component contract is a **specification for how a component works**. It bridge
   }
 }
 ```
+
+<!-- Original separator and header:
+---
+
+## Accessibility Requirements
+-->
+---
+
+## Strict AI-to-Code Contracts
+
+To ensure scalability and zero-drift between design tokens and production
+code, AI-to-code generators must follow strict compliance rules:
+
+1. **No Inline Styling or Magic Numbers:** AI generators are strictly
+   forbidden from writing inline `style={{ ... }}` tags or using arbitrary
+   values like `p-[17px]`, `w-[327px]`, or custom HEX colors in Tailwind
+   classes.
+2. **Direct Token Mapping:** Every style choice must directly trace back to a
+   defined design token (e.g., mapping `#6B63B5` directly to
+   `var(--color-primary)` or Tailwind's `bg-primary` utility).
+3. **Component Contract Strictness:** Generated components must implement
+   *only* the variants, states, and props defined in their respective
+   contracts. AI must not invent new API surface areas or styling variations.
+4. **Theme Config Sovereignty:** Custom tokens must only be defined at the
+   theme configuration layer (e.g., Tailwind CSS v4 `@theme` block or CSS
+   custom properties), not within individual component implementations.
 
 ---
 
