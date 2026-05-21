@@ -61,6 +61,18 @@ Every data-driven component **MUST** implement and handle the following 5 lifecy
 - **Use Client Components only when:** The component uses browser-only APIs, event listeners (e.g., `onClick`), or stateful hooks (`useState`, `useEffect`, `useContext`).
 - **RSC Data Fetching:** Fetch data directly in Server Components using async/await and pass the data down to Client Components for interactive tasks.
 
+### 7. Backend System Boundaries & API Contracts (Angel Spec)
+When implementing components that interface with the backend or database, strict integration boundaries must be respected:
+- **API Contracts:** Define typed schemas for REST, RPC, or Event-driven APIs before writing client-side fetchers or state handlers. Use TypeScript interfaces or schema validation to enforce boundary integrity.
+- **Concurrency & Fetch Safety:** Implement race-condition protections (e.g. using `AbortController` in client-side fetches or handling component unmounts) and concurrency safety.
+- **Caching & State:** Utilize local storage or client caches with explicit invalidation rules to prevent redundant network fetches.
+- **"Kill List" Strategy:** Actively identify and eliminate redundant endpoints, dead code, unused props, or unnecessary state synchronization mechanisms. Keep endpoints and logic lean and focused.
+
+### 8. Styling System & Custom Token Integration (Bliss Spec)
+When styling components, instead of using hardcoded Tailwind utilities, prioritize CSS variables and token structures:
+- **CSS Variable Mapping:** Map typography scales, borders, border-widths, and colors to local or global CSS variables (e.g., `--radius-md`, `--color-primary-accent`, `--font-heading`).
+- **Characterful UI Styles:** Support distinct brand themes (e.g. Neo-brutalist with thick borders and high contrast shadows, Playful with curved shapes, or Sleek Dark Mode with neon glow) via customizable variables.
+
 ---
 
 ## Standard React Component Template (5-States Example)

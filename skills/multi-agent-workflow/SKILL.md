@@ -204,6 +204,24 @@ timestamp: "2026-05-22T00:00:00Z"
 ```
 ```
 
+### 3. Orchestration Resilience Rules
+
+To prevent agents from entering infinite loops or exhausting token/cost budgets, the following resilience constraints are enforced:
+
+- **Circuit Breakers:** If any agent fails a verification gate or review scorecard (threshold score < 95/120) for 3 consecutive iterations, break the loop and immediately request human escalation/intervention.
+- **Retry Budgets:** Limit maximum retries for non-fatal errors (e.g. minor styling warnings, minor formatting issues) to 2 attempts per agent stage.
+- **Fallbacks & Partial Results:** If a sub-task or non-critical agent execution fails, return the best available partial results or fallback to a simpler mock layout/default theme rather than failing the entire pipeline execution.
+- **Idempotency Check:** All tool operations and file modifications must be idempotent. Repeating the execution with the same handoff input must result in the same state without duplicate operations or code insertion.
+
+### 4. Multi-Agent Topologies
+
+The Orchestrator must support and explicitly define one of the following execution topologies for the workflow:
+
+- **Sequential Topology:** Simple linear pipeline (e.g., UX -> UI -> Dev -> Review). Each step runs sequentially after the previous one passes its gate.
+- **Parallel Topology:** Independent tasks run concurrently (e.g., the UI agent drafts the visual layouts while the database schema agent builds database tables).
+- **Conditional Topology:** Branching based on dynamic audits (e.g., if a security warning is flagged, route to the Safety Agent; otherwise, skip directly to the Review/Compiling phase).
+- **Hybrid Topology:** Combines linear sequencing with parallel forks and conditional merges. The orchestrator coordinates and merges outputs from parallel branches into a unified markdown handoff before triggering downstream gates.
+
 ---
 
 ## Agent Roles & Technical Specifications

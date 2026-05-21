@@ -47,6 +47,13 @@ You **MUST** evaluate the target against these precise, lintable checkpoints:
 - [ ] **Data Safety & XSS (10 pts):** Avoids unsafe methods like `dangerouslySetInnerHTML` unless input is explicitly sanitized. Properly escapes or validates custom user parameters.
 - [ ] **Secure Props (5 pts):** Ensures all inputs/props are strongly typed and validated (e.g. via TypeScript interfaces or runtime checks).
 
+#### RAG / ML Intelligence Audit (Conditional — applies only to projects with AI/ML pipelines)
+When the project under review includes Retrieval-Augmented Generation (RAG) or ML inference pipelines, the following additional criteria must be evaluated and reported as a supplementary section (does not affect the 120-point scoring gate, but must be flagged as warnings):
+- [ ] **Tiered Evaluation Pyramid:** Verify that the RAG pipeline implements structured evaluation tiers: (1) Unit-level retrieval accuracy, (2) Component-level generation quality, (3) End-to-end system evaluation with user feedback loops.
+- [ ] **RAGAS Metrics Coverage:** Check that the pipeline tracks standard RAGAS metrics: Faithfulness, Answer Relevancy, Context Precision, and Context Recall. Flag if any metric is missing or not instrumented.
+- [ ] **Context Window Freshness:** Verify that the retrieval database/index has a documented refresh cadence and that stale embeddings are flagged or automatically re-indexed.
+- [ ] **Prompt Injection Guardrails:** Confirm that user inputs passed to LLM inference are sanitized against prompt injection attacks (e.g., input/output guardrails, canary tokens, or structured system prompts).
+
 ### 2. Scoring System & Gate Threshold
 <!-- Original scoring rules commented out to preserve history (Rule #1)
 *   **Total Score:** Sum of Visual (25), UX (35), Engineering (25), Performance (20), and Security (15) points.

@@ -201,6 +201,29 @@ Here is how to compose multiple skills together for common development tasks:
 - **Full-Cycle Product Implementation:**
   `core-system-prompt` → `ux-decision-framework` → `ui-generation-structured` → `design-system-governance` → `code-generation` → `review-critique` → `refinement-workflow`
 
+## Specialized Scenario Routing
+
+### Security Threat Modeling & Audit
+When the project requires a dedicated security review or threat model assessment:
+1. `prompt-context-loading` — Load project context and identify attack surfaces.
+2. `anti-patterns-detector` — Run Zero Trust, Least Privilege, and Prompt Injection guardrails.
+3. `review-critique` — Score the security audit checkpoints and generate the prioritized fix list.
+4. `refinement-workflow` — Iterate fixes until the Security sub-score passes threshold.
+
+### RAG / ML Intelligence Pipeline
+When building or reviewing a project that includes Retrieval-Augmented Generation or ML inference:
+1. `prompt-context-loading` — Load project context including ML pipeline configurations.
+2. `code-generation` — Implement or review the RAG pipeline components (retrieval, generation, evaluation).
+3. `review-critique` — Run the standard scorecard plus the conditional RAG/ML Intelligence Audit (RAGAS metrics, Tiered Evaluation Pyramid, context freshness).
+4. `anti-patterns-detector` — Check for Prompt Injection vulnerabilities and data safety issues in the inference path.
+
+### Backend Refactoring & API Contract Strategy
+When refactoring backend services, API boundaries, or system architecture:
+1. `prompt-context-loading` — Load existing API contracts, service maps, and dependency graphs.
+2. `code-generation` — Apply Angel's backend boundary rules (API contracts, concurrency, Kill List strategy).
+3. `review-critique` — Score engineering quality and verify typed schemas and contract integrity.
+4. `refinement-workflow` — Iterate until all API boundaries are clean and redundant code is eliminated.
+
 ## Notes
 
 - The matrix helps choose the right skill; it does not force a strict order.
