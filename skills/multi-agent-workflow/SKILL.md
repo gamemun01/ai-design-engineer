@@ -71,32 +71,63 @@ Every transition between specialized agents **MUST** pass a defined machine-read
 
 ---
 
-## Agent Roles & Definitions
+## Agent Roles & Technical Specifications
+
+Every active agent in the pipeline must run with the specified LLM models, toolsets, and deliverable schemas below.
 
 ### 1. UX Agent
-
-- **Responsibilities:** Maps user personas, identifies core task pain points, and establishes structural priorities.
-- **Output:** UX brief.
+*   **LLM Model:** `Claude 3.5 Sonnet` or `Gemini 1.5 Pro` (Optimized for textual reasoning and structured product layout reasoning).
+*   **Tool Access:** Read File (for codebases/spec documents), Write File (for writing the output).
+*   **Assigned Skill:** `ux-decision-framework`
+*   **Handoff Output:** `.agent-handoffs/{run_id}/10-ux-decision.md`
+*   **Interface Schema:** Must contain sections for Product Context, Priority Tasks Table, Decision Flow (with success/error transitions), Assist/Control UX Strategy justification, and Keyboard A11y rules.
 
 ### 2. UI Agent
+*   **LLM Model:** `Claude 3.5 Sonnet` or `Gemini 1.5 Pro` (Optimized for grid layouts and responsive visual structure rules).
+*   **Tool Access:** Read File (reads `10-ux-decision.md`), Write File.
+*   **Assigned Skill:** `ui-generation-structured`
+*   **Handoff Output:** `.agent-handoffs/{run_id}/20-ui-blueprint.md`
+*   **Interface Schema:** Detailed component visual wireframe layouts, mapping spacing values to token scales (e.g. `spacing-sm` = 16px), color assignments (e.g. canvas = `color-bg`), and responsive breakpoints spec (mobile vs desktop).
 
-- **Responsibilities:** Visual layout, grid structures, token application, and interactive specs.
-- **Output:** UI blueprint specification.
+### 3. Design System Agent (Governance Gate)
+*   **LLM Model:** `Claude 3.5 Sonnet` or a specialized static analysis script.
+*   **Tool Access:** Read File, Write File, and `npm run validate-token` (automated token parsing schema checks).
+*   **Assigned Skill:** `design-system-governance`
+*   **Handoff Output:** `.agent-handoffs/{run_id}/30-design-system-audit.md`
+*   **Interface Schema:** Audit checklist checking if spacing, radius, colors, and typography match the Tailwind/CSS mapping. Report must return a PASS status to proceed to code generation.
 
-### 3. Frontend Agent
+### 4. Frontend Agent
+*   **LLM Model:** `Claude 3.5 Sonnet` (Optimized for React/Next.js and TS styling code compilation).
+*   **Tool Access:** Read File (reads `20-ui-blueprint.md` and `30-design-system-audit.md`), Write File (creates actual component `.tsx` files in the project), and terminal Command execution (for running `npm run build` to verify compiling).
+*   **Assigned Skill:** `code-generation`
+*   **Handoff Output:** `.agent-handoffs/{run_id}/40-frontend-implementation.md` (plus actual generated source files).
+*   **Interface Schema:** Complete code output, prop interfaces in TS, imports audit, and implementation logs for all 5 UI States (Ideal, Loading, Empty, Error, and Partial/Truncated states).
 
-- **Responsibilities:** Translates wireframes into React, Tailwind CSS, and shadcn/ui components. Enforces 5 UI states and strict dependency control.
-- **Output:** Code files and component trees.
+### 5. Review & Safety Agent (Quality Gate)
+*   **LLM Model:** `Claude 3.5 Sonnet` or `Gemini 1.5 Pro` (High reasoning capabilities for catching edge cases and anti-patterns).
+*   **Tool Access:** Read File, Write File, and Linter Tools (`npx markdownlint-cli`, `eslint`, `node scripts/validate-skill.js`).
+*   **Assigned Skills:** `review-critique` (for 0-100 Scorecard) and `anti-patterns-detector` (for pre-shipping safety audit).
+*   **Handoff Output:** `.agent-handoffs/{run_id}/50-review-scorecard.md`
+*   **Interface Schema:** Scoring scorecard (Breakdown: Visual max 30, UX max 40, Engineering max 30) and safety check status (PASS/FAIL). Must be >= 80/100 to ship. If failed, compiles bug list and hands off back to the Refinement Agent.
 
-### 4. Review Agent
+---
 
-- **Responsibilities:** Mechanical audits, scoring quality (0-100), and prioritizing bugs/fixes.
-- **Output:** Checklist results.
+## Workflow Runtime & Execution Spec
 
-### 5. Accessibility Agent
+To execute this multi-agent system programmatically or manually, conform to the following orchestration loop:
 
-- **Responsibilities:** Focus-flow verification, WCAG contrast checks, screen reader compatibility audits.
-- **Output:** Compliance reports.
+1. **Initialization:** The runner creates `.agent-handoffs/{run_id}/` and writes the initial product brief to `00-context.md`.
+2. **Execution Invocation:**
+   * Each step runs the agent CLI adapter command using the assigned skill:
+     ```bash
+     # Example CLI runner command for UX Agent
+     npx agent-runner --skill ux-decision-framework --input .agent-handoffs/{run_id}/00-context.md --output .agent-handoffs/{run_id}/10-ux-decision.md
+     ```
+3. **Validation & Gates:**
+   * After each step, a validation hook checks if the handoff file matches the required markdown headers. If headers are missing, the step is aborted and sent back to the agent with the error.
+   * Steps 3 (Governance) and 5 (Review/Safety) act as blocking gates. If the output status is `FAIL`, execution halts and loops back to refinement.
+4. **Handoff Persistence:** All intermediate agent dialogue logs are saved under `.agent-handoffs/{run_id}/logs/` for audit trails.
+
 
 ---
 
