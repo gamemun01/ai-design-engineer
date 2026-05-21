@@ -1,6 +1,9 @@
 ---
 name: ui-generation-structured
 description: Generate UI screens, variants, and implementation-ready prompts using the 8-layer prompt architecture and design-system constraints. Use when a UX decision exists and the next step is structured UI generation for dashboards, forms, landing pages, internal tools, or app screens.
+version: "2.1.0"
+stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
+last_reviewed: "2026-05"
 ---
 <!-- markdownlint-disable -->
 

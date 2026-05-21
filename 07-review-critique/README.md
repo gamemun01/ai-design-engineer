@@ -224,42 +224,42 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 
 ## Scoring System
 
-Use this **10-point scoring scale** for each dimension:
+We evaluate quality across 5 dimensions using a **120-point scorecard**:
 
-### Visual Quality Score (0-10)
+### Visual Quality Score (0-25 pts)
 
-- **10:** Perfect alignment, spacing, hierarchy, colors, typography. Looks premium.
-- **8-9:** Professional, minor inconsistencies. Shipping-ready.
-- **6-7:** Decent, noticeable issues. Needs revision.
-- **4-5:** Poor alignment/spacing, inconsistent colors. Major revision needed.
-- **1-3:** Chaotic, unfinished. Start over.
+- **Token Alignment (10 pts):** All layout margins, paddings, gap classes, colors, and border-radius classes map strictly to defined system tokens (no magic values).
+- **Visual Hierarchy (10 pts):** Clear font weights and sizes distinguish page titles, headings, and body content without visual overlaps.
+- **Purposeful Contrast (5 pts):** Layout highlights primary actions; secondary items use muted colors; status elements use appropriate roles.
 
-### UX Quality Score (0-10)
+### UX Quality Score (0-35 pts)
 
-- **10:** Obvious, intuitive, delightful. Users don't have questions.
-- **8-9:** Clear and efficient. Minor friction points. Shipping-ready.
-- **6-7:** Functional but some confusion. Needs refinement.
-- **4-5:** Multiple friction points, unclear steps. Major changes needed.
-- **1-3:** Broken, confusing. Start over.
+- **Action Discovery (10 pts):** The primary CTA is clearly visible, labeled descriptively, and positioned above the fold or in a consistent navigation panel.
+- **Component Lifecycle States (15 pts):** Ideal, Loading, Empty, and Error states are fully designed and handled in the UI flow.
+- **Mobile Responsiveness (10 pts):** Breakpoints are defined (`sm:`, `md:`, `lg:`); grids collapse logically; elements do not clip on narrow viewports.
 
-### Engineering Quality Score (0-10)
+### Engineering Quality Score (0-25 pts)
 
-- **10:** Perfect semantics, accessible, responsive, performant. Production-ready.
-- **8-9:** Solid code, accessible, responsive. Minor optimizations needed.
-- **6-7:** Functional but technical debt. Works but could be cleaner.
-- **4-5:** Accessibility issues, responsive problems. Significant refactoring needed.
-- **1-3:** Broken, inaccessible, not responsive. Start over.
+- **Semantic Markup (10 pts):** Structural containers use `<main>`, `<section>`, `<header>`, etc. Interactive buttons use `<button>`, not custom divs.
+- **Focus Visibility (5 pts):** Visible outline states are explicitly defined for keyboard interactions.
+- **ARIA & Accessibility Standards (10 pts):** Elements contain appropriate `aria-*` tags, labels, and text descriptions to pass WCAG 2.1 AA audits.
 
-### Combined Score
+### Performance Score (0-20 pts)
 
-```
-Final Score = (Visual + UX + Engineering) / 3
+- **Render Efficiency (10 pts):** Minimizes unnecessary re-renders, utilizes memoization hooks (`useMemo`, `useCallback`) when appropriate, and avoids complex computations in render paths.
+- **Resource Optimization (10 pts):** Dynamic loading for heavy components, optimized image properties (lazy loading, sizes), and minimized code/bundle sizes.
 
-9.0+: Excellent - Ship with confidence
-7.0-8.9: Good - Ship with minor fixes
-6.0-6.9: Acceptable - Ship but plan refinements
-Below 6.0: Don't ship - Major revisions needed
-```
+### Security Score (0-15 pts)
+
+- **Data Safety & XSS (10 pts):** Avoids unsafe methods like `dangerouslySetInnerHTML` unless input is explicitly sanitized. Properly escapes or validates custom user parameters.
+- **Secure Props (5 pts):** Ensures all inputs/props are strongly typed and validated (e.g. via TypeScript interfaces or runtime checks).
+
+### Gatekeeper Threshold
+
+The minimum score required to ship to production is **95 / 120**.
+
+- **95+ / 120:** Ship with confidence
+- **Below 95 / 120:** Don't ship - Major revisions needed
 
 ---
 
@@ -271,7 +271,7 @@ Below 6.0: Don't ship - Major revisions needed
 
 #### ❌ BEFORE: AI-Generated (No Critique)
 
-```
+<!-- ORIGINAL 10-POINT SCORE:
 Visual Score: 6/10
 - Spacing inconsistent (16px, 20px, 14px mix)
 - KPI cards don't align to grid
@@ -291,6 +291,33 @@ Engineering Score: 6/10
 - Lighthouse: 72
 
 Combined: 5.7/10 ❌ NOT SHIPPING
+-->
+
+```
+Visual Score: 10/25
+- Spacing inconsistent (16px, 20px, 14px mix)
+- KPI cards don't align to grid
+- Colors work but feel flat
+- Typography hierarchy unclear
+
+UX Score: 10/35
+- Chart is hard to read at glance
+- Table rows not scannable
+- Filter controls hidden in modal
+- No empty state
+
+Engineering Score: 10/25
+- HTML mostly semantic but some div soup
+- Accessibility issues (contrast, focus states)
+- Not responsive at 1920px
+
+Performance Score: 10/20
+- Lighthouse: 72
+
+Security Score: 15/15
+- Props typed, no dynamic HTML risks
+
+Total Score: 55/120 ❌ NOT SHIPPING (Below 95/120 threshold)
 ```
 
 #### ✅ AFTER: With Critique & Refinement
@@ -317,11 +344,20 @@ Combined: 5.7/10 ❌ NOT SHIPPING
    - Performance: Optimized images, lazy load table rows
    - Lighthouse: 92
 
-```
+<!-- ORIGINAL 10-POINT SCORE:
 Visual Score: 9/10 ✅
 UX Score: 9/10 ✅
 Engineering Score: 9/10 ✅
 Combined: 9.0/10 ✅ SHIP IT
+-->
+
+```
+Visual Score: 22/25 ✅
+UX Score: 32/35 ✅
+Engineering Score: 22/25 ✅
+Performance Score: 18/20 ✅
+Security Score: 15/15 ✅
+Total Score: 109/120 ✅ SHIP IT (Above 95/120 threshold)
 ```
 
 ---
@@ -332,7 +368,7 @@ Combined: 9.0/10 ✅ SHIP IT
 
 #### ❌ BEFORE: Generic Form
 
-```
+<!-- ORIGINAL 10-POINT SCORE:
 Visual Score: 5/10
 - Inputs look cramped
 - Labels tiny and hard to read
@@ -352,6 +388,33 @@ Engineering Score: 5/10
 - Images not lazy loaded
 
 Combined: 4.7/10 ❌ CRITICAL - FIX BEFORE SHIPPING
+-->
+
+```
+Visual Score: 10/25
+- Inputs look cramped
+- Labels tiny and hard to read
+- Error messages red text only (hard to spot)
+- CTA button not prominent
+
+UX Score: 12/35
+- Too many fields (10 fields on mobile)
+- No validation feedback until submit
+- Error messages not helpful ("Field invalid")
+- No indication of progress (how many steps?)
+
+Engineering Score: 10/25
+- Inputs are <div> with contenteditable (not semantic)
+- No ARIA labels
+- Not keyboard navigable
+
+Performance Score: 10/20
+- Images not lazy loaded
+
+Security Score: 10/15
+- Client-side data is not validated before processing
+
+Total Score: 52/120 ❌ CRITICAL - FIX BEFORE SHIPPING (Below 95/120 threshold)
 ```
 
 #### ✅ AFTER: Refined for Mobile-First
@@ -376,11 +439,20 @@ Combined: 4.7/10 ❌ CRITICAL - FIX BEFORE SHIPPING
    - Keyboard: Tab through fields, Enter submits
    - Mobile: Single column, touch-friendly
 
-```
+<!-- ORIGINAL 10-POINT SCORE:
 Visual Score: 8/10 ✅
 UX Score: 8/10 ✅
 Engineering Score: 8/10 ✅
 Combined: 8.0/10 ✅ READY TO SHIP
+-->
+
+```
+Visual Score: 20/25 ✅
+UX Score: 30/35 ✅
+Engineering Score: 20/25 ✅
+Performance Score: 16/20 ✅
+Security Score: 15/15 ✅
+Total Score: 101/120 ✅ READY TO SHIP (Above 95/120 threshold)
 ```
 
 ---
@@ -488,20 +560,36 @@ Use this before every deployment:
 - [ ] No console errors
 
 ### Score ✓
+<!-- ORIGINAL 10-POINT SCORE CHECKLIST:
 - [ ] Visual: 8+/10
 - [ ] UX: 8+/10
 - [ ] Engineering: 8+/10
 - [ ] Combined: 8+/10 minimum to ship
+-->
+- [ ] Visual: 20+/25
+- [ ] UX: 28+/35
+- [ ] Engineering: 20+/25
+- [ ] Performance: 16+/20
+- [ ] Security: 12+/15
+- [ ] Combined Total: 95+/120 minimum to ship
 
 ---
 
 ## 🎯 Takeaways
 
+<!-- ORIGINAL TAKEAWAYS:
 1. **Critique in 3 dimensions:** Visual, UX, Engineering
 2. **Score everything:** 10-point scale creates objectivity
 3. **Combined score matters:** Can't be 10/10 visual + 3/10 UX
 4. **Before/After shows impact:** Critique creates measurable improvement
 5. **Shipping standard:** 8.0+/10 combined minimum
+6. **Iterate ruthlessly:** Critique → Fix → Re-score → Ship
+-->
+1. **Critique in 5 dimensions:** Visual, UX, Engineering, Performance, and Security
+2. **Score everything:** 120-point scale creates objective quality gates
+3. **Score distribution matters:** Scorecard checks for specific blockers across all categories
+4. **Before/After shows impact:** Critique creates measurable improvement
+5. **Shipping standard:** 95/120 combined minimum score threshold
 6. **Iterate ruthlessly:** Critique → Fix → Re-score → Ship
 
 ---

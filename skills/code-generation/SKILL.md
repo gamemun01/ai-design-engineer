@@ -1,10 +1,17 @@
 ---
 name: code-generation
 description: Convert verified UI specs into production-ready React, Next.js, TypeScript, Tailwind CSS, and shadcn/ui components with semantic HTML, accessibility, lifecycle states, and dependency control. Use when implementation code is requested after UX and design constraints are clear.
+version: "2.1.0"
+stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
+last_reviewed: "2026-05"
 ---
 <!-- markdownlint-disable -->
 
 # Code Generation — AI Design Engineer
+
+> [!NOTE]
+> **Stack Compatibility:** Tailwind CSS v3.x
+> For Tailwind v4: Class syntax remains identical, but custom config migration to CSS variables is required. See: [tailwindcss.com/docs/v4-beta](https://tailwindcss.com/docs/v4-beta)
 
 ## Trigger Description
 
@@ -13,6 +20,7 @@ frontend code. Do not use it for vague visual exploration; require enough UX,
 design-system, state, and interaction detail to produce targeted components.
 
 ## System Instruction
+
 You are an AI Design Engineer converting visual/UX layouts into clean, modular, production-ready React frontend code using Tailwind CSS and shadcn/ui guidelines. You must enforce semantic markup, accessible state indicators, and dependency control guidelines.
 
 ## Rules & Constraints
@@ -35,6 +43,10 @@ Every data-driven component **MUST** implement and handle the following 5 lifecy
 4. **Error State:** Gracefully catch failures. Display a clear warning message (`color-danger` background/border) and offer a "Retry / Reload" action button.
 5. **Partial/Truncated State:** Handle overflow gracefully (e.g., text truncation `truncate` or `line-clamp-*` with tooltips) when text is abnormally long or incomplete.
 
+- **Suspense & Error Boundaries (Next.js App Router):**
+  - For Server Components or Next.js App Router implementations, prioritize delegating the **Loading State** to Next.js `loading.tsx` or a `<Suspense fallback={<Skeleton />}>` boundary rather than prop-drilling `isLoading`.
+  - Delegate the **Error State** to file-based `error.tsx` or wrap client components in a React Error Boundary (`react-error-boundary` or custom boundary) rather than prop-drilling `error`.
+
 ### 4. Accessibility (a11y) Guidelines
 - **Focus States:** Every interactive control (button, link, custom inputs) must have a clearly visible focus style (e.g., `focus-visible:ring-2 focus-visible:ring-ring focus:outline-none`).
 - **Semantic HTML:** Use landmarks (`<main>`, `<header>`, `<nav>`, `<aside>`, `<section>`) and buttons (`<button>`) instead of onClick listeners on generic tags (`<div>`, `<span>`).
@@ -43,6 +55,11 @@ Every data-driven component **MUST** implement and handle the following 5 lifecy
 ### 5. Strict Code Diffs
 - When updating code, **NEVER** rewrite the entire file to change small logical portions.
 - Present your updates in targeted diffs showing only the modified code, using standard placeholder comments like `// ... existing code ...` to maintain context.
+
+### 6. Server vs Client Component Decision (Next.js App Router)
+- **Default:** Build components as React Server Components (RSC) by default (no `'use client'` directive) to optimize bundle size and page load.
+- **Use Client Components only when:** The component uses browser-only APIs, event listeners (e.g., `onClick`), or stateful hooks (`useState`, `useEffect`, `useContext`).
+- **RSC Data Fetching:** Fetch data directly in Server Components using async/await and pass the data down to Client Components for interactive tasks.
 
 ---
 
@@ -184,6 +201,67 @@ export function ComplianceDashboard({
         ))}
       </div>
     </section>
+  );
+}
+```
+
+## Next.js Server & Client Component Template (Suspense & RSC Example)
+Below is the pattern for splitting components into static Server Components (for data fetching and boundaries) and interactive Client Components.
+
+```tsx
+// ==========================================
+// 1. SERVER COMPONENT (app/compliance/page.tsx)
+// ==========================================
+import React, { Suspense } from 'react';
+import { ComplianceDashboard } from './compliance-dashboard'; // Client Component
+import { fetchComplianceAlerts } from '@/lib/api'; // Mock data fetcher
+
+export default async function CompliancePage() {
+  return (
+    <main className="container mx-auto py-8 space-y-6">
+      <h1 className="text-2xl font-bold tracking-tight text-foreground">System compliance status</h1>
+      
+      {/* Loading state delegated to Suspense boundary */}
+      <Suspense fallback={<ComplianceDashboardSkeleton />}>
+        <ComplianceDataWrapper />
+      </Suspense>
+    </main>
+  );
+}
+
+async function ComplianceDataWrapper() {
+  try {
+    const alerts = await fetchComplianceAlerts();
+    return <ComplianceDashboard initialAlerts={alerts} />;
+  } catch (err) {
+    // Error state handles fallback UI gracefully
+    return (
+      <ComplianceDashboardError 
+        error={err instanceof Error ? err.message : 'Unknown data fetch error'} 
+      />
+    );
+  }
+}
+
+function ComplianceDashboardSkeleton() {
+  return (
+    <div className="w-full p-6 space-y-4 bg-background border border-border rounded-lg" aria-busy="true">
+      <div className="h-6 w-1/3 bg-muted animate-pulse rounded" />
+      <div className="space-y-3">
+        {[1, 2, 3].map((n) => (
+          <div key={n} className="h-16 w-full bg-muted animate-pulse rounded-md" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ComplianceDashboardError({ error }: { error: string }) {
+  return (
+    <div role="alert" className="flex flex-col items-center justify-center p-8 bg-destructive/10 border border-destructive/20 text-destructive rounded-lg space-y-4">
+      <h3 className="text-lg font-semibold text-foreground">Failed to load alerts</h3>
+      <p className="text-sm text-muted-foreground">{error}</p>
+    </div>
   );
 }
 ```

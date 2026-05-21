@@ -1,6 +1,9 @@
 ---
 name: prompt-context-loading
 description: Load repository context before AI Design Engineer work by reading canonical guide files, project progress files, conventions, package scripts, and relevant skill indexes. Use at the start of a session, before multi-agent orchestration, before large edits, or whenever PROJECT.md, PROGRESS.md, CONVENTIONS.md, AGENTS.md, README.md, or skill routing context may affect the answer.
+version: "2.1.0"
+stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
+last_reviewed: "2026-05"
 ---
 <!-- markdownlint-disable -->
 

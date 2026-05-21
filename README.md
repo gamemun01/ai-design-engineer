@@ -31,7 +31,7 @@ Framework ครบวงจรสำหรับสร้าง UI/UX ขั้
 | **🔄 Workflow** | Design ➔ Generate โค้ดตรงๆ (ขาดการทบทวน) | UX Thinking ➔ Prompt Architecture ➔ AI Generation ➔ Quality Gates |
 | **🎨 Design System** | ไม่มีระบบควบคุม โค้ดที่ได้จัดหน้าไม่ตรงตามมาตรฐาน | **AI-Friendly Design Tokens** + Strict Component Contracts |
 | **💻 Code Output** | โค้ดสเก็ตช์/โครงสร้างซับซ้อน นำไปใช้จริงยาก | **Production-Ready React/Next.js + TS + Tailwind + shadcn/ui** |
-| **🔍 Review Process** | ไม่มีเกณฑ์ชี้วัดคุณภาพ วัดตามความพึงพอใจบุคคล | **Structured Critique Framework (0-100 Scorecard)** |
+| **🔍 Review Process** | ไม่มีเกณฑ์ชี้วัดคุณภาพ วัดตามความพึงพอใจบุคคล | **Structured Critique Framework (0-120 Scorecard)** |
 | **📖 Case Studies** | คอนเซ็ปต์กว้างๆ ทั่วไป ไม่เห็นภาพหน้างาน | ตัวอย่างการใช้งานจริงในระดับ Enterprise (SaaS, Banking, AI App) |
 | **⚠️ ป้องกันความผิดพลาด** | พึ่งพาความพร้อมของโมเดล (มีโอกาสเกิด Halucination) | **Explicit Anti-Patterns Guide** บล็อกโค้ดเสียก่อนขึ้นโปรดักชัน |
 
@@ -52,7 +52,7 @@ graph TD
     PE --> DS["4. Design System <br/>(Tokens & Contracts)"]:::hybrid
     DS --> UIG["5. UI Generation <br/>(AI-Powered Variations)"]:::ai
     UIG --> AC["6. AI-to-Code <br/>(React + Tailwind + shadcn)"]:::ai
-    AC --> RC["7. Review & Critique <br/>(0-100 Quality Gate)"]:::human
+    AC --> RC["7. Review & Critique <br/>(0-120 Quality Gate)"]:::human
     RC --> PR["8. Production Ready <br/>(Clean Deploy)"]:::hybrid
 
     subgraph Legend: Roles & Responsibilities
@@ -62,6 +62,27 @@ graph TD
         Hy["Hybrid Co-creation"]:::hybrid
     end
 ```
+
+---
+
+## ⚡ 5-minute Quick Start (for Claude.ai Projects)
+
+If you want to start using the framework immediately with Claude.ai Projects or similar AI environments, follow these steps:
+
+1. **Setup Custom Instructions:** Copy the contents of [`skills/core-system-prompt/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/core-system-prompt/SKILL.md) and paste it into the **Custom Instructions / Project Instructions** setting of your Claude Project.
+2. **Add Project Files:** Attach [`skills/code-generation/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/code-generation/SKILL.md) (and any other relevant skills from the [`skills/`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/) directory) as Project Files.
+3. **Execute:** Start a new chat and ask the agent: *"Build me a [component] using the framework rules. Follow the code-generation template."*
+
+---
+
+## 🪙 Token Budgets & Active Profiles
+
+Loading too many skills simultaneously consumes significant context window (up to 18,000+ tokens) before you start. Refer to [`skills/SKILL_MATRIX.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/SKILL_MATRIX.md) for full size metrics.
+
+| Profile | Active Skills | Estimated Context | Use Case |
+|---|---|---|---|
+| **Minimal (Coding Focus)** | `prompt-context-loading`, `core-system-prompt`, `code-generation`, `review-critique` | ~7,100 tokens | Standard coding tasks and quick component creation. |
+| **Full (End-to-End Design)** | All 10 active skills | ~18,000+ tokens | Complex design planning, system auditing, and multi-agent flows. |
 
 ---
 
@@ -101,7 +122,7 @@ graph TD
 
 ### 7️⃣ [Review & Critique](07-review-critique/) — `07-review-critique/`
 ระบบตรวจสอบคุณภาพแบบวัดผลได้ด้วยตัวเลข
-> - การใช้ **0-100 Scorecard Checklist** วัดความผ่านเกณฑ์ของคุณภาพ Visual, UX และ Code
+> - การใช้ **0-120 Scorecard Checklist** วัดความผ่านเกณฑ์ของคุณภาพ Visual, UX และ Code
 > - กฎเกณฑ์เข้มงวดในการระบุ Blocker และการส่งกลับเข้าสู่วงจรการปรับปรุง (Refinement Workflow)
 
 ### 8️⃣ [Production Ready](08-production-patterns/) — `08-production-patterns/`
@@ -122,7 +143,7 @@ graph TD
 | **🎨 UI Generation** | ควบคุม AI Generative UI ให้ได้ Component ตาม Rules | [`skills/ui-generation-structured/SKILL.md`](skills/ui-generation-structured/SKILL.md) |
 | **📐 Design System** | ตรวจสอบการใช้งาน Tokens และ Components | [`skills/design-system-governance/SKILL.md`](skills/design-system-governance/SKILL.md) |
 | **💻 Code Gen** | สร้างโค้ด React/Next.js + TS + shadcn/ui คุณภาพสูง | [`skills/code-generation/SKILL.md`](skills/code-generation/SKILL.md) |
-| **🔍 Review Gate** | ตรวจสอบคะแนนคุณภาพ 0-100 Scorecard | [`skills/review-critique/SKILL.md`](skills/review-critique/SKILL.md) |
+| **🔍 Review Gate** | ตรวจสอบคะแนนคุณภาพ 0-120 Scorecard | [`skills/review-critique/SKILL.md`](skills/review-critique/SKILL.md) |
 | **🔄 Refinement** | กระบวนการวนลูปแก้โค้ดและดีไซน์จนกว่าจะผ่านเกณฑ์ | [`skills/refinement-workflow/SKILL.md`](skills/refinement-workflow/SKILL.md) |
 | **🚫 Anti-Patterns** | ดักจับโค้ดเสีย โค้ดขยะ และโครงสร้างที่ไม่ตรงมาตรฐาน | [`skills/anti-patterns-detector/SKILL.md`](skills/anti-patterns-detector/SKILL.md) |
 | **🤖 Multi-Agent** | ประสานงานหลาย Agent ส่งมอบงานอย่างเป็นระบบ | [`skills/multi-agent-workflow/SKILL.md`](skills/multi-agent-workflow/SKILL.md) |
@@ -185,7 +206,7 @@ ai-design-engineer/
 ├── 04-design-system/           # Tokens, accessibility
 ├── 05-ui-generation/           # Tool template checklist
 ├── 06-ai-to-code/              # Tech stack & 5 UI states
-├── 07-review-critique/         # Scoring gate (0-100 check)
+├── 07-review-critique/         # Scoring gate (0-120 check)
 ├── 08-production-patterns/     # Enterprise case studies
 ├── skills/                     # Nested AI-Native Prompt Skills
 │   ├── prompt-context-loading/ # Repository context loading
@@ -194,7 +215,7 @@ ai-design-engineer/
 │   ├── ui-generation-structured/# UI patterns and constraints
 │   ├── design-system-governance/# Consistency and tokens checklist
 │   ├── code-generation/        # Production-grade React/Next.js output
-│   ├── review-critique/        # 0-100 scoring scorecard
+│   ├── review-critique/        # 0-120 scoring scorecard
 │   ├── refinement-workflow/    # Iterative debug prompt
 │   ├── anti-patterns-detector/ # Anti-pattern rules
 │   ├── multi-agent-workflow/   # Multi-agent workflow protocols

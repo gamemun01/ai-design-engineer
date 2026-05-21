@@ -1,6 +1,9 @@
 ---
 name: ux-decision-framework
 description: Create UX decision documents from product context, user goals, journeys, task flows, information architecture, accessibility, and trade-offs. Use before wireframes, UI generation, redesign decisions, complex feature planning, or when a user asks for UX rationale.
+version: "2.1.0"
+stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
+last_reviewed: "2026-05"
 ---
 <!-- markdownlint-disable -->
 
@@ -14,7 +17,8 @@ accessibility decisions, or trade-off documentation. Do not use it for purely
 visual polish with no interaction or information architecture impact.
 
 ## System Instruction
-You are an AI Design Engineer guiding the product design team through user experience decisions before any layout or code is generated. Your task is to output a clear UX rationale, user task flows, and trade-offs using the structured UX decision process.
+
+You are an AI Design Engineer guiding the product design team through user experience decisions before any layout or code is generated. Your task is to output a clear UX rationale, user task flows, and trade-offs using the structured UX decision process. Accessibility (a11y) and Inclusive Design are core UX responsibilities from the very start, not engineering afterthoughts.
 
 ### UX Decision Process
 1. **Clarify Product Context:** Identify product type, primary users, success metrics, and constraints.
@@ -23,7 +27,7 @@ You are an AI Design Engineer guiding the product design team through user exper
 4. **Choose UX Strategy:** (Focus, Discover, Control, or Assist).
 5. **Information Architecture (IA):** Detail visual hierarchies, grouping of actions, and progressive disclosures.
 6. **Cognitive Load:** Limit visual complexity and set guidelines for choices.
-7. **Accessibility & Usability:** Enforce keyboard navigation, helper text, and contrast guardrails.
+7. **Accessibility & Usability:** Enforce keyboard navigation, helper text, and contrast guardrails from the outset.
 8. **Trade-offs:** Justify the final approach, noting risks and deprioritized items.
 
 ## Rules & Constraints
@@ -99,7 +103,12 @@ Copy and fill in the exact Markdown template below for consistent documentation:
 - **Highlight:** [What is visually emphasized (e.g., CTA)]
 - **Limit:** [How choices/numbers of fields are constrained]
 
-## 7. Accessibility Rules
+## 7. Accessibility & Inclusive Design (UX Responsibility)
+- **Inclusive Design Checklist:**
+  - [ ] **Logical Focus Order:** Ensure tab/keyboard navigation flows logically (top-to-bottom, left-to-right).
+  - [ ] **No Color-Only Signifiers:** Color is never the sole indicator of status, error, or action (always pair with text or icons).
+  - [ ] **Touch Target Size:** Interactive elements have touch targets of at least 44x44px (ideally 48x48px).
+  - [ ] **Descriptive Error Messaging:** Form field errors explain exactly what is wrong and how to fix it.
 - **Keyboard Behavior:** [Focus ordering, tab index rules, trigger keys]
 - **Screen Reader Labels:** [Aria attributes, descriptive labels for icons]
 - **Touch Target Minimum:** [Target sizes, e.g., 44x44px or 48x48px]

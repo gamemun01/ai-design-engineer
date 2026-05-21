@@ -212,8 +212,12 @@ ai-design-engineer/
 
 **Key takeaways:**
 - 3-dimension critique framework (visual, UX, engineering)
-- 10-point scoring system
+- 120-point scoring system (Visual, UX, Engineering, Performance, Security)
 - Before/after case studies with scores
+- Shipping checklist
+-->
+- 120-point scoring system (Visual: 25, UX: 35, Engineering: 25, Performance: 20, Security: 15)
+- Before/after case studies with scores (95/120 gate)
 - Shipping checklist
 
 **Read if:** Want to ensure quality standards
@@ -225,11 +229,18 @@ ai-design-engineer/
 **Purpose:** See complete case studies end-to-end
 
 **Case studies included:**
+<!-- ORIGINAL CASE STUDIES LIST:
 1. SaaS Analytics Dashboard (9.2/10)
 2. Banking Admin Panel (9.0/10)
 3. Healthcare Portal (9.1/10)
 4. AI Agent Workspace (9.0/10)
 5. Enterprise Internal Tool (8.8/10)
+-->
+1. SaaS Analytics Dashboard (112/120)
+2. Banking Admin Panel (108/120)
+3. Healthcare Portal (109/120)
+4. AI Agent Workspace (108/120)
+5. Enterprise Internal Tool (105/120)
 
 Each shows: Problem → UX → Prompt → Generated → Refined → Shipped
 

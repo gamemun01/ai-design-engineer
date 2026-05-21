@@ -1,6 +1,9 @@
 ---
 name: anti-patterns-detector
 description: Detect AI design and frontend anti-patterns using the repository anti-pattern catalog, including visual, UX, accessibility, code, workflow, and production-readiness issues. Use for pre-shipping audits, recurring problem diagnosis, or when output feels inconsistent, inaccessible, overdesigned, or hard to maintain.
+version: "2.1.0"
+stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
+last_reviewed: "2026-05"
 ---
 <!-- markdownlint-disable -->
 
@@ -72,7 +75,7 @@ Inspect the codebase for the following 20 specific anti-patterns and apply their
    - *Fix:* Replace div soup with semantic HTML elements (`<button>`, `<input>`, `<label>`).
 10. **No review criteria:** Evaluating output qualitatively without structured scoring metrics.
     - *Why it fails:* Subjective, inconsistent reviews that do not block bad code.
-    - *Fix:* Enforce a strict 0-100 Scorecard gate (Visual: 30%, UX: 40%, Code: 30%).
+    - *Fix:* Enforce a strict 0-120 Scorecard gate (Visual: 25, UX: 35, Engineering: 25, Performance: 20, Security: 15).
 11. **Duplicate patterns:** Creating custom components for patterns that already exist in the library.
     - *Why it fails:* Code bloat, inconsistency, and wasted engineering effort.
     - *Fix:* Catalog common layout patterns and audit imports before coding.
@@ -100,9 +103,16 @@ Inspect the codebase for the following 20 specific anti-patterns and apply their
 19. **No versioned review:** Reviewing once and discarding the history of changes.
     - *Why it fails:* Bugs can reappear, and team loses track of quality progression.
     - *Fix:* Maintain a running log of revisions tied directly to scorecard scores.
+    - *Exception:* This rule does not apply to single-developer projects where overhead outweighs versioning benefits.
 20. **Ignoring production context:** Creating UI wireframes that cannot be built with the current frontend stack.
     - *Why it fails:* Heavy rework, friction between designers and engineers.
     - *Fix:* Establish code feasibility boundaries and match prompts to current system stacks.
+
+### 4. Approved Exception Handling
+When auditing, do not flag occurrences that meet the following approved exception criteria:
+- **Explicit Inline Exemption Tag:** If a rule violation is accompanied by a comment containing the tag `// @design-exception: [reason]`, it must be skipped and marked as approved (e.g., standardizing custom animations or magic numbers for specific layout constraints).
+- **Approved External Libraries/Packages:** Check the project config file (e.g. package.json or system-config.json) for the `approved_packages` list. Any library declared in this list is exempt from Dependency Control auditing.
+- **Single Developer Context:** Anti-Pattern #19 (No versioned review) is not applicable in projects marked as single-developer setup, where complex multi-agent log overhead is unnecessary.
 
 ---
 
