@@ -48,9 +48,21 @@ You **MUST** evaluate the target against these precise, lintable checkpoints:
 - [ ] **Secure Props (5 pts):** Ensures all inputs/props are strongly typed and validated (e.g. via TypeScript interfaces or runtime checks).
 
 ### 2. Scoring System & Gate Threshold
+<!-- Original scoring rules commented out to preserve history (Rule #1)
 *   **Total Score:** Sum of Visual (25), UX (35), Engineering (25), Performance (20), and Security (15) points.
 *   **Gatekeeper Threshold:** The minimum score required to ship to production is **95 / 120**.
 *   **Blocker Rule:** If the total score is below **95**, or if any sub-checkpoint is marked failed (`[ ]`) on a critical component (e.g. missing error state, missing focus visibility, or security vulnerability), the audit is marked **FAILED (BLOCKER)** and must be iterated through the Refinement Workflow.
+-->
+*   **Total Score:** Sum of Visual (25), UX (35), Engineering (25), Performance (20), and Security (15) points.
+*   **Gatekeeper Threshold:** The minimum score required to ship to production is **95 / 120**.
+*   **Blocker Rule:** If the total score is below **95**, or if any sub-checkpoint is marked failed (`[ ]`) on a critical component (e.g. missing error state, missing focus visibility, or security vulnerability), the audit is marked **FAILED (BLOCKER)** and must be iterated through the Refinement Workflow.
+
+#### AI-Assisted Technical Grading (Linter & Compiler Integration)
+To automate the grading process and ensure objective evaluation, the critique agent must ingest raw compiler output and terminal linter logs (e.g., ESLint, TypeScript errors, markdownlint output) when available. You must deduct points from the scorecard according to the following mapping:
+1.  **Compilation or Syntax Errors:** Any syntax or build compilation error results in an automatic **-25 points** deduction from Engineering Quality. This triggers an **automatic FAILED (BLOCKER)** status.
+2.  **Standard Linter Warnings:** Any standard code style or code quality linter warnings (e.g., unused variables, missing import statements, formatting violations) result in a **-5 points** deduction per warning from Engineering Quality.
+3.  **Security Warnings/Vulnerabilities:** Any security vulnerability warning (e.g., using `dangerouslySetInnerHTML` without explicit sanitization, SQL injection risks, or unsanitized dynamic evals) results in a **-10 points** deduction from the Security score.
+4.  **Performance Warnings:** Any performance linter warnings (e.g., missing dependencies in React's `useEffect`, heavy un-memoized calculations in render paths, unoptimized image tags) result in a **-5 points** deduction from the Performance score.
 
 ---
 

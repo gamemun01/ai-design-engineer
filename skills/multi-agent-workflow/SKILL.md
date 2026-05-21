@@ -69,7 +69,7 @@ No agent should start work without their corresponding input artifact passing th
 4. **Accessibility Agent** must confirm WCAG 2.1 AA parameters.
 
 ### 2. Standard Handoff Interfaces
-
+<!-- Original handoff interfaces section commented out to preserve history (Rule #1)
 Every transition between specialized agents **MUST** pass a defined machine-readable markdown artifact matching these structural parameters:
 
 - **UX → UI Handoff:**
@@ -84,6 +84,125 @@ Every transition between specialized agents **MUST** pass a defined machine-read
   - Clean component code & props interfaces.
   - Declared handlers for the 5 lifecycle states.
   - Visual rendering assumptions.
+-->
+Every transition between specialized agents **MUST** pass a defined, machine-readable markdown artifact containing YAML frontmatter and a JSON code block to ensure data parity. The exact schemas are:
+
+#### 1. UX → UI Handoff Schema (`10-ux-decision.md`)
+```markdown
+---
+stage: "UX_DECISION"
+run_id: "RUN_UUID"
+timestamp: "2026-05-22T00:00:00Z"
+---
+# UX Decision Brief
+
+```json
+{
+  "context": {
+    "product_goals": "string",
+    "target_users": "string"
+  },
+  "priority_tasks": [
+    { "task_id": "string", "name": "string", "priority": "high|medium|low" }
+  ],
+  "decision_flows": [
+    { "id": "string", "flow": "string", "success_state": "string", "error_state": "string" }
+  ],
+  "accessibility_rules": {
+    "keyboard_navigation": ["string"],
+    "focus_order": ["string"]
+  }
+}
+```
+```
+
+#### 2. UI → Frontend Handoff Schema (`20-ui-blueprint.md`)
+```markdown
+---
+stage: "UI_BLUEPRINT"
+run_id: "RUN_UUID"
+timestamp: "2026-05-22T00:00:00Z"
+---
+# UI Blueprint Spec
+
+```json
+{
+  "component_hierarchy": {
+    "root": "string",
+    "children": ["string"]
+  },
+  "layout_tokens": {
+    "spacing": { "outer_padding": "spacing-md", "inner_gap": "spacing-sm" },
+    "colors": { "canvas": "color-bg", "panel": "color-surface", "action": "color-primary" },
+    "radius": "radius-md"
+  },
+  "responsive_breakpoints": {
+    "mobile": "grid-cols-1",
+    "desktop": "grid-cols-3"
+  }
+}
+```
+```
+
+#### 3. Frontend → Review Handoff Schema (`40-frontend-implementation.md`)
+```markdown
+---
+stage: "FRONTEND_IMPLEMENTATION"
+run_id: "RUN_UUID"
+timestamp: "2026-05-22T00:00:00Z"
+---
+# Frontend Implementation Log
+
+```json
+{
+  "files_written": ["string"],
+  "component_interfaces": [
+    { "name": "string", "props": { "propName": "type" } }
+  ],
+  "ui_states_handled": {
+    "ideal": true,
+    "loading": true,
+    "empty": true,
+    "error": true,
+    "partial": true
+  },
+  "compilation_command_run": "npm run build"
+}
+```
+```
+
+#### 4. Review → Refinement Handoff Schema (`50-review-scorecard.md`)
+```markdown
+---
+stage: "REVIEW_CRITIQUE"
+run_id: "RUN_UUID"
+timestamp: "2026-05-22T00:00:00Z"
+---
+# Review & Critique Scorecard
+
+```json
+{
+  "ci_status": "PASS|FAIL",
+  "total_score": 120,
+  "scorecard": {
+    "visual": 25,
+    "ux": 35,
+    "engineering": 25,
+    "performance": 20,
+    "security": 15
+  },
+  "failures": [
+    { "checkpoint": "string", "priority": "high|medium|low", "issue": "string" }
+  ],
+  "linter_logs": {
+    "compiler_errors": 0,
+    "standard_warnings": 0,
+    "security_vulnerabilities": 0,
+    "performance_warnings": 0
+  }
+}
+```
+```
 
 ---
 

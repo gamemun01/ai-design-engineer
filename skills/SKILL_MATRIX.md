@@ -163,9 +163,32 @@ Before running an LLM session, estimate your token consumption using this framew
 - `code-generation`
 - `review-critique`
 
+<!-- Original Full Profile block commented out to preserve history (Rule #1)
 #### Full Profile (End-to-End Orchestrated Design)
 **Total Token Est:** ~18,000+ tokens
 - Load all 10 active skills. Recommended only for complex orchestrations or high-context design planning.
+-->
+#### Full Profile (End-to-End Orchestrated Design)
+**Total Token Est:** ~18,000+ tokens
+- Load all 10 active skills. Recommended only for complex orchestrations or high-context design planning.
+
+### 4. Just-in-Time (JIT) Dynamic Skill Loading Strategy
+To conserve context tokens, reduce cost, and optimize latency, do not load the Full Profile by default. Load only the relevant sub-profile for the active task (e.g., JIT load only what is necessary).
+
+#### JIT Sub-Profiles Map
+
+| Sub-Profile Name | Scope of Task | Skills Loaded JIT | JIT Input Token Est. | Latency Target |
+| :--- | :--- | :--- | :--- | :--- |
+| **UX Strategy Profile** | User research, journeys, specs | `prompt-context-loading`, `ux-decision-framework` | ~2,600 | Low (< 5s) |
+| **UI Wireframing Profile** | UI layouts, design blueprints | `prompt-context-loading`, `ui-generation-structured` | ~2,900 | Low (< 5s) |
+| **Coding Focus Profile** | Code gen, styling, components | `prompt-context-loading`, `code-generation` | ~4,300 | Medium (< 10s) |
+| **QA & Safety Profile** | Scorecards, audits, error-fixing | `prompt-context-loading`, `review-critique`, `anti-patterns-detector`, `refinement-workflow` | ~6,000 | Low (< 5s) |
+| **Orchestration Profile** | Multi-agent execution, pipelines | `prompt-context-loading`, `multi-agent-workflow` | ~3,600 | Low (< 5s) |
+
+#### Latency & Performance Rules (Game AI Principles)
+- **Lazy Initialization:** Load system prompts only when a state transition triggers a need for that skill.
+- **Cache Hits:** If the agent conversation persists, retain loaded skills. Do not reload them.
+- **Fast Path / Slow Path:** Use fast models (e.g., Gemini 1.5 Flash, Claude 3.5 Haiku) for QA & Safety loops (Fast Path) to minimize the waiting time, reserving slow models (e.g., Sonnet 3.5, Pro 1.5) for the Coding Focus Profile (Slow Path).
 
 ## Common Workflows
 

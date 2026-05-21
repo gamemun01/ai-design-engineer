@@ -25,7 +25,7 @@ constraints, and then route to the appropriate downstream skill.
 ## Rules & Constraints
 
 ### 1. Read Order
-
+<!-- Original read order commented out to preserve history (Rule #1)
 Check these files in order. If a file is missing, record it as missing and
 continue without failure:
 
@@ -38,6 +38,20 @@ continue without failure:
 7. [package.json](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/package.json)
 8. [SKILL_MATRIX.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/SKILL_MATRIX.md)
 9. The relevant [SKILL.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills) files for the active task
+-->
+Check these files in order. If a file is missing, record it as missing and
+continue without failure:
+
+1. [AGENTS.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/AGENTS.md)
+2. `PROJECT.md` (if present in the repository root)
+3. `PROGRESS.md` (if present in the repository root)
+4. `CONVENTIONS.md` (if present in the repository root)
+5. [README.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/README.md)
+6. [platform-integration-guide.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/docs/platform-integration-guide.md) (if present in `docs/` folder)
+7. [STRUCTURE.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/STRUCTURE.md)
+8. [package.json](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/package.json)
+9. [SKILL_MATRIX.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/SKILL_MATRIX.md)
+10. The relevant [SKILL.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills) files for the active task
 
 ### 2. Context Budget
 
@@ -56,6 +70,11 @@ After loading context, choose the next skill explicitly:
 - Iteration after review: [`refinement-workflow`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/refinement-workflow/SKILL.md)
 - Final anti-pattern audit: [`anti-patterns-detector`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/anti-patterns-detector/SKILL.md)
 - Multi-agent execution: [`multi-agent-workflow`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/multi-agent-workflow/SKILL.md)
+
+### 4. Dynamic Just-in-Time (JIT) Skill Loading
+To minimize context window usage (avoiding the 18,000+ token Full Profile bloat) and reduce response latency (drawing from game AI low-latency/JIT resource allocation principles):
+- **Evaluate Session Scope:** Before loading any skill, analyze the current user request to determine if it is UX-only, Code-only, Audit-only, or Multi-agent orchestration.
+- **JIT Sub-Profile Routing:** Instruct the runner/developer to load only the specific sub-profiles of skills defined in `SKILL_MATRIX.md` that correspond to the active task. Do not load all skills simultaneously unless explicitly requested or running a full multi-agent orchestration.
 
 ## Expected Output Format
 
