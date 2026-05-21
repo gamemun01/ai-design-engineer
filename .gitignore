@@ -1,5 +1,13 @@
 # Node modules
 node_modules/
+Review/
+.kilo/
+.antigravitycli/
+
+AGENTS.md
+ClAUDE.md
+GEMINI.md
+skills/deprecated/
 
 # Logs
 npm-debug.log*
