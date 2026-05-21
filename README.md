@@ -1,314 +1,229 @@
-# AI Design Engineer Framework
+<!-- markdownlint-disable -->
+# 🤖 AI Design Engineer Framework
 
-**From Idea → UX → UI → Component → Code → Review → Production**
+<div align="center">
 
-Framework ครบวงจรสำหรับสร้าง UI/UX ขั้นมืออาชีพด้วย AI — ไม่ใช่แค่ generate UI ที่สวย แต่สร้างผลิตภัณฑ์ที่ใช้งานได้จริง
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/Node.js-%3E%3D16.x-green.svg)](https://nodejs.org/)
+[![Linter: markdownlint](https://img.shields.io/badge/Linter-markdownlint-brightgreen.svg)](https://github.com/DavidAnson/markdownlint)
+[![Framework Stack](https://img.shields.io/badge/Stack-React%20%7C%20Next.js%20%7C%20Tailwind%20%7C%20shadcn%2Fui-orange.svg)](#6️⃣-ai-to-code-pipeline--06-ai-to-code)
 
-นี่คืออนาคต: **AI ทำให้ได้ความเร็ว องค์ประกอบ และ Variations — แต่ Human ทำให้ได้ Product Thinking, UX Decisions, Architecture, และ Quality Judgment**
+**From Idea ➔ UX ➔ UI ➔ Component ➔ Code ➔ Review ➔ Production**
+
+Framework ครบวงจรสำหรับสร้าง UI/UX ขั้นมืออาชีพด้วย AI — ไม่ใช่แค่การ Generate UI ที่สวยงามอย่างเดียว แต่เป็นการสร้างผลิตภัณฑ์ที่ใช้งานได้จริงในระดับ Enterprise
+
+</div>
 
 ---
 
-## ✨ สิ่งที่ทำให้ Framework นี้ต่างออกไป
+## 💡 Core Philosophy
 
-| องค์ประกอบ | ทั่วไป | Framework นี้ |
-|:---|:---|:---|
-| **โฟกัส** | UI ที่สวยงาม | UX ที่ใช้ได้จริง + UI ที่สวยงาม |
-| **Workflow** | Design → Generate | UX Thinking → Prompt Architecture → AI Generation → Review → Production |
-| **Design System** | ไม่มี/คลุมเครือ | AI-Friendly Design Tokens + Component Contracts |
-| **Code Output** | Concept Art | Production-Ready React/Next.js |
-| **Review Process** | ไม่มี criteria | Structured Critique Framework (Visual + UX + Engineering) |
-| **Real Examples** | Dribbble Concepts | Production Case Studies (SaaS, Banking, Healthcare, Enterprise) |
-| **Anti-patterns** | ไม่กล่าวถึง | ✅ Explicit anti-patterns guide |
+> [!NOTE]
+> **"AI มอบความเร็ว องค์ประกอบ และความหลากหลาย (Speed, Variations) — แต่ผู้ใช้ที่เป็นมนุษย์เป็นผู้ชี้นำความคิดผลิตภัณฑ์ การตัดสินใจเรื่อง UX สถาปัตยกรรม และการตัดสินคุณภาพขั้นสุดท้าย (Product Thinking, UX Decisions, Architecture, Quality Judgment)"**
+
+---
+
+## ✨ เปรียบเทียบผลลัพธ์ (How It Changes the Game)
+
+| มิติ (Dimensions) | การทำงานทั่วไป (Traditional Generative UI) | ด้วย Framework นี้ (AI Design Engineer Method) |
+| :--- | :--- | :--- |
+| **🎯 โฟกัสหลัก** | เน้น UI ที่ดูสวยงามอย่างเดียว แต่ใช้งานจริงไม่ได้ | UX ที่ใช้งานได้จริง + UI คลีนตรงตามโทเค็นระบบ |
+| **🔄 Workflow** | Design ➔ Generate โค้ดตรงๆ (ขาดการทบทวน) | UX Thinking ➔ Prompt Architecture ➔ AI Generation ➔ Quality Gates |
+| **🎨 Design System** | ไม่มีระบบควบคุม โค้ดที่ได้จัดหน้าไม่ตรงตามมาตรฐาน | **AI-Friendly Design Tokens** + Strict Component Contracts |
+| **💻 Code Output** | โค้ดสเก็ตช์/โครงสร้างซับซ้อน นำไปใช้จริงยาก | **Production-Ready React/Next.js + TS + Tailwind + shadcn/ui** |
+| **🔍 Review Process** | ไม่มีเกณฑ์ชี้วัดคุณภาพ วัดตามความพึงพอใจบุคคล | **Structured Critique Framework (0-100 Scorecard)** |
+| **📖 Case Studies** | คอนเซ็ปต์กว้างๆ ทั่วไป ไม่เห็นภาพหน้างาน | ตัวอย่างการใช้งานจริงในระดับ Enterprise (SaaS, Banking, AI App) |
+| **⚠️ ป้องกันความผิดพลาด** | พึ่งพาความพร้อมของโมเดล (มีโอกาสเกิด Halucination) | **Explicit Anti-Patterns Guide** บล็อกโค้ดเสียก่อนขึ้นโปรดักชัน |
 
 ---
 
 ## 🏗️ Complete Framework Pipeline
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│           AI DESIGN ENGINEERING FRAMEWORK PIPELINE                │
-└──────────────────────────────────────────────────────────────────┘
+กระบวนการออกแบบและพัฒนา 8 ขั้นตอนที่ช่วยให้การทำงานร่วมกับ AI มีประสิทธิภาพสูงสุด:
 
-[1] FOUNDATION
-    └─ Role: Human vs AI | Mindset | Anti-patterns
+```mermaid
+graph TD
+    classDef human fill:#4f46e5,stroke:#312e81,color:#ffffff,stroke-width:2px;
+    classDef ai fill:#0ea5e9,stroke:#0369a1,color:#ffffff,stroke-width:2px;
+    classDef hybrid fill:#10b981,stroke:#047857,color:#ffffff,stroke-width:2px;
 
-[2] UX THINKING (HUMAN-LED)
-    └─ User research, journey maps, task flows, IA
+    F["1. Foundation <br/>(Mindset & Rules)"]:::human --> UX["2. UX Thinking <br/>(Human-Led Journey)"]:::human
+    UX --> PE["3. Prompt Engineering <br/>(8-Layer Prompt)"]:::hybrid
+    PE --> DS["4. Design System <br/>(Tokens & Contracts)"]:::hybrid
+    DS --> UIG["5. UI Generation <br/>(AI-Powered Variations)"]:::ai
+    UIG --> AC["6. AI-to-Code <br/>(React + Tailwind + shadcn)"]:::ai
+    AC --> RC["7. Review & Critique <br/>(0-100 Quality Gate)"]:::human
+    RC --> PR["8. Production Ready <br/>(Clean Deploy)"]:::hybrid
 
-[3] PROMPT ENGINEERING (STRUCTURED)
-    └─ 8-Layer Architecture + Pattern Library
-
-[4] DESIGN SYSTEM (AI-FRIENDLY)
-    └─ Tokens + Components + Accessibility
-
-[5] UI GENERATION (AI-POWERED)
-    └─ Generate variations from prompts
-
-[6] AI-TO-CODE (AUTOMATED)
-    └─ React/Next.js/Tailwind generation
-
-[7] REVIEW & CRITIQUE (HUMAN-JUDGMENT)
-    └─ Visual + UX + Engineering frameworks
-
-[8] PRODUCTION READY
-    └─ Deploy + Real user feedback + Iterate
+    subgraph Legend: Roles & Responsibilities
+        direction LR
+        H["Human-Led Tasks"]:::human
+        A["AI-Powered Tasks"]:::ai
+        Hy["Hybrid Co-creation"]:::hybrid
+    end
 ```
 
 ---
 
-## 📚 8 Main Sections
+## 📚 โครงสร้างและเนื้อหาหลัก (8 Main Sections)
 
-### 1️⃣ **Foundation** — `01-foundation/`
-ความรู้พื้นฐานสำหรับวิศวกร AI Design
+### 1️⃣ [Foundation](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/01-foundation) — `01-foundation/`
+รากฐานแนวคิดและกฎพื้นฐานสำหรับ AI Design Engineer
+> - บทบาทและความแตกต่างระหว่าง Human vs AI (ใครนำ ใครตาม)
+> - Mindset ของการสร้างสรรค์ UI ร่วมกับ AI
+> - การพิจารณาความพร้อมของระบบและการบริหารจัดการความเสี่ยง (Blast Radius)
 
-- What is AI Design Engineer?
-- Role comparison table (Human vs AI)
-- Required mindset & responsibilities
-- When to use AI vs Human judgment
+### 2️⃣ [Prompt Engineering Patterns](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/02-prompting-patterns) — `02-prompting-patterns/`
+เทคนิคการเขียน Prompt ด้วยโครงสร้าง 8 เลเยอร์ เพื่อการถอดรหัสของโมเดลอย่างแม่นยำ
+> - **8-Layer Prompt Architecture**: ไล่ตั้งแต่ Product Context, User Context ไปจนถึง Technical Constraints
+> - **Pattern Library**: เทมเพลตสำหรับ SaaS, Fintech, Healthcare, Admin Panel และ AI Agents
 
-**👈 Read first if new**
+### 3️⃣ [UX Thinking](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/03-ux-thinking) — `03-ux-thinking/`
+หัวใจสำคัญของงานออกแบบที่ AI ยังทดแทนไม่ได้และต้องให้มนุษย์นำทาง
+> - การทำ User Journey Mapping และการวาง Task Flow
+> - การควบคุม Cognitive Load และการจัดเรียง Information Architecture
+> - การรับมือเคสพิเศษ (Edge Cases, Empty States, loading)
 
----
+### 4️⃣ [Design System](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/04-design-system) — `04-design-system/`
+ข้อกำหนดการออกแบบที่สอดคล้องกับมาตรฐานโค้ดของทีม
+> - Design Tokens (Typography, spacing, colors, radius, shadows)
+> - Component Contracts และแนวทาง Accessibility (a11y) มาตรฐาน WCAG 2.1 AA
 
-### 2️⃣ **Prompt Engineering Patterns** — `02-prompting-patterns/`
-วิธีเขียน prompt ที่ structured และ reusable
+### 5️⃣ [UI Generation](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/05-ui-generation) — `05-ui-generation/`
+วิธีสร้างภาพหน้าจอและ UI component ด้วยเครื่องมือ Generative UI ชั้นนำ
+> - แนวทางการใช้ v0, Lovable, 21st.dev และ Claude
+> - UI Checklist เพื่อตรวจสอบความสอดคล้องของรูปแบบก่อนแปลงเป็นโค้ด
 
-- **8-Layer Prompt Architecture**
-  1. Product Context
-  2. User Context
-  3. UX Goal
-  4. Visual Direction
-  5. Layout Rules
-  6. Component Rules
-  7. Interaction Rules
-  8. Technical Constraints
+### 6️⃣ [AI-to-Code Pipeline](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/06-ai-to-code) — `06-ai-to-code/`
+ทรานส์ฟอร์มจากภาพออกแบบสู่โค้ดโปรดักชันอย่างเป็นระบบ
+> - **Core Stack:** React + TypeScript + Tailwind CSS + shadcn/ui
+> - แผนผังการแปลงโทเค็นและโค้ดพร้อมรองรับ 5 UI States (Ideal, Loading, Empty, Error, Partial)
 
-- **Bad vs Good Prompt Examples**
-- **Pattern Library**: SaaS, Fintech, Healthcare, AI Agent UI, Admin Panel, Mobile-First, Internal Tools
+### 7️⃣ [Review & Critique](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/07-review-critique) — `07-review-critique/`
+ระบบตรวจสอบคุณภาพแบบวัดผลได้ด้วยตัวเลข
+> - การใช้ **0-100 Scorecard Checklist** วัดความผ่านเกณฑ์ของคุณภาพ Visual, UX และ Code
+> - กฎเกณฑ์เข้มงวดในการระบุ Blocker และการส่งกลับเข้าสู่วงจรการปรับปรุง (Refinement Workflow)
 
----
-
-### 3️⃣ **UX Thinking** — `03-ux-thinking/`
-User experience — อันที่ AI ยังไม่เก่ง
-
-- User journey mapping
-- Task flow design
-- Cognitive load management
-- Information architecture
-- Onboarding flows
-- Empty states & edge cases
-- **Real examples with reasoning** (Why this layout? Why this CTA placement?)
-
----
-
-### 4️⃣ **Design System** — `04-design-system/`
-AI-Friendly tokens + component contracts
-
-- **Design Tokens** (Typography, spacing, color, radius, shadows)
-- **Component Contracts** (Button, Card, Modal, etc.)
-- **Accessibility Requirements**
-- **JSON Export Format**
+### 8️⃣ [Production Ready](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/08-production-patterns) — `08-production-patterns/`
+กรณีศึกษาจากผลิตภัณฑ์จริงที่จัดทำและใช้งานอยู่
+> - แสดงการทำงานตั้งแต่เริ่มต้น: ปัญหา ➔ UX ➔ Prompt ➔ โค้ดและการขัดเกลาจนเสร็จสมบูรณ์
 
 ---
 
-### 5️⃣ **UI Generation** — `05-ui-generation/`
-วิธี generate UI ที่quality สูงด้วย AI
+## 🛠️ Modular AI Prompt Skills (`skills/`)
 
-- When to use: v0, Lovable, 21st.dev, Claude
-- Prompt templates for each pattern
-- Quality checklist
-- Common mistakes & fixes
+ระบบนี้ออกแบบมาพร้อมกับ **Modular AI-Native Prompts** ที่พัฒนาและรันตรวจสอบอัตโนมัติ เพื่อให้ AI Agents หรือตัวคุณเองสามารถดึงไปใช้งานได้ทันที:
 
----
+| สกิล (Skill Folder) | หน้าที่หลัก (Core Capability) | ไฟล์คำสั่งหลัก (Main Prompt File) |
+| :--- | :--- | :--- |
+| **💡 Core Prompt** | ตั้งค่า Role และข้อกำหนดพื้นฐานการทำงานร่วมกัน | [`skills/core-system-prompt/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/core-system-prompt/SKILL.md) |
+| **🧠 UX Decision** | ออกแบบ User Journey, Task Flow และระบบ Rationale | [`skills/ux-decision-framework/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/ux-decision-framework/SKILL.md) |
+| **🎨 UI Generation** | ควบคุม AI Generative UI ให้ได้ Component ตาม Rules | [`skills/ui-generation-structured/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/ui-generation-structured/SKILL.md) |
+| **📐 Design System** | ตรวจสอบการใช้งาน Tokens และ Components | [`skills/design-system-governance/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/design-system-governance/SKILL.md) |
+| **💻 Code Gen** | สร้างโค้ด React/Next.js + TS + shadcn/ui คุณภาพสูง | [`skills/code-generation/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/code-generation/SKILL.md) |
+| **🔍 Review Gate** | ตรวจสอบคะแนนคุณภาพ 0-100 Scorecard | [`skills/review-critique/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/review-critique/SKILL.md) |
+| **🔄 Refinement** | กระบวนการวนลูปแก้โค้ดและดีไซน์จนกว่าจะผ่านเกณฑ์ | [`skills/refinement-workflow/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/refinement-workflow/SKILL.md) |
+| **🚫 Anti-Patterns** | ดักจับโค้ดเสีย โค้ดขยะ และโครงสร้างที่ไม่ตรงมาตรฐาน | [`skills/anti-patterns-detector/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/anti-patterns-detector/SKILL.md) |
+| **🤖 Multi-Agent** | ประสานงานหลาย Agent ส่งมอบงานอย่างเป็นระบบ | [`skills/multi-agent-workflow/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/multi-agent-workflow/SKILL.md) |
 
-### 6️⃣ **AI-to-Code Pipeline** — `06-ai-to-code/`
-จาก UI design ไปเป็น production code
-
-**Recommended Stack:**
-- Frontend: React, Next.js, TypeScript
-- Styling: Tailwind CSS
-- UI Components: shadcn/ui
-
-**Workflow:** Export tokens → AI generate → Refactor → Review → Deploy
-
-**Code Review Checklist:** Semantic HTML, responsive, accessibility, loading states, error states
+💡 อ่านรายละเอียดเพิ่มเติมและเลือกคู่มือใช้งานตามบริบทได้ที่ [Skill Matrix Guide](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/SKILL_MATRIX.md)
 
 ---
 
-### 7️⃣ **Review & Critique** — `07-review-critique/`
-วิธี critique UI/UX/Code อย่างมืออาชีพ
+## 🎯 แนวทางการศึกษาและใช้งาน (How to Use)
 
-**Critique Framework:**
-- Visual (spacing, alignment, contrast, hierarchy)
-- UX (discoverability, clarity, friction)
-- Engineering (reusable, scalable, maintainable)
-
-**Scoring System:** UX + Accessibility + Consistency + Responsiveness + Visual Quality
+- **สำหรับ Design Leaders / Managers:** เริ่มต้นศึกษาจาก [Foundation](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/01-foundation) และ [Review & Critique](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/07-review-critique) เพื่อกำหนดกรอบการทำงานและคุณภาพของโปรเจกต์
+- **สำหรับ Designers:** โฟกัสหลักที่ [UX Thinking](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/03-ux-thinking) และ [Prompt Engineering Patterns](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/02-prompting-patterns) เพื่อดึงประสิทธิภาพสูงสุดในการร่วมงานกับ AI
+- **สำหรับ Developers:** มุ่งเน้นไปที่ [Design System](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/04-design-system) และ [AI-to-Code Pipeline](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/06-ai-to-code) พร้อมกับการใช้งานระบบลินเตอร์ตรวจสอบโค้ด
 
 ---
 
-### 8️⃣ **Production Examples** — `08-production-patterns/`
-Real case studies from shipping products
+## 📖 Suggested Learning Roadmap
 
-**Case Studies:** SaaS Dashboard, Banking Admin, Healthcare Portal, AI Agent Workspace, Enterprise Tool
-
-Each case study shows: Problem → UX → Prompt → Generated UI → Refinement → Final Code
-
----
-
-## 🎯 How to Use This Framework
-
-### 👤 For Design Leaders / Managers
-1. Start with **01-foundation** (understand the role)
-2. Read **07-review-critique** (establish quality standards)
-3. Use **08-production-patterns** as reference
-
-### 🎨 For Designers
-1. Master **03-ux-thinking** (strengthen UX skills)
-2. Study **02-prompting-patterns** (write better AI prompts)
-3. Reference **04-design-system** (consistency)
-4. Learn from **08-production-patterns** (real examples)
-
-### 💻 For Frontend Engineers / AI Coders
-1. Study **04-design-system** (tokens & component contracts)
-2. Master **06-ai-to-code** (best practices & workflow)
-3. Follow **07-review-critique** checklist before shipping
-4. Reference **08-production-patterns** for code patterns
-
-### 🤖 For AI Tool Builders (v0, Lovable, etc.)
-1. Master **02-prompting-patterns** (structured prompts)
-2. Study **04-design-system** (token generation)
-3. Reference **07-review-critique** (quality gates)
-4. Build patterns from **08-production-patterns**
+```
+🚀 [Week 1] Foundation & UX Thinking  ➔  📂 01-foundation / 📂 03-ux-thinking
+🔥 [Week 2] Prompt Patterns & 8-Layer ➔  📂 02-prompting-patterns
+🎨 [Week 3] Design System & Tokens    ➔  📂 04-design-system
+💻 [Week 4] UI Gen & Code Pipeline     ➔  📂 05-ui-generation / 📂 06-ai-to-code
+🔍 [Week 5] Critique & Scorecard Gate ➔  📂 07-review-critique
+🏁 [Week 6+] Ship Products (Enterprise)➔  📂 08-production-patterns
+```
 
 ---
 
-## 📖 Learning Path (Suggested)
+## ⚙️ Installation & Validation
 
-**Week 1: Foundation**
-- [ ] 01-foundation (role, mindset, anti-patterns)
-- [ ] 03-ux-thinking (user journeys, IA basics)
-
-**Week 2: Prompting**
-- [ ] 02-prompting-patterns (8-layer architecture, patterns)
-- [ ] Practice writing structured prompts
-
-**Week 3: Design System**
-- [ ] 04-design-system (tokens, components, a11y)
-- [ ] Create your own token system
-
-**Week 4: Generation & Code**
-- [ ] 05-ui-generation (quality checklist)
-- [ ] 06-ai-to-code (workflow & code review)
-- [ ] Generate first component
-
-**Week 5: Critique & Polish**
-- [ ] 07-review-critique (framework & scoring)
-- [ ] Review & critique your work
-- [ ] Compare with **08-production-patterns**
-
-**Week 6+: Ship Products**
-- [ ] Use all frameworks in real projects
-- [ ] Reference production examples
-- [ ] Contribute back to framework
-
----
-
-## 🛠️ Tools & Setup
-
-### Install Dependencies
+### 1. ติดตั้ง Dependencies
 ```bash
 npm install
 ```
 
-### Validate Framework
+### 2. ตรวจสอบคุณภาพ Prompt & Markdown (Linter & Validator)
 ```bash
+# ตรวจสอบโครงสร้าง YAML frontmatter ของ Prompt สกิลทั้งหมด
 npm run validate-skill
-npm run lint
+
+# ตรวจสอบรูปแบบและคุณภาพของไฟล์เอกสาร Markdown ทั้งโปรเจกต์ (รันบน Windows)
+npx markdownlint-cli README.md AGENTS.md
 ```
 
-### Preview Documentation
+### 3. รันเพื่อดูตัวอย่างเอกสารแบบ Local Preview
 ```bash
 npm run preview
 ```
 
-### Available Commands
-```bash
-npm run lint:md              # Check Markdown format
-npm run validate-skill       # Validate skill files
-npm run docs               # Show docs info
-npm run preview            # Open local preview
-```
-
 ---
 
-## 📂 Repository Structure
+## 📂 Directory Layout
 
-```
+```text
 ai-design-engineer/
-├── 01-foundation/              # Mindset, role, foundations
-├── 02-prompting-patterns/      # 8-layer prompts + library
-├── 03-ux-thinking/             # User research, workflows
-├── 04-design-system/           # Tokens, components, a11y
-├── 05-ui-generation/           # Quality checklist, templates
-├── 06-ai-to-code/              # Pipeline, code review
-├── 07-review-critique/         # Critique framework, scoring
-├── 08-production-patterns/     # Real case studies
-├── skills/                     # Original AI agent skill file
-├── assets/                     # Blueprint images
-├── docs/                       # Additional documentation
-├── scripts/                    # Validation scripts
-└── README.md                   # This file
+├── 01-foundation/              # Foundations, role mapping
+├── 02-prompting-patterns/      # 8-layer prompt architecture
+├── 03-ux-thinking/             # UX strategy, journey flow
+├── 04-design-system/           # Tokens, accessibility
+├── 05-ui-generation/           # Tool template checklist
+├── 06-ai-to-code/              # Tech stack & 5 UI states
+├── 07-review-critique/         # Scoring gate (0-100 check)
+├── 08-production-patterns/     # Enterprise case studies
+├── skills/                     # Nested AI-Native Prompt Skills
+│   ├── core-system-prompt/     # Global AI instruction setup
+│   ├── ux-decision-framework/  # UX design prompt guidelines
+│   ├── ui-generation-structured/# UI patterns and constraints
+│   ├── design-system-governance/# Consistency and tokens checklist
+│   ├── code-generation/        # Production-grade React/Next.js output
+│   ├── review-critique/        # 0-100 scoring scorecard
+│   ├── refinement-workflow/    # Iterative debug prompt
+│   ├── anti-patterns-detector/ # Anti-pattern rules
+│   ├── multi-agent-workflow/   # Multi-agent workflow protocols
+│   ├── SKILL_MATRIX.md         # Framework skill index
+│   └── deprecated/             # Relocated original flat files
+├── assets/                     # UI blueprints & PNG visual assets
+├── docs/                       # Shared documentation files
+└── scripts/                    # Validation scripts & helpers
 ```
 
 ---
 
-## 🚀 Getting Started
+## 📖 Developer & Agent Guide
 
-### Option 1: For Custom GPTs (ChatGPT Plus)
-1. Go to **Explore GPTs** > **Create**
-2. Copy content from relevant section into **Instructions**
-3. Add conversation starters from each section
-
-### Option 2: For Claude Projects (Claude Pro)
-1. Create a new **Project**
-2. Copy framework sections into **Set Custom Instructions**
-
-### Option 3: For Your Team / SaaS
-1. Adapt sections to your specific needs
-2. Create internal standard based on **04-design-system** + **07-review-critique**
-3. Reference **08-production-patterns** in code reviews
+สำหรับผู้ใช้ที่เป็น AI Agent หรือต้องการพัฒนาต่อยอดระบบ:
+* โปรดศึกษาแนวทางการเขียนโค้ดและข้อตกลงของ Repository ที่ [AGENTS.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/AGENTS.md)
+* คู่มือด่วนสำหรับ Claude: [CLAUDE.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/CLAUDE.md)
+* คู่มือด่วนสำหรับ Gemini: [GEMINI.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/GEMINI.md)
 
 ---
 
-## 💡 What This Framework Solves
+## 🤝 Contributing & Support
 
-❌ **Before:**
-- AI generates pretty UX but it's hard to use
-- No design system = inconsistent components
-- No review process = quality varies
-- Hard to handoff to engineers
-- Hard to ship products at scale
-
-✅ **After:**
-- UX-first prompts → better generated UI
-- Design tokens → consistent, maintainable code
-- Critique framework → quality gates
-- Component contracts → seamless handoff
-- Real patterns → ship faster
+ยินดีต้อนรับทุกความช่วยเหลือและข้อเสนอแนะ! หากคุณมีไอเดียในการปรับปรุงหรือเพิ่มรูปแบบ Prompt หรือเนื้อหาใหม่ สามารถดำเนินการได้ดังนี้:
+1. **Fork** Repository นี้ไปที่บัญชีของคุณ
+2. สร้าง **Feature Branch** (เช่น `git checkout -b feature/cool-prompt`)
+3. ทำการคอมมิตและตรวจสอบความถูกต้องด้วยคำสั่ง `npm run lint` และ `npm run validate-skill`
+4. ส่ง **Pull Request** เพื่อตรวจสอบและรวมเข้าสู่สาขาหลักต่อไป
 
 ---
 
 ## 📜 License
 
-MIT — Use freely in personal and commercial projects.
-
----
-
-## 🤝 Contributing
-
-All improvements welcome! Fork → Create feature branch → Submit PR
-
----
-
-**Ready to build better products with AI?** Start with [01-foundation →](./01-foundation) 🚀
+โปรเจกต์นี้จัดทำขึ้นภายใต้เงื่อนไข **MIT License** — สามารถนำแนวคิด เทมเพลต และตัวอย่างทั้งหมดไปใช้งาน ปรับแต่ง หรือใช้งานในเชิงพาณิชย์ได้ฟรีโดยสมบูรณ์
