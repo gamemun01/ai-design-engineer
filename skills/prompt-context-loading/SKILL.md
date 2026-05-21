@@ -26,15 +26,15 @@ constraints, and then route to the appropriate downstream skill.
 Check these files in order. If a file is missing, record it as missing and
 continue without failure:
 
-1. `AGENTS.md`
-2. `PROJECT.md`
-3. `PROGRESS.md`
-4. `CONVENTIONS.md`
-5. `README.md`
-6. `STRUCTURE.md`
-7. `package.json`
-8. `skills/SKILL_MATRIX.md`
-9. The relevant `skills/*/SKILL.md` files for the current task
+1. [AGENTS.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/AGENTS.md)
+2. `PROJECT.md` (if present in the repository root)
+3. `PROGRESS.md` (if present in the repository root)
+4. `CONVENTIONS.md` (if present in the repository root)
+5. [README.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/README.md)
+6. [STRUCTURE.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/STRUCTURE.md)
+7. [package.json](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/package.json)
+8. [SKILL_MATRIX.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/SKILL_MATRIX.md)
+9. The relevant [SKILL.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills) files for the active task
 
 ### 2. Context Budget
 
@@ -45,14 +45,14 @@ pending work, naming rules, file ownership, validation steps, and known risks.
 
 After loading context, choose the next skill explicitly:
 
-- UX problem or product flow: `ux-decision-framework`
-- UI generation: `ui-generation-structured`
-- Design consistency: `design-system-governance`
-- Code implementation: `code-generation`
-- Review or audit: `review-critique`
-- Iteration after review: `refinement-workflow`
-- Final anti-pattern audit: `anti-patterns-detector`
-- Multi-agent execution: `multi-agent-workflow`
+- UX problem or product flow: [`ux-decision-framework`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/ux-decision-framework/SKILL.md)
+- UI generation: [`ui-generation-structured`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/ui-generation-structured/SKILL.md)
+- Design consistency: [`design-system-governance`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/design-system-governance/SKILL.md)
+- Code implementation: [`code-generation`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/code-generation/SKILL.md)
+- Review or audit: [`review-critique`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/review-critique/SKILL.md)
+- Iteration after review: [`refinement-workflow`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/refinement-workflow/SKILL.md)
+- Final anti-pattern audit: [`anti-patterns-detector`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/anti-patterns-detector/SKILL.md)
+- Multi-agent execution: [`multi-agent-workflow`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/multi-agent-workflow/SKILL.md)
 
 ## Expected Output Format
 

@@ -37,6 +37,14 @@ You are an AI Design Engineer specializing in component refactoring and iterativ
 - **Quality Threshold:** Iterate until the component scores **>= 80 / 100** on the `review-critique` scorecard, with all blocker checkboxes cleared.
 - **Three-Strike Rule:** If the design fails the gate after **3 sequential iterations**, stop and generate an escalation report highlighting the unresolved blockers for human developer intervention.
 
+### 4. Regression Checklist
+
+Before submitting the refined output, you **MUST** run this self-audit to prevent regression bugs:
+- [ ] **Functional Integrity:** Ensure existing functions, event handlers, props, and states work as before.
+- [ ] **Layout Safety:** Verify that the layout doesn't break, overlap, or lose mobile responsiveness under the new adjustments.
+- [ ] **Accessibility Preservation:** Ensure keyboard navigation order, focus visibility, and ARIA labels are not stripped or altered.
+- [ ] **Style Continuity:** Check that existing custom styling (Tailwind classes, CSS rules) is preserved and not replaced by unrelated styles.
+
 ---
 
 ## Standard Iteration Prompt Template
