@@ -24,19 +24,57 @@ You are an AI Design Engineer auditing generated layouts and code to ensure stri
 
 ## Rules & Constraints
 
-### Core Tokens Source of Truth
-*   **Spacing:** `spacing-xxs` (8px), `spacing-xs` (12px), `spacing-sm` (16px), `spacing-md` (24px), `spacing-lg` (32px), `spacing-xl` (40px).
-*   **Typography:** `text-xs` (12px), `text-sm` (14px), `text-base` (16px), `text-md` (18px), `text-lg` (20px), `text-xl` (24px).
-*   **Color Roles:**
-    - `color-bg`: primary layout canvas background.
-    - `color-surface`: containers (cards, panels, tables).
-    - `color-border`: dividers, outlines.
-    - `color-text`: primary content.
-    - `color-muted`: secondary labels.
-    - `color-primary`: primary action indicators.
-    - `color-success`, `color-warning`, `color-danger`: status values.
-*   **Radius:** `radius-sm` (8px), `radius-md` (12px), `radius-lg` (16px).
-*   **Elevation:** `shadow-sm` (subtle container), `shadow-md` (drawers/sidebars), `shadow-lg` (modals).
+### Core Tokens Source of Truth & Utility Mapping
+
+To audit generated code effectively, verify that all classes are mapped correctly according to this token-to-utility reference:
+
+#### 1. Spacing Tokens
+| Token Name | Pixel Value | Tailwind Utility Class (examples) | CSS Custom Property |
+|---|---|---|---|
+| `spacing-xxs` | 8px | `p-2`, `m-2`, `gap-2`, `space-x-2` | `var(--spacing-xxs)` |
+| `spacing-xs` | 12px | `p-3`, `m-3`, `gap-3`, `space-x-3` | `var(--spacing-xs)` |
+| `spacing-sm` | 16px | `p-4`, `m-4`, `gap-4`, `space-x-4` | `var(--spacing-sm)` |
+| `spacing-md` | 24px | `p-6`, `m-6`, `gap-6`, `space-x-6` | `var(--spacing-md)` |
+| `spacing-lg` | 32px | `p-8`, `m-8`, `gap-8`, `space-x-8` | `var(--spacing-lg)` |
+| `spacing-xl` | 40px | `p-10`, `m-10`, `gap-10`, `space-x-10` | `var(--spacing-xl)` |
+
+#### 2. Typography Tokens
+| Token Name | Pixel Value | Tailwind Utility Class | CSS Custom Property |
+|---|---|---|---|
+| `text-xs` | 12px | `text-xs` | `var(--font-size-xs)` |
+| `text-sm` | 14px | `text-sm` | `var(--font-size-sm)` |
+| `text-base` | 16px | `text-base` | `var(--font-size-base)` |
+| `text-md` | 18px | `text-lg` | `var(--font-size-lg)` |
+| `text-lg` | 20px | `text-xl` | `var(--font-size-xl)` |
+| `text-xl` | 24px | `text-2xl` | `var(--font-size-2xl)` |
+
+#### 3. Color Role Tokens
+| Token Name | UI Role Description | Tailwind Utility (examples) | CSS Custom Property (shadcn/ui) |
+|---|---|---|---|
+| `color-bg` | Canvas Background | `bg-background` | `var(--background)` |
+| `color-surface` | Container Surfaces | `bg-card`, `bg-popover` | `var(--card)`, `var(--popover)` |
+| `color-border` | Dividers & Borders | `border-border` | `var(--border)` |
+| `color-text` | Primary Body Text | `text-foreground` | `var(--foreground)` |
+| `color-muted` | Secondary Muted Text | `text-muted-foreground` | `var(--muted-foreground)` |
+| `color-primary` | Primary Brand Actions | `bg-primary`, `text-primary-foreground` | `var(--primary)`, `var(--primary-foreground)` |
+| `color-success` | Success & Confirm States | `bg-emerald-50`, `text-emerald-700` | `var(--success)`, `var(--success-foreground)` |
+| `color-warning` | Warning & Status Alerts | `bg-amber-50`, `text-amber-700` | `var(--warning)`, `var(--warning-foreground)` |
+| `color-danger` | Danger, Validation Errors | `bg-destructive`, `text-destructive-foreground` | `var(--destructive)`, `var(--destructive-foreground)` |
+
+#### 4. Border Radius Tokens
+| Token Name | Pixel Value | Tailwind Utility Class | CSS Custom Property |
+|---|---|---|---|
+| `radius-sm` | 8px | `rounded-md` | `var(--radius)` (base) |
+| `radius-md` | 12px | `rounded-lg` | `var(--radius-md)` |
+| `radius-lg` | 16px | `rounded-xl` | `var(--radius-lg)` |
+
+#### 5. Elevation / Shadow Tokens
+| Token Name | Visual Style | Tailwind Utility Class | CSS Custom Property |
+|---|---|---|---|
+| `shadow-sm` | Subtle Card Depth | `shadow-sm` | `var(--shadow-sm)` |
+| `shadow-md` | Sidebar/Drawer Depth | `shadow-md` | `var(--shadow-md)` |
+| `shadow-lg` | Dialog/Modal Popups | `shadow-lg` | `var(--shadow-lg)` |
+
 
 ### Component Contracts
 *   **Button:** Primary action (uses `color-primary`), Secondary action (border + neutral surface), Tertiary (text link). Disabled state must suppress interactions. Focus outline is mandatory.
