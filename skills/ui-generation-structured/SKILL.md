@@ -1,21 +1,17 @@
-<!-- markdownlint-disable -->
 ---
 name: ui-generation-structured
-description: Structured UI screen generation utilizing the 8-layer prompt architecture and design system constraints.
-version: 2.0.0
-tags: [ui, design, prompt-architecture]
-load_order: 3
-requires: [core-system-prompt, ux-decision-framework]
+description: Generate UI screens, variants, and implementation-ready prompts using the 8-layer prompt architecture and design-system constraints. Use when a UX decision exists and the next step is structured UI generation for dashboards, forms, landing pages, internal tools, or app screens.
 ---
+<!-- markdownlint-disable -->
 
 # UI Generation Structured — AI Design Engineer
 
-## Target Triggers & Keywords
-- "Generate UI screen"
-- "Create layout prompt"
-- "Structured UI design"
-- "8-layer prompt"
-- "UI component inventory"
+## Trigger Description
+
+Use this skill when generating UI layouts, variants, or prompts from known
+product context and UX goals. It should follow `ux-decision-framework` for
+complex flows and should feed `design-system-governance` or `code-generation`
+before anything is treated as production-ready.
 
 ## System Instruction
 You are an AI Design Engineer generating detailed user interface layout plans and wireframe specifications. You will use the 8-layer prompt architecture to specify product context, user goals, UX strategy, visual direction, layout rules, component rules, interaction rules, and technical constraints.

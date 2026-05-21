@@ -1,28 +1,31 @@
-<!-- markdownlint-disable -->
 ---
 name: anti-patterns-detector
-description: Identifies common AI design and code anti-patterns before they reach production.
-version: 2.0.0
-tags: [lint, audit, anti-patterns, check]
-load_order: 8
-requires: [core-system-prompt, review-critique, refinement-workflow]
+description: Detect AI design and frontend anti-patterns using the repository anti-pattern catalog, including visual, UX, accessibility, code, workflow, and production-readiness issues. Use for pre-shipping audits, recurring problem diagnosis, or when output feels inconsistent, inaccessible, overdesigned, or hard to maintain.
 ---
+<!-- markdownlint-disable -->
 
 # Anti-Patterns Detector — AI Design Engineer
 
-## Target Triggers & Keywords
+## Trigger Description
 
-- "Identify anti-patterns"
-- "Audit code for common mistakes"
-- "Lint component design"
-- "Catch front-end anti-patterns"
-- "Pre-shipping safety check"
+Use this skill as a final safety check after review/refinement or whenever a
+design/code artifact shows recurring AI-generated mistakes. It references the
+full catalog in `../ANTI_PATTERNS.md`; read that file when the audit needs broad
+coverage beyond the core detector checklist.
 
 ## System Instruction
 
 You are an AI Design Engineer operating as a QA Static Analyzer. Your task is to inspect component designs and front-end code to detect visual, UX, and code anti-patterns, explain the associated risks, and provide direct corrections to align with the framework rules.
 
 ## Rules & Constraints
+
+### 0. Reference Catalog Loading
+
+For broad audits, first read `../ANTI_PATTERNS.md` and use it as the canonical
+catalog. This SKILL.md contains the runtime procedure; `ANTI_PATTERNS.md`
+contains the expanded anti-pattern library, rationale, fixes, and prevention
+checklist. Do not duplicate the catalog here. Cite the catalog item name in each
+finding when a violation maps to it.
 
 ### 1. Zero Tolerance on Core Anti-Patterns
 
@@ -40,6 +43,8 @@ When auditing, classify each finding into:
 - **Visual Anti-Patterns:** Spacing inconsistencies, lack of visual hierarchy, styling mismatch, excessive decoration.
 - **UX Anti-Patterns:** Hidden focus, non-obvious CTA, lack of feedback/alerts, missing fallback screens.
 - **Code Anti-Patterns:** Large monolithic component structures, hard-coded layout calculations, type-safety leakage (e.g. using `any` everywhere).
+- **Workflow Anti-Patterns:** One-shot shipping, vague prompts, missing UX rationale, broken handoffs, no review criteria.
+- **Production Anti-Patterns:** Performance blind spots, missing mobile plan, unclear data contracts, no versioned review.
 
 ---
 
@@ -64,3 +69,35 @@ Run this mechanical audit on every file:
    - **Why It's a Problem:** [Explanation of accessibility, rendering, or maintainability impact]
    - **Refactored Solution:** [Targeted code diff showing the fix]
 3. **Audit Status:** PASS or FAIL (FAIL if any critical anti-patterns are found).
+
+## Example Usage (Few-Shot Example)
+
+```markdown
+User: Audit this generated dashboard component for AI design anti-patterns.
+```
+
+Response:
+
+```markdown
+## Audit Scorecard
+- Visual anti-patterns: 2
+- UX anti-patterns: 3
+- Code anti-patterns: 1
+- Workflow/catalog matches: Token neglect, No error design, Semantic code gaps
+- Status: FAIL
+
+## Detailed Violations List
+
+### 1. Token neglect
+- File & line range: `Dashboard.tsx:42`
+- Why it's a problem: Uses `bg-[#ff5500]` outside semantic color tokens.
+- Refactored solution: Replace with `bg-primary` or the approved token.
+
+### 2. No error design
+- File & line range: `Dashboard.tsx:88`
+- Why it's a problem: Fetching branch renders loading and ideal states only.
+- Refactored solution: Add an error state with retry action.
+
+## Audit Status
+FAIL. Fix critical token and state violations, then rerun `review-critique`.
+```

@@ -1,129 +1,131 @@
 const fs = require('fs');
 const path = require('path');
 
-const skillsDir = path.resolve(__dirname, '../skills');
+const repoRoot = path.resolve(__dirname, '..');
+const skillsDir = path.join(repoRoot, 'skills');
 
-// Recursively find all SKILL.md files under the skills/ directory
+const requiredSections = [
+  '## Trigger Description',
+  '## System Instruction',
+  '## Rules & Constraints',
+  '## Expected Output Format',
+  '## Example Usage (Few-Shot Example)'
+];
+
+const requiredYamlKeys = ['name', 'description'];
+const allowedYamlKeys = ['name', 'description'];
+
 function findSkillFiles(dir, fileList = []) {
   if (!fs.existsSync(dir)) return fileList;
+
   const files = fs.readdirSync(dir);
   for (const file of files) {
     const filePath = path.join(dir, file);
     const stat = fs.statSync(filePath);
+
     if (stat.isDirectory()) {
       findSkillFiles(filePath, fileList);
     } else if (file.toLowerCase() === 'skill.md') {
       fileList.push(filePath);
     }
   }
+
   return fileList;
+}
+
+function parseFrontmatter(content) {
+  const lines = content.split(/\r?\n/);
+
+  if (lines[0]?.trim() !== '---') {
+    return { error: 'SKILL.md must start with YAML frontmatter.' };
+  }
+
+  const endIdx = lines.findIndex((line, index) => index > 0 && line.trim() === '---');
+  if (endIdx <= 1) {
+    return { error: 'Missing closing YAML frontmatter delimiter.' };
+  }
+
+  const yaml = {};
+  const yamlLines = lines.slice(1, endIdx);
+  for (const line of yamlLines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+
+    const colonIdx = line.indexOf(':');
+    if (colonIdx <= 0) continue;
+
+    const key = line.slice(0, colonIdx).trim();
+    let value = line.slice(colonIdx + 1).trim();
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+    yaml[key] = value;
+  }
+
+  return { yaml };
 }
 
 const skillFiles = findSkillFiles(skillsDir);
 let hasErrors = false;
 
-const requiredSections = [
-  '## Target Triggers & Keywords',
-  '## System Instruction',
-  '## Rules & Constraints',
-  '## Expected Output Format'
-];
-
 if (skillFiles.length === 0) {
-  console.error('❌ Error: No SKILL.md files found under the skills/ directory.');
+  console.error('Error: No SKILL.md files found under the skills/ directory.');
   process.exit(1);
 }
 
 console.log(`Found ${skillFiles.length} skill(s) to validate...\n`);
 
-skillFiles.forEach((filePath) => {
-  const relativePath = path.relative(path.resolve(__dirname, '..'), filePath);
+for (const filePath of skillFiles) {
+  const relativePath = path.relative(repoRoot, filePath);
   console.log(`Checking ${relativePath}...`);
+
   const content = fs.readFileSync(filePath, 'utf8');
+  const parsed = parseFrontmatter(content);
 
-  // 1. Validate YAML Frontmatter
-  const lines = content.split(/\r?\n/);
-  let yamlLines = [];
-  let hasYaml = false;
-
-  let startIdx = -1;
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-    if (line === '---') {
-      startIdx = i;
-      break;
-    }
-    // Allow empty lines or HTML comments before the frontmatter starts
-    if (line !== '' && !line.startsWith('<!--') && !line.endsWith('-->') && !line.startsWith('-->') && !line.includes('-->')) {
-      break;
-    }
-  }
-
-  if (startIdx !== -1) {
-    let endIdx = -1;
-    for (let i = startIdx + 1; i < lines.length; i++) {
-      if (lines[i].trim() === '---') {
-        endIdx = i;
-        break;
-      }
-    }
-    if (endIdx > startIdx + 1) {
-      yamlLines = lines.slice(startIdx + 1, endIdx);
-      hasYaml = true;
-    }
-  }
-
-  if (!hasYaml) {
-    console.error(`  ❌ Error: Missing YAML frontmatter block starting and ending with "---"`);
+  if (parsed.error) {
+    console.error(`  Error: ${parsed.error}`);
     hasErrors = true;
-    return;
+    console.log('');
+    continue;
   }
 
-  // Parse basic YAML key-value pairs
-  const yaml = {};
-  yamlLines.forEach((line) => {
-    if (!line.trim() || line.trim().startsWith('#')) return;
-    const colonIdx = line.indexOf(':');
-    if (colonIdx > 0) {
-      const key = line.slice(0, colonIdx).trim();
-      let val = line.slice(colonIdx + 1).trim();
-      if (val.startsWith('"') && val.endsWith('"')) {
-        val = val.slice(1, -1);
-      } else if (val.startsWith("'") && val.endsWith("'")) {
-        val = val.slice(1, -1);
-      }
-      yaml[key] = val;
-    }
-  });
-
-  const requiredYamlKeys = ['name', 'description', 'version'];
+  const yaml = parsed.yaml;
   const missingYamlKeys = requiredYamlKeys.filter((key) => !yaml[key]);
+  const extraYamlKeys = Object.keys(yaml).filter((key) => !allowedYamlKeys.includes(key));
 
   if (missingYamlKeys.length > 0) {
-    console.error(`  ❌ Error: Missing required YAML metadata keys: ${missingYamlKeys.join(', ')}`);
+    console.error(`  Error: Missing required YAML keys: ${missingYamlKeys.join(', ')}`);
     hasErrors = true;
-  } else {
-    console.log(`  ✅ YAML metadata is valid (Name: "${yaml.name}", Version: "${yaml.version}")`);
   }
 
-  // 2. Validate Required Sections
-  const missingSections = requiredSections.filter((section) => !content.includes(section));
+  if (extraYamlKeys.length > 0) {
+    console.error(`  Error: Non-standard YAML keys found: ${extraYamlKeys.join(', ')}`);
+    console.error('  Standard SKILL.md frontmatter should contain only name and description.');
+    hasErrors = true;
+  }
 
+  if (missingYamlKeys.length === 0 && extraYamlKeys.length === 0) {
+    console.log(`  OK: YAML metadata is valid (name: "${yaml.name}").`);
+  }
+
+  const missingSections = requiredSections.filter((section) => !content.includes(section));
   if (missingSections.length > 0) {
-    console.error(`  ❌ Error: Missing required sections:`);
+    console.error('  Error: Missing required sections:');
     missingSections.forEach((section) => console.error(`    - ${section}`));
     hasErrors = true;
   } else {
-    console.log('  ✅ All required section headings are present.');
+    console.log('  OK: All required section headings are present.');
   }
-  console.log('');
-});
 
-if (hasErrors) {
-  console.error('❌ Validation FAILED. Please fix the errors above.');
-  process.exit(1);
-} else {
-  console.log('🎉 Validation PASSED. All active skills are fully compliant.');
-  process.exit(0);
+  console.log('');
 }
 
+if (hasErrors) {
+  console.error('Validation FAILED. Please fix the errors above.');
+  process.exit(1);
+}
+
+console.log('Validation PASSED. All active skills are compliant.');
