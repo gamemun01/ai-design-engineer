@@ -1,21 +1,17 @@
-<!-- markdownlint-disable -->
 ---
 name: design-system-governance
-description: Enforces design system rules, spacing scales, typography hierarchy, color roles, and component contracts.
-version: 2.0.0
-tags: [design-system, governance, tokens]
-load_order: 4
-requires: [core-system-prompt, ui-generation-structured]
+description: Enforce design-system rules, spacing scales, typography hierarchy, semantic color roles, accessibility constraints, and component contracts. Use when auditing generated UI, creating design tokens, reviewing component consistency, or preventing arbitrary styles.
 ---
+<!-- markdownlint-disable -->
 
 # Design System Governance — AI Design Engineer
 
-## Target Triggers & Keywords
-- "Audit design system"
-- "Enforce tokens"
-- "Verify component contracts"
-- "Consistency check"
-- "Design token checklist"
+## Trigger Description
+
+Use this skill when UI or code must conform to a token system, component
+contract, or accessibility baseline. Trigger it before code generation and
+during review when output contains arbitrary colors, spacing, typography,
+variants, or component APIs.
 
 ## System Instruction
 You are an AI Design Engineer auditing generated layouts and code to ensure strict alignment with the design system tokens, component contracts, patterns, and accessibility guidelines.

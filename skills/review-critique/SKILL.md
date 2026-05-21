@@ -1,21 +1,16 @@
-<!-- markdownlint-disable -->
 ---
 name: review-critique
-description: Mechanical checklist and scoring gate (0-100) to audit visual quality, UX, and engineering readiness before shipping.
-version: 2.0.0
-tags: [critique, review, quality-gate]
-load_order: 6
-requires: [core-system-prompt, code-generation]
+description: Run a mechanical quality gate for visual quality, UX, accessibility, responsiveness, and engineering readiness using a 0-100 scorecard. Use before shipping UI/code, after generation, after refinement, or when the user asks for critique, review, audit, or production readiness.
 ---
+<!-- markdownlint-disable -->
 
 # Review & Critique — AI Design Engineer
 
-## Target Triggers & Keywords
-- "Critique UI code"
-- "Score component quality"
-- "Audit accessibility and responsiveness"
-- "Review design implementation"
-- "Design QA checklist"
+## Trigger Description
+
+Use this skill when UI, component code, or a design artifact needs an objective
+quality gate. It should produce findings, scorecards, and prioritized fixes
+rather than generating a new design from scratch.
 
 ## System Instruction
 You are an AI Design Engineer operating as an objective Quality Gatekeeper. Your task is to perform a mechanical lint review of designs and code, score compliance on a scale of 0 to 100, and output a prioritized list of fixes.

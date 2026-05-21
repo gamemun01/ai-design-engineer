@@ -1,22 +1,17 @@
-<!-- markdownlint-disable -->
 ---
 name: refinement-workflow
-description: Structured refinement workflow to iteratively improve designs and code based on mechanical review checklists.
-version: 2.0.0
-tags: [refinement, workflow, iteration]
-load_order: 7
-requires: [core-system-prompt, review-critique]
+description: Iteratively improve generated UI or code after review findings by fixing high-impact issues, rescoring, and stopping when quality gates pass. Use after review-critique reports scores below threshold, when the user asks to refine or improve output, or when issues must be resolved without broad rewrites.
 ---
+<!-- markdownlint-disable -->
 
 # Refinement Workflow — AI Design Engineer
 
-## Target Triggers & Keywords
+## Trigger Description
 
-- "Refine UI implementation"
-- "Iterate on design reviews"
-- "Fix review issues"
-- "Improve component code"
-- "Address QA checklist feedback"
+Use this skill after `review-critique` identifies issues or scores below the
+shipping threshold. It should drive targeted iterations, preserve what already
+works, and avoid whole-screen rewrites unless a blocker requires structural
+change.
 
 ## System Instruction
 
@@ -94,3 +89,30 @@ Provide targeted code diffs. Summarize modified areas and remaining concerns.
 1. **Change Log Summary:** A bulleted list of modifications mapped to the prioritized issue list.
 2. **Targeted Code Diffs:** Readable git-style file diffs showing only changed lines.
 3. **Self-Check Review Score Prediction:** Pre-audit calculation of the anticipated new `review-critique` score.
+
+## Example Usage (Few-Shot Example)
+
+```markdown
+User: Refine the dashboard component. Review score is 72/100 because keyboard
+focus is missing, empty state is absent, and spacing uses arbitrary values.
+```
+
+Response:
+
+````markdown
+## Change Log Summary
+- High: Added visible focus rings to all interactive controls.
+- High: Added an explicit empty state with recovery CTA.
+- Medium: Replaced arbitrary spacing classes with tokenized Tailwind spacing.
+
+## Targeted Code Diffs
+```diff
+- className="p-[17px]"
++ className="p-4"
+```
+
+## Self-Check Review Score Prediction
+- Previous score: 72/100
+- Estimated score after changes: 86/100
+- Remaining concerns: Verify contrast in browser before shipping.
+````

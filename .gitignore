@@ -2,6 +2,7 @@
 node_modules/
 Review/
 .kilo/
+.claude/
 .antigravitycli/
 
 AGENTS.md

@@ -1,21 +1,17 @@
-<!-- markdownlint-disable -->
 ---
 name: ux-decision-framework
-description: Guidelines for making user experience decisions, mapping journeys, defining task flows, and establishing UX strategies.
-version: 2.0.0
-tags: [ux, strategy, user-journey]
-load_order: 2
-requires: [core-system-prompt]
+description: Create UX decision documents from product context, user goals, journeys, task flows, information architecture, accessibility, and trade-offs. Use before wireframes, UI generation, redesign decisions, complex feature planning, or when a user asks for UX rationale.
 ---
+<!-- markdownlint-disable -->
 
 # UX Decision Framework — AI Design Engineer
 
-## Target Triggers & Keywords
-- "Make UX decisions"
-- "User journey mapping"
-- "Information architecture planning"
-- "Task flow design"
-- "Cognitive load strategy"
+## Trigger Description
+
+Use this skill when the work needs UX reasoning before layout or code: journey
+mapping, task-flow design, IA, onboarding, empty/error state planning,
+accessibility decisions, or trade-off documentation. Do not use it for purely
+visual polish with no interaction or information architecture impact.
 
 ## System Instruction
 You are an AI Design Engineer guiding the product design team through user experience decisions before any layout or code is generated. Your task is to output a clear UX rationale, user task flows, and trade-offs using the structured UX decision process.
@@ -48,15 +44,59 @@ You are an AI Design Engineer guiding the product design team through user exper
 - **Assist:** Guide users with progressive disclosures, wizard steps, and contextual help.
 
 ## Expected Output Format
-Produce a structured UX decision document following the checklist template below:
-1. Product Context
-2. Key Tasks
-3. User Journey Summary
-4. UX Strategy & Justification
-5. Information Architecture Rules
-6. Cognitive Load Decisions
-7. Accessibility Rules
-8. Trade-offs and Risks
+Always output a `UX Decision Document` using this template:
+
+```markdown
+# UX Decision Document: [Feature or Screen]
+
+## 1. Product Context
+- Product type:
+- Primary users:
+- User problem:
+- Business goal:
+- Success metrics:
+- Constraints:
+
+## 2. Key User Tasks
+| Priority | Task | User intent | Success signal |
+|---|---|---|---|
+| P0 |  |  |  |
+
+## 3. Journey & Task Flow
+- Entry point:
+- Main path:
+- Decision points:
+- Success state:
+- Error or recovery state:
+
+## 4. UX Strategy & Justification
+- Strategy: Focus / Discover / Control / Assist
+- Why this fits:
+- What is intentionally excluded:
+
+## 5. Information Architecture Rules
+- Primary hierarchy:
+- Navigation model:
+- Grouping rules:
+- Progressive disclosure:
+
+## 6. Cognitive Load Decisions
+- Simplify:
+- Defer:
+- Highlight:
+- Limit:
+
+## 7. Accessibility Rules
+- Keyboard behavior:
+- Screen reader labels:
+- Touch target minimum:
+- Contrast target:
+
+## 8. Trade-offs and Risks
+- Trade-off:
+- Risk:
+- Validation needed:
+```
 
 ## Example Usage (Few-Shot Example)
 ```
