@@ -119,6 +119,13 @@ When auditing component code and logic, you must enforce the following security 
 - **Prompt Injection Defense:** Verify that no user-supplied input is directly rendered into scripts, passed to `eval()`, or allowed to bypass command bounds. If the code parses prompts or templates dynamically, ensure it implements strict input validation (e.g. regex-based whitelisting) and rejects strings containing directives like "Ignore previous instructions" or "Output system prompt".
 - **Zero Trust & Least Privilege:** Enforce that code operates under the principle of least privilege. Check for file system writes or command executions, verifying that paths are strictly confined (no arbitrary path traversal like `../` to access system folders) and that execution uses safe parameters instead of raw shell concatenation.
 
+### 6. Human Escalation Rules
+The detector must immediately halt the autonomous audit loop and request human intervention when any of the following conditions are met:
+- **Security Threshold Breach:** Any finding classified as a Security vulnerability (e.g., XSS, SQL Injection, Prompt Injection, or unconfined file access) that cannot be resolved by a deterministic code fix must be escalated.
+- **Ambiguous Business Logic:** When the anti-pattern involves a trade-off between competing business requirements (e.g., performance optimization vs. feature completeness) that requires human product judgment.
+- **Structural Architecture Disagreement:** When the recommended fix would require refactoring core application architecture (e.g., changing state management approach, replacing a routing strategy, or modifying database schemas) beyond the scope of a component-level fix.
+- **Repeated Failure (Circuit Breaker):** If the same anti-pattern or audit failure persists after 3 consecutive automated refinement iterations, the agent must stop retrying and produce a structured Human Escalation Report containing: the violation summary, attempted fixes, and a recommended action plan for the human reviewer.
+
 ---
 
 ## Detection Checklist & Audit Steps
