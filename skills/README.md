@@ -2,7 +2,8 @@
 
 # AI Design Engineer Skills
 
-This directory contains Claude/Codex-compatible `SKILL.md` folders for the AI
+<!-- Original: This directory contains Claude/Codex-compatible `SKILL.md` folders for the AI -->
+This directory contains Claude/Gemini-compatible `SKILL.md` folders for the AI
 Design Engineer workflow. Each active skill lives in `skills/<skill-name>/` and
 starts with standard YAML frontmatter containing only `name` and `description`.
 

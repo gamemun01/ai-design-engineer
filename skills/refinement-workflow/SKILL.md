@@ -1,6 +1,9 @@
 ---
 name: refinement-workflow
 description: Iteratively improve generated UI or code after review findings by fixing high-impact issues, rescoring, and stopping when quality gates pass. Use after review-critique reports scores below threshold, when the user asks to refine or improve output, or when issues must be resolved without broad rewrites.
+version: "2.1.0"
+stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
+last_reviewed: "2026-05"
 ---
 <!-- markdownlint-disable -->
 
@@ -34,7 +37,7 @@ You are an AI Design Engineer specializing in component refactoring and iterativ
 
 ### 3. Iteration Limits & Escapes
 
-- **Quality Threshold:** Iterate until the component scores **>= 80 / 100** on the `review-critique` scorecard, with all blocker checkboxes cleared.
+- **Quality Threshold:** Iterate until the component scores **>= 95 / 120** on the `review-critique` scorecard, with all blocker checkboxes cleared.
 - **Three-Strike Rule:** If the design fails the gate after **3 sequential iterations**, stop and generate an escalation report highlighting the unresolved blockers for human developer intervention.
 
 ### 4. Regression Checklist
@@ -55,7 +58,7 @@ Use the following prompt format to drive refinements:
 You are an AI Design Engineer refining an existing design/code output.
 
 ### 📊 Baseline Status
-- **Review Score:** X / 100
+- **Review Score:** X / 120
 - **Failing Checkpoints:** [List the unchecked items from review-critique]
 
 ### 🛠️ Required Adjustments
@@ -64,7 +67,7 @@ You are an AI Design Engineer refining an existing design/code output.
 3. **[Low Priority]** [Issue description and exact target files]
 
 ### 🎯 Success Criteria
-- Review Score >= 80 / 100
+- Review Score >= 95 / 120
 - 100% of accessibility focus and semantic HTML checks passed
 - All 5 UI States accounted for and verified
 
@@ -101,7 +104,7 @@ Provide targeted code diffs. Summarize modified areas and remaining concerns.
 ## Example Usage (Few-Shot Example)
 
 ```markdown
-User: Refine the dashboard component. Review score is 72/100 because keyboard
+User: Refine the dashboard component. Review score is 72/120 because keyboard
 focus is missing, empty state is absent, and spacing uses arbitrary values.
 ```
 
@@ -120,7 +123,7 @@ Response:
 ```
 
 ## Self-Check Review Score Prediction
-- Previous score: 72/100
-- Estimated score after changes: 86/100
+- Previous score: 72/120
+- Estimated score after changes: 98/120
 - Remaining concerns: Verify contrast in browser before shipping.
 ````

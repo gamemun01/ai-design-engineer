@@ -1,3 +1,4 @@
+<!-- markdownlint-disable -->
 # Test AI Design Engineer Skill
 
 This document explains how to test the `AI-Augmented Design Engineer` skill.
@@ -10,7 +11,8 @@ Run:
 npm run validate-skill
 ```
 
-It checks that the skill file contains the main required sections:
+It checks that each skill file contains the main required sections:
+<!-- Original:
 - `## 🎯 Target Triggers & Keywords`
 - `## 💻 System Instruction`
 - `## 📋 Rules & Constraints`
@@ -20,8 +22,22 @@ It checks that the skill file contains the main required sections:
 ## 2. Test in ChatGPT Custom GPT
 
 1. Open `skills/ai-design-engineer.md`
+-->
+- `## Trigger Description`
+- `## System Instruction`
+- `## Rules & Constraints`
+- `## Expected Output Format`
+- `## Example Usage (Few-Shot Example)`
+
+## 2. Test in ChatGPT Custom GPT or Claude Project
+
+1. Open one of the active skill files under `skills/` (e.g. `skills/core-system-prompt/SKILL.md`).
+<!-- Original:
 2. Copy the `## 💻 System Instruction` and `## 📋 Rules & Constraints` sections into the `Instructions` field
 3. Add the trigger examples from `## 🎯 Target Triggers & Keywords` to the conversation starters
+-->
+2. Copy the `## System Instruction` and `## Rules & Constraints` sections into the `Instructions` field
+3. Add the trigger examples from `## Trigger Description` to the conversation starters
 4. Run a test prompt like:
 
 ```text

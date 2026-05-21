@@ -201,10 +201,18 @@ REQUIRED:
 
 | Dimension | Score | Issues |
 |:---|:---|:---|
+<!-- ORIGINAL 10-POINT SCORECARD:
 | Visual | 7/10 | Card spacing inconsistent, chart labels small on mobile |
 | UX | 8/10 | Good layout, missing error state |
 | Engineering | 7/10 | Components work but need accessibility labels |
 | **Combined** | **7.3/10** | **Good but needs refinement** |
+-->
+| Visual | 18/25 | Card spacing inconsistent, chart labels small on mobile |
+| UX | 26/35 | Good layout, missing error state |
+| Engineering | 18/25 | Components work but need accessibility labels |
+| Performance | 12/20 | Large bundle size, no dynamic imports |
+| Security | 13/15 | Minor script validation warnings |
+| **Total** | **87/120** | **Failed Quality Gate (Below 95/120 threshold)** |
 
 **Refinements Made:**
 
@@ -223,7 +231,10 @@ REQUIRED:
    - Chart data has table fallback
    - Focus states visible
 
+<!-- ORIGINAL RE-SCORE:
 **Re-score:** 9.2/10 ✅
+-->
+**Re-score:** 112/120 ✅ (Passed shipping gate)
 
 ---
 
@@ -359,10 +370,18 @@ REFERENCE:
 
 | Dimension | Before | After |
 |:---|:---|:---|
+<!-- ORIGINAL 10-POINT SCORECARD:
 | Visual | 6/10 | 9/10 |
 | UX | 7/10 | 9/10 |
 | Engineering | 8/10 | 9/10 |
 | **Combined** | **7.0/10** | **9.0/10** |
+-->
+| Visual | 12/25 | 22/25 |
+| UX | 22/35 | 31/35 |
+| Engineering | 18/25 | 22/25 |
+| Performance | 12/20 | 18/20 |
+| Security | 11/15 | 15/15 |
+| **Total** | **75/120** | **108/120** |
 
 **Key improvements:**
 - Added keyboard shortcuts (a, r, j, k)
@@ -383,7 +402,10 @@ REFERENCE:
 **Users:** Patients (ages 18-75, varying tech comfort)  
 **Problem:** Patients confused about appointments, prescriptions, test results  
 **Constraint:** Privacy & accessibility critical (older patients)  
+<!-- ORIGINAL RESULT:
 **Result:** Shipped, 91/100 quality score
+-->
+**Result:** Shipped, 109/120 quality score
 
 ---
 
@@ -396,7 +418,10 @@ REFERENCE:
 
 ### Generated & Shipped
 
-**Framework scored 9.1/10**  
+<!-- ORIGINAL SCORE:
+**Framework scored 9.1/10**
+-->
+**Framework scored 109/120**  
 **User satisfaction:** 92% found it easy to use  
 **Accessibility:** WCAG AAA passed, VoiceOver tested
 
@@ -410,7 +435,10 @@ REFERENCE:
 **Users:** Everyone (non-technical to power users)  
 **Problem:** Real-time message streaming, state management complexity  
 **Constraint:** Fast, responsive, works on 4G  
+<!-- ORIGINAL RESULT:
 **Result:** Shipped, 90/100 quality score
+-->
+**Result:** Shipped, 108/120 quality score
 
 ---
 
@@ -423,7 +451,10 @@ REFERENCE:
 
 ### Generated & Shipped
 
-**Framework scored 9.0/10**  
+<!-- ORIGINAL SCORE:
+**Framework scored 9.0/10**
+-->
+**Framework scored 108/120**  
 **Performance:** Works on 4G + 1.5 Mbps connection  
 **User satisfaction:** "Feels as snappy as ChatGPT"
 
@@ -437,7 +468,10 @@ REFERENCE:
 **Users:** Warehouse workers + managers  
 **Problem:** Current system is slow, has 2-year backlog of features  
 **Constraint:** Needs offline support, barcode scanning  
+<!-- ORIGINAL RESULT:
 **Result:** Shipped, 88/100 quality score
+-->
+**Result:** Shipped, 105/120 quality score
 
 ---
 
@@ -450,7 +484,10 @@ REFERENCE:
 
 ### Generated & Shipped
 
-**Framework scored 8.8/10**  
+<!-- ORIGINAL SCORE:
+**Framework scored 8.8/10**
+-->
+**Framework scored 105/120**  
 **Productivity gain:** 40% faster inventory processing  
 **User satisfaction:** Workers prefer it to old system 10:1
 

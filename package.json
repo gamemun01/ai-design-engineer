@@ -11,6 +11,7 @@
     "lint:md": "npx markdownlint-cli '**/*.md'",
     "lint": "npm run lint:md",
     "validate-skill": "node scripts/validate-skill.js",
+    "check-links": "node scripts/check-links.js",
     "docs": "node -e \"console.log('Open docs/overview.md for repository documentation.')\"",
     "preview": "npx serve ."
   },

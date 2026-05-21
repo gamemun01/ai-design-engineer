@@ -12,8 +12,11 @@ const requiredSections = [
   '## Example Usage (Few-Shot Example)'
 ];
 
-const requiredYamlKeys = ['name', 'description'];
-const allowedYamlKeys = ['name', 'description'];
+// Original keys commented out to preserve history (Rule #1)
+// const requiredYamlKeys = ['name', 'description'];
+// const allowedYamlKeys = ['name', 'description', 'version', 'stack_compat', 'last_reviewed'];
+const requiredYamlKeys = ['name', 'description', 'version', 'stack_compat', 'last_reviewed'];
+const allowedYamlKeys = ['name', 'description', 'version', 'stack_compat', 'last_reviewed'];
 
 function findSkillFiles(dir, fileList = []) {
   if (!fs.existsSync(dir)) return fileList;
@@ -103,7 +106,7 @@ for (const filePath of skillFiles) {
 
   if (extraYamlKeys.length > 0) {
     console.error(`  Error: Non-standard YAML keys found: ${extraYamlKeys.join(', ')}`);
-    console.error('  Standard SKILL.md frontmatter should contain only name and description.');
+    console.error('  Standard SKILL.md frontmatter should contain only standard keys.');
     hasErrors = true;
   }
 
@@ -118,6 +121,29 @@ for (const filePath of skillFiles) {
     hasErrors = true;
   } else {
     console.log('  OK: All required section headings are present.');
+    
+    // Check if each required section actually has content (non-empty body)
+    for (const section of requiredSections) {
+      const idx = content.indexOf(section);
+      if (idx === -1) continue;
+      
+      // Find the start of the next required section in the content
+      let nextIdx = content.length;
+      for (const otherSection of requiredSections) {
+        if (otherSection === section) continue;
+        const otherIdx = content.indexOf(otherSection);
+        if (otherIdx > idx && otherIdx < nextIdx) {
+          nextIdx = otherIdx;
+        }
+      }
+      
+      const sectionBody = content.slice(idx + section.length, nextIdx);
+      const trimmedBody = sectionBody.trim();
+      if (trimmedBody.length < 20) {
+        console.error(`  Error: Section "${section}" lacks substantial content body (length: ${trimmedBody.length}).`);
+        hasErrors = true;
+      }
+    }
   }
 
   console.log('');

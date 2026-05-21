@@ -1,10 +1,17 @@
 ---
 name: design-system-governance
 description: Enforce design-system rules, spacing scales, typography hierarchy, semantic color roles, accessibility constraints, and component contracts. Use when auditing generated UI, creating design tokens, reviewing component consistency, or preventing arbitrary styles.
+version: "2.1.0"
+stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
+last_reviewed: "2026-05"
 ---
 <!-- markdownlint-disable -->
 
 # Design System Governance — AI Design Engineer
+
+> [!WARNING]
+> **Tailwind CSS v4 Transition Compatibility Note:**
+> Tailwind v4 replaces CSS-in-JS `tailwind.config.js` with CSS-first configuration. Token names and standard classes remain the same, but custom color/spacing definitions must be declared in the main CSS file using `@theme` syntax instead of JavaScript exports. See: [tailwindcss.com/docs/v4-beta](https://tailwindcss.com/docs/v4-beta)
 
 ## Trigger Description
 
