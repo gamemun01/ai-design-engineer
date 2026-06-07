@@ -1,252 +1,226 @@
 <!-- markdownlint-disable -->
-# 🤖 AI Design Engineer Framework
-
 <div align="center">
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Node.js Version](https://img.shields.io/badge/Node.js-%3E%3D16.x-green.svg)](https://nodejs.org/)
-[![Linter: markdownlint](https://img.shields.io/badge/Linter-markdownlint-brightgreen.svg)](https://github.com/DavidAnson/markdownlint)
-[![Framework Stack](https://img.shields.io/badge/Stack-React%20%7C%20Next.js%20%7C%20Tailwind%20%7C%20shadcn%2Fui-orange.svg)](#6️⃣-ai-to-code-pipeline--06-ai-to-code)
+# 🤖 AI Design Engineer
 
-**From Idea ➔ UX ➔ UI ➔ Component ➔ Code ➔ Review ➔ Production**
+### The open-source framework for AI-assisted design engineering
+**From idea → UX → UI → code → review → production**
 
-Framework ครบวงจรสำหรับสร้าง UI/UX ขั้นมืออาชีพด้วย AI — ไม่ใช่แค่การ Generate UI ที่สวยงามอย่างเดียว แต่เป็นการสร้างผลิตภัณฑ์ที่ใช้งานได้จริงในระดับ Enterprise
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-1.1.0-brightgreen.svg)](CHANGELOG.md)
+[![Node 18+](https://img.shields.io/badge/node-18%2B-green.svg)](package.json)
+[![Skills](https://img.shields.io/badge/skills-10-blueviolet.svg)](skills/)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-orange.svg)](CONTRIBUTING.md)
+
+[**Get started**](#-quick-start) · [**Examples**](examples/) · [**Docs**](https://gamemun01.github.io/ai-design-engineer/) · [**Discord**](https://discord.gg/aide)
+
+![Hero banner](assets/hero-banner.png)
 
 </div>
 
 ---
 
-## 💡 Core Philosophy
+## 💡 The problem
 
-> [!NOTE]
-> **"AI มอบความเร็ว องค์ประกอบ และความหลากหลาย (Speed, Variations) — แต่ผู้ใช้ที่เป็นมนุษย์เป็นผู้ชี้นำความคิดผลิตภัณฑ์ การตัดสินใจเรื่อง UX สถาปัตยกรรม และการตัดสินคุณภาพขั้นสุดท้าย (Product Thinking, UX Decisions, Architecture, Quality Judgment)"**
+Most AI-generated UI looks great in a screenshot but breaks in production:
 
----
+- 🎨 **No design system** — colors, spacing, typography all over the place
+- 🚫 **Hero CTA invisible** — pretty visuals, no conversion
+- ♿ **Inaccessible by default** — divs onClick, no ARIA
+- 🧱 **Spaghetti code** — 5,000-line components, no structure
+- 🐛 **"Almost works"** — 4 instances of `any`, console.logs in prod
 
-## ✨ เปรียบเทียบผลลัพธ์ (How It Changes the Game)
-
-| มิติ (Dimensions) | การทำงานทั่วไป (Traditional Generative UI) | ด้วย Framework นี้ (AI Design Engineer Method) |
-| :--- | :--- | :--- |
-| **🎯 โฟกัสหลัก** | เน้น UI ที่ดูสวยงามอย่างเดียว แต่ใช้งานจริงไม่ได้ | UX ที่ใช้งานได้จริง + UI คลีนตรงตามโทเค็นระบบ |
-| **🔄 Workflow** | Design ➔ Generate โค้ดตรงๆ (ขาดการทบทวน) | UX Thinking ➔ Prompt Architecture ➔ AI Generation ➔ Quality Gates |
-| **🎨 Design System** | ไม่มีระบบควบคุม โค้ดที่ได้จัดหน้าไม่ตรงตามมาตรฐาน | **AI-Friendly Design Tokens** + Strict Component Contracts |
-| **💻 Code Output** | โค้ดสเก็ตช์/โครงสร้างซับซ้อน นำไปใช้จริงยาก | **Production-Ready React/Next.js + TS + Tailwind + shadcn/ui** |
-| **🔍 Review Process** | ไม่มีเกณฑ์ชี้วัดคุณภาพ วัดตามความพึงพอใจบุคคล | **Structured Critique Framework (0-120 Scorecard)** |
-| **📖 Case Studies** | คอนเซ็ปต์กว้างๆ ทั่วไป ไม่เห็นภาพหน้างาน | ตัวอย่างการใช้งานจริงในระดับ Enterprise (SaaS, Banking, AI App) |
-| **⚠️ ป้องกันความผิดพลาด** | พึ่งพาความพร้อมของโมเดล (มีโอกาสเกิด Halucination) | **Explicit Anti-Patterns Guide** บล็อกโค้ดเสียก่อนขึ้นโปรดักชัน |
+**AI Design Engineer** fixes this with an **8-phase framework** + **10 specialized skills** that make the human the strategic decision-maker and the AI the executor.
 
 ---
 
-## 🏗️ Complete Framework Pipeline
+## ✨ Before vs After
 
-กระบวนการออกแบบและพัฒนา 8 ขั้นตอนที่ช่วยให้การทำงานร่วมกับ AI มีประสิทธิภาพสูงสุด:
+![Before/After](assets/before-after.png)
 
-```mermaid
-graph TD
-    classDef human fill:#4f46e5,stroke:#312e81,color:#ffffff,stroke-width:2px;
-    classDef ai fill:#0ea5e9,stroke:#0369a1,color:#ffffff,stroke-width:2px;
-    classDef hybrid fill:#10b981,stroke:#047857,color:#ffffff,stroke-width:2px;
+| Dimension | Without framework | With framework |
+|---|---|---|
+| **Production-ready** | ❌ Needs rewrite | ✅ Drop-in |
+| **Score (0-120)** | ~45 | ~107 |
+| **Accessibility** | 4/15 | 13/15 |
+| **Design system** | 3/15 | 14/15 |
+| **Code quality** | 7/15 | 13/15 |
+| **Time to ship** | Days of cleanup | Hours |
 
-    F["1. Foundation <br/>(Mindset & Rules)"]:::human --> UX["2. UX Thinking <br/>(Human-Led Journey)"]:::human
-    UX --> PE["3. Prompt Engineering <br/>(8-Layer Prompt)"]:::hybrid
-    PE --> DS["4. Design System <br/>(Tokens & Contracts)"]:::hybrid
-    DS --> UIG["5. UI Generation <br/>(AI-Powered Variations)"]:::ai
-    UIG --> AC["6. AI-to-Code <br/>(React + Tailwind + shadcn)"]:::ai
-    AC --> RC["7. Review & Critique <br/>(0-120 Quality Gate)"]:::human
-    RC --> PR["8. Production Ready <br/>(Clean Deploy)"]:::hybrid
-
-    subgraph Legend: Roles & Responsibilities
-        direction LR
-        H["Human-Led Tasks"]:::human
-        A["AI-Powered Tasks"]:::ai
-        Hy["Hybrid Co-creation"]:::hybrid
-    end
-```
+See the [full comparison](examples/01-saas-landing/) including source code.
 
 ---
 
-## ⚡ 5-minute Quick Start (for Claude.ai Projects)
+## 🏗 The 8-Phase Pipeline
 
-If you want to start using the framework immediately with Claude.ai Projects or similar AI environments, follow these steps:
+![Pipeline](assets/architecture-pipeline.png)
 
-1. **Setup Custom Instructions:** Copy the contents of [`skills/core-system-prompt/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/core-system-prompt/SKILL.md) and paste it into the **Custom Instructions / Project Instructions** setting of your Claude Project.
-2. **Add Project Files:** Attach [`skills/code-generation/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/code-generation/SKILL.md) (and any other relevant skills from the [`skills/`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/) directory) as Project Files.
-3. **Execute:** Start a new chat and ask the agent: *"Build me a [component] using the framework rules. Follow the code-generation template."*
+| # | Phase | Lead | Output |
+|---|-------|------|--------|
+| 1 | **Foundation** | 🧑 Human | Mindset, rules, brand context |
+| 2 | **UX Thinking** | 🧑 Human | User journey, IA, content brief |
+| 3 | **Prompt Engineering** | 🤝 Hybrid | 8-layer prompts ready for AI |
+| 4 | **Design System** | 🤝 Hybrid | Tokens, components, contracts |
+| 5 | **UI Generation** | 🤖 AI | High-fidelity wireframes + variations |
+| 6 | **AI-to-Code** | 🤖 AI | React/Next.js + TS + Tailwind + shadcn/ui |
+| 7 | **Review & Critique** | 🧑 Human | 0-120 scorecard, blocker list |
+| 8 | **Production Patterns** | 🤝 Hybrid | A11y, SEO, perf, observability |
 
----
-
-## 🪙 Token Budgets & Active Profiles
-
-Loading too many skills simultaneously consumes significant context window (up to 18,000+ tokens) before you start. Refer to [`skills/SKILL_MATRIX.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/SKILL_MATRIX.md) for full size metrics.
-
-| Profile | Active Skills | Estimated Context | Use Case |
-|---|---|---|---|
-| **Minimal (Coding Focus)** | `prompt-context-loading`, `core-system-prompt`, `code-generation`, `review-critique` | ~7,100 tokens | Standard coding tasks and quick component creation. |
-| **Full (End-to-End Design)** | All 10 active skills | ~18,000+ tokens | Complex design planning, system auditing, and multi-agent flows. |
+[Read the deep dive →](docs-site/docs/framework/phases.md)
 
 ---
 
-## 📚 โครงสร้างและเนื้อหาหลัก (8 Main Sections)
+## 🛠 10 Skills Included
 
-### 1️⃣ [Foundation](01-foundation/) — `01-foundation/`
-รากฐานแนวคิดและกฎพื้นฐานสำหรับ AI Design Engineer
-> - บทบาทและความแตกต่างระหว่าง Human vs AI (ใครนำ ใครตาม)
-> - Mindset ของการสร้างสรรค์ UI ร่วมกับ AI
-> - การพิจารณาความพร้อมของระบบและการบริหารจัดการความเสี่ยง (Blast Radius)
+![Skills](assets/skills-grid.png)
 
-### 2️⃣ [Prompt Engineering Patterns](02-prompting-patterns/) — `02-prompting-patterns/`
-เทคนิคการเขียน Prompt ด้วยโครงสร้าง 8 เลเยอร์ เพื่อการถอดรหัสของโมเดลอย่างแม่นยำ
-> - **8-Layer Prompt Architecture**: ไล่ตั้งแต่ Product Context, User Context ไปจนถึง Technical Constraints
-> - **Pattern Library**: เทมเพลตสำหรับ SaaS, Fintech, Healthcare, Admin Panel และ AI Agents
+| Skill | Purpose | Token cost |
+|---|---|---|
+| [`core-system-prompt`](skills/core-system-prompt/) | Set AI role, rules, tone | ~800 |
+| [`prompt-context-loading`](skills/prompt-context-loading/) | Load project context efficiently | ~600 |
+| [`ux-decision-framework`](skills/ux-decision-framework/) | UX thinking before UI | ~1,400 |
+| [`ui-generation-structured`](skills/ui-generation-structured/) | Generate UI variations systematically | ~1,200 |
+| [`design-system-governance`](skills/design-system-governance/) | Enforce tokens & component contracts | ~1,000 |
+| [`code-generation`](skills/code-generation/) | Code templates per stack | ~1,800 |
+| [`review-critique`](skills/review-critique/) | 0-120 scorecard | ~900 |
+| [`refinement-workflow`](skills/refinement-workflow/) | Iterate without regressing | ~700 |
+| [`anti-patterns-detector`](skills/anti-patterns-detector/) | Block bad output early | ~1,100 |
+| [`multi-agent-workflow`](skills/multi-agent-workflow/) | Coordinate multiple AI agents | ~1,500 |
 
-### 3️⃣ [UX Thinking](03-ux-thinking/) — `03-ux-thinking/`
-หัวใจสำคัญของงานออกแบบที่ AI ยังทดแทนไม่ได้และต้องให้มนุษย์นำทาง
-> - การทำ User Journey Mapping และการวาง Task Flow
-> - การควบคุม Cognitive Load และการจัดเรียง Information Architecture
-> - การรับมือเคสพิเศษ (Edge Cases, Empty States, loading)
-
-### 4️⃣ [Design System](04-design-system/) — `04-design-system/`
-ข้อกำหนดการออกแบบที่สอดคล้องกับมาตรฐานโค้ดของทีม
-> - Design Tokens (Typography, spacing, colors, radius, shadows)
-> - Component Contracts และแนวทาง Accessibility (a11y) มาตรฐาน WCAG 2.1 AA
-
-### 5️⃣ [UI Generation](05-ui-generation/) — `05-ui-generation/`
-วิธีสร้างภาพหน้าจอและ UI component ด้วยเครื่องมือ Generative UI ชั้นนำ
-> - แนวทางการใช้ v0, Lovable, 21st.dev และ Claude
-> - UI Checklist เพื่อตรวจสอบความสอดคล้องของรูปแบบก่อนแปลงเป็นโค้ด
-
-### 6️⃣ [AI-to-Code Pipeline](06-ai-to-code/) — `06-ai-to-code/`
-ทรานส์ฟอร์มจากภาพออกแบบสู่โค้ดโปรดักชันอย่างเป็นระบบ
-> - **Core Stack:** React + TypeScript + Tailwind CSS + shadcn/ui
-> - แผนผังการแปลงโทเค็นและโค้ดพร้อมรองรับ 5 UI States (Ideal, Loading, Empty, Error, Partial)
-
-### 7️⃣ [Review & Critique](07-review-critique/) — `07-review-critique/`
-ระบบตรวจสอบคุณภาพแบบวัดผลได้ด้วยตัวเลข
-> - การใช้ **0-120 Scorecard Checklist** วัดความผ่านเกณฑ์ของคุณภาพ Visual, UX และ Code
-> - กฎเกณฑ์เข้มงวดในการระบุ Blocker และการส่งกลับเข้าสู่วงจรการปรับปรุง (Refinement Workflow)
-
-### 8️⃣ [Production Ready](08-production-patterns/) — `08-production-patterns/`
-กรณีศึกษาจากผลิตภัณฑ์จริงที่จัดทำและใช้งานอยู่
-> - แสดงการทำงานตั้งแต่เริ่มต้น: ปัญหา ➔ UX ➔ Prompt ➔ โค้ดและการขัดเกลาจนเสร็จสมบูรณ์
+See [`skills/SKILL_MATRIX.md`](skills/SKILL_MATRIX.md) for which to load when.
 
 ---
 
-## 🛠️ Modular AI Prompt Skills (`skills/`)
+## ⚡ Quick Start
 
-ระบบนี้ออกแบบมาพร้อมกับ **Modular AI-Native Prompts** ที่พัฒนาและรันตรวจสอบอัตโนมัติ เพื่อให้ AI Agents หรือตัวคุณเองสามารถดึงไปใช้งานได้ทันที:
+### Option A: Scaffold a new project (fastest)
 
-| สกิล (Skill Folder) | หน้าที่หลัก (Core Capability) | ไฟล์คำสั่งหลัก (Main Prompt File) |
-| :--- | :--- | :--- |
-| **💡 Context Loading** | โหลดบริบทโปรเจกต์ก่อนเริ่มงานหรือ orchestration | [`skills/prompt-context-loading/SKILL.md`](skills/prompt-context-loading/SKILL.md) |
-| **💡 Core Prompt** | ตั้งค่า Role และข้อกำหนดพื้นฐานการทำงานร่วมกัน | [`skills/core-system-prompt/SKILL.md`](skills/core-system-prompt/SKILL.md) |
-| **🧠 UX Decision** | ออกแบบ User Journey, Task Flow และระบบ Rationale | [`skills/ux-decision-framework/SKILL.md`](skills/ux-decision-framework/SKILL.md) |
-| **🎨 UI Generation** | ควบคุม AI Generative UI ให้ได้ Component ตาม Rules | [`skills/ui-generation-structured/SKILL.md`](skills/ui-generation-structured/SKILL.md) |
-| **📐 Design System** | ตรวจสอบการใช้งาน Tokens และ Components | [`skills/design-system-governance/SKILL.md`](skills/design-system-governance/SKILL.md) |
-| **💻 Code Gen** | สร้างโค้ด React/Next.js + TS + shadcn/ui คุณภาพสูง | [`skills/code-generation/SKILL.md`](skills/code-generation/SKILL.md) |
-| **🔍 Review Gate** | ตรวจสอบคะแนนคุณภาพ 0-120 Scorecard | [`skills/review-critique/SKILL.md`](skills/review-critique/SKILL.md) |
-| **🔄 Refinement** | กระบวนการวนลูปแก้โค้ดและดีไซน์จนกว่าจะผ่านเกณฑ์ | [`skills/refinement-workflow/SKILL.md`](skills/refinement-workflow/SKILL.md) |
-| **🚫 Anti-Patterns** | ดักจับโค้ดเสีย โค้ดขยะ และโครงสร้างที่ไม่ตรงมาตรฐาน | [`skills/anti-patterns-detector/SKILL.md`](skills/anti-patterns-detector/SKILL.md) |
-| **🤖 Multi-Agent** | ประสานงานหลาย Agent ส่งมอบงานอย่างเป็นระบบ | [`skills/multi-agent-workflow/SKILL.md`](skills/multi-agent-workflow/SKILL.md) |
-
-💡 อ่านรายละเอียดเพิ่มเติมและเลือกคู่มือใช้งานตามบริบทได้ที่ [Skill Matrix Guide](skills/SKILL_MATRIX.md)
-
----
-
-## 🎯 แนวทางการศึกษาและใช้งาน (How to Use)
-
-- **สำหรับ Design Leaders / Managers:** เริ่มต้นศึกษาจาก [Foundation](01-foundation/) และ [Review & Critique](07-review-critique/) เพื่อกำหนดกรอบการทำงานและคุณภาพของโปรเจกต์
-- **สำหรับ Designers:** โฟกัสหลักที่ [UX Thinking](03-ux-thinking/) และ [Prompt Engineering Patterns](02-prompting-patterns/) เพื่อดึงประสิทธิภาพสูงสุดในการร่วมงานกับ AI
-- **สำหรับ Developers:** มุ่งเน้นไปที่ [Design System](04-design-system/) และ [AI-to-Code Pipeline](06-ai-to-code/) พร้อมกับการใช้งานระบบลินเตอร์ตรวจสอบโค้ด
-
----
-
-## 📖 Suggested Learning Roadmap
-
-```
-🚀 [Week 1] Foundation & UX Thinking  ➔  📂 01-foundation / 📂 03-ux-thinking
-🔥 [Week 2] Prompt Patterns & 8-Layer ➔  📂 02-prompting-patterns
-🎨 [Week 3] Design System & Tokens    ➔  📂 04-design-system
-💻 [Week 4] UI Gen & Code Pipeline     ➔  📂 05-ui-generation / 📂 06-ai-to-code
-🔍 [Week 5] Critique & Scorecard Gate ➔  📂 07-review-critique
-🏁 [Week 6+] Ship Products (Enterprise)➔  📂 08-production-patterns
-```
-
----
-
-## ⚙️ Installation & Validation
-
-### 1. ติดตั้ง Dependencies
 ```bash
+npx create-ai-design-engineer my-saas
+cd my-saas
+```
+
+The scaffolder creates a folder with the framework + a tool adapter for your IDE of choice.
+
+### Option B: Clone the framework directly
+
+```bash
+git clone https://github.com/gamemun01/ai-design-engineer.git
+cd ai-design-engineer
 npm install
 ```
 
-### 2. ตรวจสอบคุณภาพ Prompt & Markdown (Linter & Validator)
+### Option C: Use the framework in an existing project
+
+Copy the skills you need:
+
 ```bash
-# ตรวจสอบโครงสร้าง YAML frontmatter ของ Prompt สกิลทั้งหมด
-npm run validate-skill
+# For Claude Code
+cp -r skills/ /path/to/your-project/.claude/skills/
 
-# ตรวจสอบรูปแบบและคุณภาพของไฟล์เอกสาร Markdown ทั้งโปรเจกต์ (รันบน Windows)
-npx markdownlint-cli README.md AGENTS.md
+# For Cursor
+cp -r skills/ /path/to/your-project/.cursor/skills/
 ```
 
-### 3. รันเพื่อดูตัวอย่างเอกสารแบบ Local Preview
+### 60-second workflow
+
+1. **Load** `skills/core-system-prompt/SKILL.md` into your AI tool
+2. **Load** `skills/prompt-context-loading/SKILL.md` and provide project context
+3. **Run** the prompts from `02-prompting-patterns/` for your task
+4. **Generate** UI with the `ui-generation-structured` skill
+5. **Convert to code** with the `code-generation` skill
+6. **Review** with the `review-critique` 0-120 scorecard
+7. **Polish** with `refinement-workflow` and ship
+
+---
+
+## 🧩 Works with your favorite tools
+
+| Tool | Adapter | Status |
+|---|---|---|
+| **Claude Code** | `.claude/` | ✅ Native |
+| **Cursor** | `.cursor/rules` | ✅ Native |
+| **Windsurf** | `.windsurf/rules` | ✅ Native |
+| **VSCode + Copilot** | `.vscode/settings.json` | ✅ Native |
+| **Claude.ai Projects** | Custom instructions | ✅ Manual |
+| **Cline / Roo Code** | `.clinerules` | ✅ Compatible |
+| **Generic** | System prompt | ✅ Compatible |
+
+See [Tool adapters](docs-site/docs/getting-started/tools.md) for setup.
+
+---
+
+## 📚 Examples
+
+| # | Example | Stack | Score |
+|---|---------|-------|-------|
+| [01](examples/01-saas-landing/) | SaaS landing page (before/after) | Next.js + TS + Tailwind + shadcn/ui | 46 → 107 |
+
+[Browse all examples →](examples/)
+
+---
+
+## 🧪 Validation
+
+The framework comes with validation scripts:
+
 ```bash
-npm run preview
+npm run validate-skill   # Check all SKILL.md files have required structure
+npm run check-links      # Find broken internal links
+npm run lint:md          # Markdown lint
 ```
 
----
-
-## 📂 Directory Layout
-
-```text
-ai-design-engineer/
-├── 01-foundation/              # Foundations, role mapping
-├── 02-prompting-patterns/      # 8-layer prompt architecture
-├── 03-ux-thinking/             # UX strategy, journey flow
-├── 04-design-system/           # Tokens, accessibility
-├── 05-ui-generation/           # Tool template checklist
-├── 06-ai-to-code/              # Tech stack & 5 UI states
-├── 07-review-critique/         # Scoring gate (0-120 check)
-├── 08-production-patterns/     # Enterprise case studies
-├── skills/                     # Nested AI-Native Prompt Skills
-│   ├── prompt-context-loading/ # Repository context loading
-│   ├── core-system-prompt/     # Global AI instruction setup
-│   ├── ux-decision-framework/  # UX design prompt guidelines
-│   ├── ui-generation-structured/# UI patterns and constraints
-│   ├── design-system-governance/# Consistency and tokens checklist
-│   ├── code-generation/        # Production-grade React/Next.js output
-│   ├── review-critique/        # 0-120 scoring scorecard
-│   ├── refinement-workflow/    # Iterative debug prompt
-│   ├── anti-patterns-detector/ # Anti-pattern rules
-│   ├── multi-agent-workflow/   # Multi-agent workflow protocols
-│   ├── SKILL_MATRIX.md         # Framework skill index
-│   └── deprecated/             # Relocated original flat files
-├── assets/                     # UI blueprints & PNG visual assets
-├── docs/                       # Shared documentation files
-└── scripts/                    # Validation scripts & helpers
-```
+CI runs all of these on every PR — see [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
 
 ---
 
-## 📖 Developer & Agent Guide
+## 🗺 Roadmap
 
-สำหรับผู้ใช้ที่เป็น AI Agent หรือต้องการพัฒนาต่อยอดระบบ:
-* โปรดศึกษาแนวทางการเขียนโค้ดและข้อตกลงของ Repository ที่ [AGENTS.md](AGENTS.md)
-* คู่มือด่วนสำหรับ Claude: [CLAUDE.md](CLAUDE.md)
-* คู่มือด่วนสำหรับ Gemini: [GEMINI.md](GEMINI.md)
+- [x] v1.0.0 — 8 phases, 10 skills, MIT license
+- [x] v1.1.0 — `npx` scaffolder, GitHub Actions, docs site
+- [ ] v1.2.0 — 5 more working examples (e-commerce, dashboard, mobile, docs site, blog)
+- [ ] v1.3.0 — Skill test runner with golden outputs
+- [ ] v2.0.0 — Plugin marketplace for community skills
+- [ ] v2.1.0 — Visual regression integration (Chromatic / Percy)
 
----
-
-## 🤝 Contributing & Support
-
-ยินดีต้อนรับทุกความช่วยเหลือและข้อเสนอแนะ! หากคุณมีไอเดียในการปรับปรุงหรือเพิ่มรูปแบบ Prompt หรือเนื้อหาใหม่ สามารถดำเนินการได้ดังนี้:
-1. **Fork** Repository นี้ไปที่บัญชีของคุณ
-2. สร้าง **Feature Branch** (เช่น `git checkout -b feature/cool-prompt`)
-3. ทำการคอมมิตและตรวจสอบความถูกต้องด้วยคำสั่ง `npm run lint` และ `npm run validate-skill`
-4. ส่ง **Pull Request** เพื่อตรวจสอบและรวมเข้าสู่สาขาหลักต่อไป
+See [open issues](https://github.com/gamemun01/ai-design-engineer/issues) for the full list.
 
 ---
 
-## 📜 License
+## 🤝 Contributing
 
-โปรเจกต์นี้จัดทำขึ้นภายใต้เงื่อนไข **MIT License** — สามารถนำแนวคิด เทมเพลต และตัวอย่างทั้งหมดไปใช้งาน ปรับแต่ง หรือใช้งานในเชิงพาณิชย์ได้ฟรีโดยสมบูรณ์
+We welcome PRs for new skills, examples, bug fixes, and docs improvements.
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) first. Quick rules:
+
+1. Fork + create branch from `dev/feature`
+2. Follow the existing structure
+3. Run `npm run lint && npm run validate-skill` before opening PR
+4. Update [CHANGELOG.md](CHANGELOG.md) under `[Unreleased]`
+
+---
+
+## 📄 License
+
+MIT © [gamemun01](https://github.com/gamemun01) and contributors.
+
+See [LICENSE](License) for the full text.
+
+---
+
+## 🙏 Acknowledgments
+
+- The [Anthropic](https://anthropic.com) team for Claude Code and the skills spec
+- The [shadcn](https://ui.shadcn.com) project for the design system foundation
+- The [Tailwind](https://tailwindcss.com) team for tokens-first thinking
+- All contributors and early adopters who push the framework forward
+
+---
+
+<div align="center">
+
+⭐ **Star this repo** if AI Design Engineer helped you ship faster.
+
+[GitHub](https://github.com/gamemun01/ai-design-engineer) · [Docs](https://gamemun01.github.io/ai-design-engineer/) · [Issues](https://github.com/gamemun01/ai-design-engineer/issues) · [Discord](https://discord.gg/aide)
+
+</div>

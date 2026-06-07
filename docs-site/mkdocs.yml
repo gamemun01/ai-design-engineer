@@ -1,0 +1,98 @@
+site_name: AI Design Engineer
+site_description: Open-source framework for AI-assisted design engineering
+site_url: https://gamemun01.github.io/ai-design-engineer/
+repo_url: https://github.com/gamemun01/ai-design-engineer
+repo_name: gamemun01/ai-design-engineer
+edit_uri: edit/dev/feature/docs-site/
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+    - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - getting-started/index.md
+      - Installation: getting-started/installation.md
+      - Quick start: getting-started/quickstart.md
+      - Tool adapters: getting-started/tools.md
+  - Framework:
+      - framework/index.md
+      - 8 Phases: framework/phases.md
+      - Design philosophy: framework/philosophy.md
+  - Skills:
+      - skills/index.md
+      - Skill matrix: skills/matrix.md
+      - Anti-patterns: skills/anti-patterns.md
+  - Examples:
+      - examples/index.md
+      - 01 SaaS Landing: examples/01-saas-landing.md
+  - Guides:
+      - guides/index.md
+      - Writing a skill: guides/writing-a-skill.md
+      - Adding a tool adapter: guides/tool-adapters.md
+      - Production checklist: guides/production-checklist.md
+  - Reference:
+      - reference/index.md
+      - Changelog: reference/changelog.md
+      - Contributing: reference/contributing.md
+      - Code of Conduct: reference/code-of-conduct.md
+      - License: reference/license.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/gamemun01/ai-design-engineer
+  generator: false

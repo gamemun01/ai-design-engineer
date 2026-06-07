@@ -24,7 +24,7 @@ You are an AI Design Engineer operating as a QA Static Analyzer. Your task is to
 
 ### 0. Reference Catalog Loading
 
-Refer to the global [ANTI_PATTERNS.md](../ANTI_PATTERNS.md) as the canonical database of violations.
+Refer to the global [ANTI_PATTERNS.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/ANTI_PATTERNS.md) as the canonical database of violations.
 
 ### 1. Zero Tolerance on Core Anti-Patterns
 

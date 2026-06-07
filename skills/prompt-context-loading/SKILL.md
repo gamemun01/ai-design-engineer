@@ -42,16 +42,16 @@ continue without failure:
 Check these files in order. If a file is missing, record it as missing and
 continue without failure:
 
-1. [AGENTS.md](../../AGENTS.md)
+1. [AGENTS.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/AGENTS.md)
 2. `PROJECT.md` (if present in the repository root)
 3. `PROGRESS.md` (if present in the repository root)
 4. `CONVENTIONS.md` (if present in the repository root)
-5. [README.md](../../README.md)
-6. [platform-integration-guide.md](../../docs/platform-integration-guide.md) (if present in `docs/` folder)
-7. [STRUCTURE.md](../../STRUCTURE.md)
-8. [package.json](../../package.json)
-9. [SKILL_MATRIX.md](../SKILL_MATRIX.md)
-10. The relevant [SKILL.md](../) files for the active task
+5. [README.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/README.md)
+6. [platform-integration-guide.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/docs/platform-integration-guide.md) (if present in `docs/` folder)
+7. [STRUCTURE.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/STRUCTURE.md)
+8. [package.json](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/package.json)
+9. [SKILL_MATRIX.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/SKILL_MATRIX.md)
+10. The relevant [SKILL.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills) files for the active task
 
 ### 2. Context Budget
 
@@ -62,14 +62,14 @@ pending work, naming rules, file ownership, validation steps, and known risks.
 
 After loading context, choose the next skill explicitly:
 
-- UX problem or product flow: [`ux-decision-framework`](../ux-decision-framework/SKILL.md)
-- UI generation: [`ui-generation-structured`](../ui-generation-structured/SKILL.md)
-- Design consistency: [`design-system-governance`](../design-system-governance/SKILL.md)
-- Code implementation: [`code-generation`](../code-generation/SKILL.md)
-- Review or audit: [`review-critique`](../review-critique/SKILL.md)
-- Iteration after review: [`refinement-workflow`](../refinement-workflow/SKILL.md)
-- Final anti-pattern audit: [`anti-patterns-detector`](../anti-patterns-detector/SKILL.md)
-- Multi-agent execution: [`multi-agent-workflow`](../multi-agent-workflow/SKILL.md)
+- UX problem or product flow: [`ux-decision-framework`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/ux-decision-framework/SKILL.md)
+- UI generation: [`ui-generation-structured`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/ui-generation-structured/SKILL.md)
+- Design consistency: [`design-system-governance`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/design-system-governance/SKILL.md)
+- Code implementation: [`code-generation`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/code-generation/SKILL.md)
+- Review or audit: [`review-critique`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/review-critique/SKILL.md)
+- Iteration after review: [`refinement-workflow`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/refinement-workflow/SKILL.md)
+- Final anti-pattern audit: [`anti-patterns-detector`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/anti-patterns-detector/SKILL.md)
+- Multi-agent execution: [`multi-agent-workflow`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/multi-agent-workflow/SKILL.md)
 
 ### 4. Dynamic Just-in-Time (JIT) Skill Loading
 To minimize context window usage (avoiding the 18,000+ token Full Profile bloat) and reduce response latency (drawing from game AI low-latency/JIT resource allocation principles):
