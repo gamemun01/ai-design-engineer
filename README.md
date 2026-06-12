@@ -76,16 +76,16 @@ See the [full comparison](examples/01-saas-landing/) including source code.
 
 | Skill | Purpose | Token cost |
 |---|---|---|
-| [`core-system-prompt`](skills/core-system-prompt/) | Set AI role, rules, tone | ~800 |
-| [`prompt-context-loading`](skills/prompt-context-loading/) | Load project context efficiently | ~600 |
-| [`ux-decision-framework`](skills/ux-decision-framework/) | UX thinking before UI | ~1,400 |
-| [`ui-generation-structured`](skills/ui-generation-structured/) | Generate UI variations systematically | ~1,200 |
-| [`design-system-governance`](skills/design-system-governance/) | Enforce tokens & component contracts | ~1,000 |
-| [`code-generation`](skills/code-generation/) | Code templates per stack | ~1,800 |
-| [`review-critique`](skills/review-critique/) | 0-120 scorecard | ~900 |
-| [`refinement-workflow`](skills/refinement-workflow/) | Iterate without regressing | ~700 |
-| [`anti-patterns-detector`](skills/anti-patterns-detector/) | Block bad output early | ~1,100 |
-| [`multi-agent-workflow`](skills/multi-agent-workflow/) | Coordinate multiple AI agents | ~1,500 |
+| [`core-system-prompt`](skills/foundation/core-system-prompt/) | Set AI role, rules, tone | ~800 |
+| [`prompt-context-loading`](skills/foundation/prompt-context-loading/) | Load project context efficiently | ~600 |
+| [`ux-decision-framework`](skills/ux/ux-decision-framework/) | UX thinking before UI | ~1,400 |
+| [`ui-generation-structured`](skills/ui/ui-generation-structured/) | Generate UI variations systematically | ~1,200 |
+| [`design-system-governance`](skills/ui/design-system-governance/) | Enforce tokens & component contracts | ~1,000 |
+| [`code-generation`](skills/code/code-generation/) | Code templates per stack | ~1,800 |
+| [`review-critique`](skills/quality/review-critique/) | 0-120 scorecard | ~900 |
+| [`refinement-workflow`](skills/quality/refinement-workflow/) | Iterate without regressing | ~700 |
+| [`anti-patterns-detector`](skills/quality/anti-patterns-detector/) | Block bad output early | ~1,100 |
+| [`multi-agent-workflow`](skills/orchestration/multi-agent-workflow/) | Coordinate multiple AI agents | ~1,500 |
 
 See [`skills/SKILL_MATRIX.md`](skills/SKILL_MATRIX.md) for which to load when.
 
@@ -124,8 +124,8 @@ cp -r skills/ /path/to/your-project/.cursor/skills/
 
 ### 60-second workflow
 
-1. **Load** `skills/core-system-prompt/SKILL.md` into your AI tool
-2. **Load** `skills/prompt-context-loading/SKILL.md` and provide project context
+1. **Load** `skills/foundation/core-system-prompt/SKILL.md` into your AI tool
+2. **Load** `skills/foundation/prompt-context-loading/SKILL.md` and provide project context
 3. **Run** the prompts from `02-prompting-patterns/` for your task
 4. **Generate** UI with the `ui-generation-structured` skill
 5. **Convert to code** with the `code-generation` skill

@@ -68,14 +68,14 @@ After loading context, choose the next skill explicitly:
 
 | Routing Target | Skill |
 |---|---|
-| UX problem or product flow | [`ux-decision-framework`](../ux/ux-decision-framework/SKILL.md) |
-| UI generation | [`ui-generation-structured`](../ui/ui-generation-structured/SKILL.md) |
-| Design consistency | [`design-system-governance`](../ui/design-system-governance/SKILL.md) |
-| Code implementation | [`code-generation`](../code/code-generation/SKILL.md) |
-| Review or audit | [`review-critique`](../quality/review-critique/SKILL.md) |
-| Iteration after review | [`refinement-workflow`](../quality/refinement-workflow/SKILL.md) |
-| Final anti-pattern audit | [`anti-patterns-detector`](../quality/anti-patterns-detector/SKILL.md) |
-| Multi-agent execution | [`multi-agent-workflow`](../orchestration/multi-agent-workflow/SKILL.md) |
+| UX problem or product flow | [`ux-decision-framework`](../../ux/ux-decision-framework/SKILL.md) |
+| UI generation | [`ui-generation-structured`](../../ui/ui-generation-structured/SKILL.md) |
+| Design consistency | [`design-system-governance`](../../ui/design-system-governance/SKILL.md) |
+| Code implementation | [`code-generation`](../../code/code-generation/SKILL.md) |
+| Review or audit | [`review-critique`](../../quality/review-critique/SKILL.md) |
+| Iteration after review | [`refinement-workflow`](../../quality/refinement-workflow/SKILL.md) |
+| Final anti-pattern audit | [`anti-patterns-detector`](../../quality/anti-patterns-detector/SKILL.md) |
+| Multi-agent execution | [`multi-agent-workflow`](../../orchestration/multi-agent-workflow/SKILL.md) |
 
 ### 4. Dynamic Just-in-Time (JIT) Skill Loading
 To minimize context window usage (avoiding the 18,000+ token Full Profile bloat) and reduce response latency (drawing from game AI low-latency/JIT resource allocation principles):
