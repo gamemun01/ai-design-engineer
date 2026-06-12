@@ -1,9 +1,13 @@
 ---
 name: core-system-prompt
 description: Define the AI Design Engineer operating role, constraints, decision rules, and quality baseline. Use when starting a new design or code session, setting system instructions, onboarding an agent, or aligning work before using any other AI design skill.
-version: "2.1.0"
-stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
-last_reviewed: "2026-05"
+version: 2.1.0
+author: gamemun01
+license: MIT
+metadata:
+  hermes:
+    tags: [foundation, role, baseline, system-prompt]
+    related_skills: [prompt-context-loading, ux-decision-framework, code-generation, review-critique]
 ---
 <!-- markdownlint-disable -->
 
@@ -123,3 +127,18 @@ Response:
 
 ยินดีต้อนรับครับ พร้อมเริ่มสร้างระบบ Real-time Dashboard สำหรับออเดอร์ร้านอาหารแล้วครับ กรุณาระบุรายละเอียดฟิลด์ข้อมูลหรือโครงสร้าง API เพิ่มเติมเพื่อเริ่มงานถัดไปครับ
 ```
+
+## Common Pitfalls
+1. Treating this skill as a substitute for `prompt-context-loading` — always load context first so role baselines are anchored to the actual project state.
+2. Skipping the constraint set and letting the model improvise quality rules — re-state the non-negotiable rules in every chat where the skill is active.
+3. Overloading the role with stack-specific assumptions (e.g., 'assume Tailwind v3') when the project may use a different stack — keep the role stack-agnostic and let downstream skills (like `code-generation`) handle stack.
+4. Combining this skill's baseline with conflicting custom instructions without a merge order — declare precedence up front.
+5. Forgetting to re-load this skill after a long conversation — baselines drift; re-inject the role if the model starts violating core rules.
+
+## Verification Checklist
+- [ ] Agent confirms the operating role, constraint set, and decision rules in the first response.
+- [ ] Every downstream skill invocation references back to constraints defined here.
+- [ ] No stack-specific or product-specific assumption is hardcoded into the role prompt.
+- [ ] Custom instructions from the host project are explicitly merged or noted as overrides.
+- [ ] Skill is re-loaded whenever the conversation context changes significantly.
+

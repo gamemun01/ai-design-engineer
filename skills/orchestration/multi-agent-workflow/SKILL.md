@@ -1,9 +1,13 @@
 ---
 name: multi-agent-workflow
 description: Orchestrate specialized UX, UI, frontend, review, accessibility, and refinement agents through explicit CLI adapters and markdown handoff files. Use for Claw-Empire style multi-agent pipelines, team workflows, full product delivery, or any task requiring sequenced agent responsibilities and artifact contracts.
-version: "2.1.0"
-stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
-last_reviewed: "2026-05"
+version: 2.1.0
+author: gamemun01
+license: MIT
+metadata:
+  hermes:
+    tags: [orchestration, multi-agent, pipeline, handoff, cli]
+    related_skills: [prompt-context-loading, core-system-prompt, ux-decision-framework, code-generation, review-critique]
 ---
 <!-- markdownlint-disable -->
 
@@ -340,3 +344,18 @@ UX Agent: read `00-context.md`, produce `10-ux-decision.md`, and include
 product context, top tasks, journey flow, IA rules, accessibility constraints,
 and trade-offs. Do not create visual layouts yet.
 ```
+
+## Common Pitfalls
+1. Orchestrating without explicit CLI adapters — every agent handoff must declare which CLI/transport runs the next step.
+2. Passing context by copy-paste between agents — use markdown handoff files written to disk so each agent reads the same artifact.
+3. Skipping the artifact contract — every handoff must specify input format, output format, and validation step.
+4. Running agents in parallel when they have data dependencies — sequence matters; parallelize only independent sub-tasks.
+5. Letting one agent silently override another's decision — log every agent's output and resolve conflicts via the orchestrator, not by last-write-wins.
+
+## Verification Checklist
+- [ ] Each agent role is named with its CLI adapter (e.g., Claude Code, Codex, Gemini CLI).
+- [ ] Every handoff writes a markdown artifact (e.g., `handoff-ux-to-ui.md`) that the next agent reads.
+- [ ] Artifact contracts specify: required input fields, output format, validation command.
+- [ ] Agent execution order respects data dependencies — independent tasks may parallelize.
+- [ ] Final orchestration log records every agent's input, output, and decision; conflicts are resolved with explicit rationale.
+

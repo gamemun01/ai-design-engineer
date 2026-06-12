@@ -1,9 +1,13 @@
 ---
 name: ui-generation-structured
 description: Generate UI screens, variants, and implementation-ready prompts using the 8-layer prompt architecture and design-system constraints. Use when a UX decision exists and the next step is structured UI generation for dashboards, forms, landing pages, internal tools, or app screens.
-version: "2.1.0"
-stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
-last_reviewed: "2026-05"
+version: 2.1.0
+author: gamemun01
+license: MIT
+metadata:
+  hermes:
+    tags: [ui, generation, prompt, 8-layer, wireframe]
+    related_skills: [ux-decision-framework, design-system-governance, code-generation, review-critique]
 ---
 <!-- markdownlint-disable -->
 
@@ -131,3 +135,18 @@ Response:
         - `<label>` & `<input>`: Single form inputs.
       - `<div>`: Footer containing action buttons (`<button>`).
 ```
+
+## Common Pitfalls
+1. Generating UI without a verified UX brief — refuse or request a brief if the user asks for UI without prior `ux-decision-framework` work.
+2. Skipping the 8-layer prompt architecture layers (Product Context through Technical Constraints) — every layer must be filled or explicitly marked optional with rationale.
+3. Producing only a 'Happy Path' screen — every screen must include 5-state coverage (Ideal, Loading, Empty, Error, Partial).
+4. Hardcoding colors, spacing, or font sizes in the prompt — refer to design tokens or `design-system-governance` rules.
+5. Choosing tools (v0, Lovable, Claude) without justifying the choice — different tools serve different fidelity and control needs.
+
+## Verification Checklist
+- [ ] Prompt follows the 8-layer architecture in order, with each layer filled or marked optional.
+- [ ] Output includes a screen for each of the 5 lifecycle states.
+- [ ] All visual properties (color, spacing, typography) reference design tokens, not hex codes or magic numbers.
+- [ ] Component inventory lists every distinct component with its role and token bindings.
+- [ ] Tool selection (v0, Lovable, 21st.dev, Claude) is documented with rationale.
+

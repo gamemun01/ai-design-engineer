@@ -1,9 +1,14 @@
 ---
 name: code-generation
 description: Convert verified UI specs into production-ready React, Next.js, TypeScript, Tailwind CSS, and shadcn/ui components with semantic HTML, accessibility, lifecycle states, and dependency control. Use when implementation code is requested after UX and design constraints are clear.
-version: "2.1.0"
+version: 2.1.0
+author: gamemun01
+license: MIT
 stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
-last_reviewed: "2026-05"
+metadata:
+  hermes:
+    tags: [code, react, nextjs, typescript, tailwind, shadcn, production]
+    related_skills: [design-system-governance, ui-generation-structured, review-critique, anti-patterns-detector]
 ---
 <!-- markdownlint-disable -->
 
@@ -315,3 +320,19 @@ Response:
 - Ideal: list rendered when data exists
 - Partial: long titles truncated with `title` fallback
 ```
+
+## Common Pitfalls
+1. Treating the first generated component as production-ready — always enforce the 5-state contract and accessibility checks before declaring done.
+2. Importing libraries outside the allowed stack (`react`, `lucide-react`, `clsx`, `tailwind-merge`, `radix-ui` primitives) without explicit human approval — strict dependency control.
+3. Prop-drilling `isLoading` and `error` through components instead of using Suspense boundaries (Next.js `loading.tsx`) and Error Boundaries (`error.tsx`) — use the framework's native patterns.
+4. Rewriting entire files for small changes — present targeted diffs with `// ... existing code ...` placeholders to minimize blast radius.
+5. Defaulting to Client Components (`'use client'`) when a Server Component would suffice — build RSC by default; only add `'use client'` for browser APIs, event listeners, or stateful hooks.
+
+## Verification Checklist
+- [ ] Every data-driven component implements all 5 lifecycle states with accessible indicators (`aria-busy`, `aria-live`).
+- [ ] Dependencies match the allowlist; no new npm packages were introduced without explicit human approval.
+- [ ] Server vs Client component decision is explicit and documented per file.
+- [ ] Code changes are presented as targeted diffs, not full-file rewrites.
+- [ ] Semantic HTML is used (`<button>`, `<main>`, `<nav>`); `<div onClick>` is rejected unless `role="button"` and keyboard handlers are added.
+- [ ] API contracts are typed (TypeScript interfaces) before any fetcher is written.
+

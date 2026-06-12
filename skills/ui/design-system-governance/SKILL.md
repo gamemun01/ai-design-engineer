@@ -1,9 +1,13 @@
 ---
 name: design-system-governance
 description: Enforce design-system rules, spacing scales, typography hierarchy, semantic color roles, accessibility constraints, and component contracts. Use when auditing generated UI, creating design tokens, reviewing component consistency, or preventing arbitrary styles.
-version: "2.1.0"
-stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
-last_reviewed: "2026-05"
+version: 2.1.0
+author: gamemun01
+license: MIT
+metadata:
+  hermes:
+    tags: [design-system, tokens, governance, accessibility, audit]
+    related_skills: [ux-decision-framework, ui-generation-structured, code-generation, review-critique, anti-patterns-detector]
 ---
 <!-- markdownlint-disable -->
 
@@ -163,3 +167,18 @@ Change the code to use semantic tokens:
 +<div role="alert" className="bg-danger text-danger-foreground p-4 rounded-md text-base font-bold">Alert!</div>
 ```
 ```
+
+## Common Pitfalls
+1. Auditing only one dimension (e.g., only spacing) — visual consistency is multi-dimensional (spacing, typography, color, radius, shadows, motion).
+2. Accepting 'looks fine' as evidence of governance — require token references in the code, not visual review alone.
+3. Allowing hardcoded values to slip in via copy-paste (`w-[23px]`, `bg-[#f0f3f5]`) — grep the codebase and block on findings.
+4. Confusing semantic color roles (primary, danger, surface) with palette names (blue-500, red-500) — token names must describe role, not appearance.
+5. Skipping accessibility (WCAG 2.1 AA) until the end — bake contrast and focus rules into the token definitions from the start.
+
+## Verification Checklist
+- [ ] Token audit covers: spacing scale, typography scale, color roles, radius scale, shadow scale, motion tokens.
+- [ ] No hardcoded magic styles found via `rg "\\[#\\w+\\]"` or `rg "w-\\[\\d+\\]"`.
+- [ ] Every component uses semantic token names, not raw color/hex values.
+- [ ] WCAG 2.1 AA contrast ratios verified for all color role pairs (text on background, danger on surface, etc.).
+- [ ] Token export (JSON) matches what the code imports — no drift between design and implementation.
+

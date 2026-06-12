@@ -1,9 +1,13 @@
 ---
 name: prompt-context-loading
 description: Load repository context before AI Design Engineer work by reading canonical guide files, project progress files, conventions, package scripts, and relevant skill indexes. Use at the start of a session, before multi-agent orchestration, before large edits, or whenever PROJECT.md, PROGRESS.md, CONVENTIONS.md, AGENTS.md, README.md, or skill routing context may affect the answer.
-version: "2.1.0"
-stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
-last_reviewed: "2026-05"
+version: 2.1.0
+author: gamemun01
+license: MIT
+metadata:
+  hermes:
+    tags: [foundation, context, orchestration, jit]
+    related_skills: [core-system-prompt, multi-agent-workflow, ux-decision-framework, code-generation]
 ---
 <!-- markdownlint-disable -->
 
@@ -42,16 +46,16 @@ continue without failure:
 Check these files in order. If a file is missing, record it as missing and
 continue without failure:
 
-1. [AGENTS.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/AGENTS.md)
-2. `PROJECT.md` (if present in the repository root)
-3. `PROGRESS.md` (if present in the repository root)
-4. `CONVENTIONS.md` (if present in the repository root)
-5. [README.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/README.md)
-6. [platform-integration-guide.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/docs/platform-integration-guide.md) (if present in `docs/` folder)
-7. [STRUCTURE.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/STRUCTURE.md)
-8. [package.json](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/package.json)
-9. [SKILL_MATRIX.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/SKILL_MATRIX.md)
-10. The relevant [SKILL.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills) files for the active task
+| 1. [AGENTS.md](../../../AGENTS.md) (must exist)
+| 2. `PROJECT.md` (if present in the repository root)
+| 3. `PROGRESS.md` (if present in the repository root)
+| 4. `CONVENTIONS.md` (if present in the repository root)
+| 5. [README.md](../../../README.md) (recommended)
+| 6. [platform-integration-guide.md](../../../docs/platform-integration-guide.md) (if present in `docs/` folder)
+| 7. [STRUCTURE.md](../../../STRUCTURE.md) (recommended)
+| 8. [package.json](../../../package.json) (recommended)
+| 9. [SKILL_MATRIX.md](../../SKILL_MATRIX.md) (recommended)
+| 10. The relevant [SKILL.md](../../) files for the active task (per skill) |
 
 ### 2. Context Budget
 
@@ -62,14 +66,16 @@ pending work, naming rules, file ownership, validation steps, and known risks.
 
 After loading context, choose the next skill explicitly:
 
-- UX problem or product flow: [`ux-decision-framework`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/ux-decision-framework/SKILL.md)
-- UI generation: [`ui-generation-structured`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/ui-generation-structured/SKILL.md)
-- Design consistency: [`design-system-governance`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/design-system-governance/SKILL.md)
-- Code implementation: [`code-generation`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/code-generation/SKILL.md)
-- Review or audit: [`review-critique`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/review-critique/SKILL.md)
-- Iteration after review: [`refinement-workflow`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/refinement-workflow/SKILL.md)
-- Final anti-pattern audit: [`anti-patterns-detector`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/anti-patterns-detector/SKILL.md)
-- Multi-agent execution: [`multi-agent-workflow`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/multi-agent-workflow/SKILL.md)
+| Routing Target | Skill |
+|---|---|
+| UX problem or product flow | [`ux-decision-framework`](../ux/ux-decision-framework/SKILL.md) |
+| UI generation | [`ui-generation-structured`](../ui/ui-generation-structured/SKILL.md) |
+| Design consistency | [`design-system-governance`](../ui/design-system-governance/SKILL.md) |
+| Code implementation | [`code-generation`](../code/code-generation/SKILL.md) |
+| Review or audit | [`review-critique`](../quality/review-critique/SKILL.md) |
+| Iteration after review | [`refinement-workflow`](../quality/refinement-workflow/SKILL.md) |
+| Final anti-pattern audit | [`anti-patterns-detector`](../quality/anti-patterns-detector/SKILL.md) |
+| Multi-agent execution | [`multi-agent-workflow`](../orchestration/multi-agent-workflow/SKILL.md) |
 
 ### 4. Dynamic Just-in-Time (JIT) Skill Loading
 To minimize context window usage (avoiding the 18,000+ token Full Profile bloat) and reduce response latency (drawing from game AI low-latency/JIT resource allocation principles):
@@ -131,3 +137,18 @@ Response:
 - Reason: the task asks for agent orchestration behavior.
 - Required input artifact: context summary and skill matrix notes.
 ```
+
+## Common Pitfalls
+1. Loading context by pasting entire files into the chat — use summaries only to respect the context budget.
+2. Treating `AGENTS.md` as optional — it is canonical and must always be read first.
+3. Continuing to read past missing optional files (PROJECT.md, PROGRESS.md) without recording them as missing — always report what was checked and what was absent.
+4. Routing to a downstream skill without explicitly naming it and the reason — the routing decision is auditable.
+5. Loading the full 18,000-token skill profile when only one sub-profile is needed — use JIT sub-profile routing to minimize context cost.
+
+## Verification Checklist
+- [ ] Context Loading Summary lists every file checked with Found/Missing status.
+- [ ] Active Constraints section distills rules, commands, naming, validation, and risks — no raw file dumps.
+- [ ] Next Skill section names exactly one skill with a one-line reason and required input artifact.
+- [ ] Token cost of this skill plus the chosen next skill is under the 7,100-token Minimal Profile budget for coding-only tasks.
+- [ ] No absolute `file:///` paths appear in the response (use repo-relative links).
+

@@ -1,9 +1,13 @@
 ---
 name: refinement-workflow
 description: Iteratively improve generated UI or code after review findings by fixing high-impact issues, rescoring, and stopping when quality gates pass. Use after review-critique reports scores below threshold, when the user asks to refine or improve output, or when issues must be resolved without broad rewrites.
-version: "2.1.0"
-stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
-last_reviewed: "2026-05"
+version: 2.1.0
+author: gamemun01
+license: MIT
+metadata:
+  hermes:
+    tags: [refinement, iteration, quality, fix-loop, scope-control]
+    related_skills: [review-critique, anti-patterns-detector, code-generation, design-system-governance]
 ---
 <!-- markdownlint-disable -->
 
@@ -148,3 +152,18 @@ Response:
 - Estimated score after changes: 98/120
 - Remaining concerns: Verify contrast in browser before shipping.
 ````
+
+## Common Pitfalls
+1. Refactoring broadly to 'clean up' — refinement must be targeted at the specific findings from `review-critique`, not a general rewrite.
+2. Continuing iterations past the quality gate threshold — stop as soon as the score passes; more passes waste context and risk regression.
+3. Ignoring the highest-impact findings first — order work by impact (Blockers first, then Major, then Minor).
+4. Re-scoring before fixes are actually applied — always run refinement first, then re-score.
+5. Letting scope creep — refuse to add features during refinement; that is a new task requiring a new `code-generation` or `ux-decision-framework` pass.
+
+## Verification Checklist
+- [ ] Each iteration starts with a list of specific findings to address (from the most recent scorecard).
+- [ ] Iterations stop as soon as the score passes the quality gate threshold — no 'one more pass' loops.
+- [ ] Re-score is run after every iteration; the delta is recorded.
+- [ ] No new features or scope additions are introduced during refinement.
+- [ ] The final iteration produces a scorecard that passes the threshold and a list of remaining acceptable trade-offs.
+

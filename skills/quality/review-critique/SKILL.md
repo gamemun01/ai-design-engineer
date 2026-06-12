@@ -1,9 +1,13 @@
 ---
 name: review-critique
 description: Run a mechanical quality gate for visual quality, UX, accessibility, responsiveness, and engineering readiness using a 0-120 scorecard. Use before shipping UI/code, after generation, after refinement, or when the user asks for critique, review, audit, or production readiness.
-version: "2.1.0"
-stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
-last_reviewed: "2026-05"
+version: 2.1.0
+author: gamemun01
+license: MIT
+metadata:
+  hermes:
+    tags: [review, critique, scorecard, quality-gate, 0-120, audit]
+    related_skills: [code-generation, design-system-governance, anti-patterns-detector, refinement-workflow]
 ---
 <!-- markdownlint-disable -->
 
@@ -136,3 +140,19 @@ Response:
 #### 🟢 Low Priority (Polish)
 1. **Refactor Colors:** Map arbitrary borders to `border-border` style token.
 ```
+
+## Common Pitfalls
+1. Treating the 0-120 scorecard as a single number — the breakdown (Visual / UX / Engineering / Performance / Security) reveals where to fix.
+2. Running critique before the 5-state contract is satisfied — components with missing states cannot pass regardless of aesthetic.
+3. Accepting subjective 'looks good' feedback as a pass — require evidence (token references, a11y check output, lighthouse score) per dimension.
+4. Letting the score drift between iterations — re-score after every refinement pass; do not assume improvement without measurement.
+5. Skipping the Security dimension for non-security projects — prompt injection and dependency leakage apply to any AI-generated UI.
+
+## Verification Checklist
+- [ ] Scorecard reports all 5 dimensions with sub-scores and a total (0-120).
+- [ ] Each sub-score is backed by an explicit checklist item (not a vibe).
+- [ ] Visual sub-score confirms token usage and 5-state coverage.
+- [ ] UX sub-score confirms accessibility (WCAG 2.1 AA) and responsive breakpoints.
+- [ ] Engineering sub-score confirms type safety, dependency control, and component size.
+- [ ] Score is reproducible — running critique twice on the same artifact yields the same number.
+

@@ -1,9 +1,13 @@
 ---
 name: anti-patterns-detector
 description: Detect AI design and frontend anti-patterns using the repository anti-pattern catalog, including visual, UX, accessibility, code, workflow, and production-readiness issues. Use for pre-shipping audits, recurring problem diagnosis, or when output feels inconsistent, inaccessible, overdesigned, or hard to maintain.
-version: "2.1.0"
-stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
-last_reviewed: "2026-05"
+version: 2.1.0
+author: gamemun01
+license: MIT
+metadata:
+  hermes:
+    tags: [anti-patterns, qa, audit, detector, catalog]
+    related_skills: [design-system-governance, code-generation, review-critique, refinement-workflow]
 ---
 <!-- markdownlint-disable -->
 
@@ -24,7 +28,7 @@ You are an AI Design Engineer operating as a QA Static Analyzer. Your task is to
 
 ### 0. Reference Catalog Loading
 
-Refer to the global [ANTI_PATTERNS.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/ANTI_PATTERNS.md) as the canonical database of violations.
+Refer to the global [ANTI_PATTERNS.md](../../ANTI_PATTERNS.md) as the canonical database of violations.
 
 ### 1. Zero Tolerance on Core Anti-Patterns
 
@@ -181,3 +185,18 @@ Response:
 ## Audit Status
 FAIL. Fix critical token and state violations, then rerun `review-critique`.
 ```
+
+## Common Pitfalls
+1. Auditing only the changed files — anti-patterns often live in inherited code; scan the whole affected area, not just the diff.
+2. Treating findings as suggestions — the 4 core anti-patterns (hardcoded magic styles, non-semantic click handlers, missing states, external dependency leakage) are zero-tolerance and must block ship.
+3. Reporting a finding without a fix — every anti-pattern detection must include the corresponding fix recipe from `ANTI_PATTERNS.md`.
+4. Confusing 'works' with 'compliant' — code that runs but uses `w-[23px]` is still a violation.
+5. Skipping the catalog reference for less-common patterns — the 20-pattern catalog in `ANTI_PATTERNS.md` covers more than the inline checklist.
+
+## Verification Checklist
+- [ ] Scan covers the whole affected area, not just the latest diff.
+- [ ] All 4 zero-tolerance anti-patterns are checked: hardcoded magic styles, non-semantic click handlers, missing lifecycle states, external dependency leakage.
+- [ ] Each finding is classified (Visual / UX / Code / Workflow / Production-Readiness) with a severity (Blocker / Major / Minor).
+- [ ] Each finding includes a concrete fix recipe from the catalog.
+- [ ] Audit produces a pass/fail decision with a ship-or-block recommendation.
+
