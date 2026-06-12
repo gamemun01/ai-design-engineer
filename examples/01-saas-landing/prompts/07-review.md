@@ -9,6 +9,7 @@
 You are a design + engineering quality reviewer. Critique the landing page code in `components/landing/` using the **0-120 scorecard** defined in `skills/review-critique/SKILL.md`.
 
 For each of the 8 categories, score 0-15 and provide:
+
 - **Score** (number)
 - **Strengths** (bullet list)
 - **Issues** (bullet list, each with severity: 🔴 blocker / 🟡 major / 🟢 minor)
@@ -67,6 +68,7 @@ For each of the 8 categories, score 0-15 and provide:
 **Total possible: 120**
 
 **Verdict bands:**
+
 - 100-120: 🏆 Production-ready, ship it
 - 85-99: ✅ Solid, address minor issues
 - 70-84: ⚠️ Needs work, has notable gaps
@@ -74,6 +76,7 @@ For each of the 8 categories, score 0-15 and provide:
 - < 50: 🚫 Not shippable
 
 After scoring, output:
+
 1. The scorecard table
 2. Top 3 blockers (must fix)
 3. Top 3 polish items (nice to fix)

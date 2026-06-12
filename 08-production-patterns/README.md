@@ -31,6 +31,7 @@ This section shows **real-world case studies** where teams used this framework t
 ### 🤔 UX Thinking (Human-Led)
 
 **Research findings:**
+
 - Store owners check analytics 2-3 times per day
 - Average session: < 5 minutes
 - Primary goal: "Is my store doing well today?"
@@ -38,6 +39,7 @@ This section shows **real-world case studies** where teams used this framework t
 - Pain point: Existing competitors' dashboards are cluttered
 
 **User flow:**
+
 1. Log in → Land on dashboard
 2. Scan KPI cards (revenue, orders, conversion)
 3. Check daily chart (revenue trend)
@@ -45,6 +47,7 @@ This section shows **real-world case studies** where teams used this framework t
 5. Decision: Action or move on
 
 **Constraint-driven design:**
+
 - Mobile-first (many owners use phone)
 - Information density: High but scannable
 - Load time: < 2 seconds
@@ -192,6 +195,7 @@ REQUIRED:
 **Prompt sent to:** Claude + v0 (parallel generation)
 
 **AI Output (v0):**
+
 - Generated React component with Tailwind
 - Included Recharts integration
 - Mobile responsive layout
@@ -245,6 +249,7 @@ REQUIRED:
 **User feedback:** "Finally a dashboard I can understand at a glance"
 
 **Production code checklist:**
+
 - ✅ Semantic HTML
 - ✅ WCAG 2.1 AA
 - ✅ Responsive (mobile, tablet, desktop)
@@ -270,12 +275,14 @@ REQUIRED:
 ### 🤔 UX Thinking
 
 **Research findings:**
+
 - Admins process 100-500 transactions per day
 - Power users use keyboard shortcuts heavily
 - Compliance requires full audit trail (immutable logs)
 - Privacy critical—sensitive data never shows unless authorized
 
 **Key decisions:**
+
 - Dense data layout (users are power users)
 - Dark mode by default (user preference)
 - Quick search for transactions
@@ -283,6 +290,7 @@ REQUIRED:
 - Role-based visibility (some admins can't see account numbers)
 
 **User flow:**
+
 1. Search transaction by ID/date/amount
 2. View transaction details (permissions checked)
 3. Review compliance info (who requested, when, why)
@@ -384,6 +392,7 @@ REFERENCE:
 | **Total** | **75/120** | **108/120** |
 
 **Key improvements:**
+
 - Added keyboard shortcuts (a, r, j, k)
 - Dark mode with WCAG AAA contrast
 - Monospace numbers for easy scanning

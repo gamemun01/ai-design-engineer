@@ -19,6 +19,7 @@ This section teaches you how to think like a UX designer—the part that AI stil
 AI can generate UI that looks pretty. But **only humans can reason about why a user needs something this way**.
 
 Examples:
+
 - Why should the CTA be here and not there? → Depends on user journey
 - Should this be a modal or page? → Depends on task complexity
 - Progressive disclosure or show everything? → Depends on cognitive load
@@ -27,21 +28,27 @@ Examples:
 ## Key Concepts
 
 ### User Journeys
+
 Mapping the end-to-end flow from "user has a need" to "user gets value"
 
 ### Task Flows
+
 Breaking down a big process (checkout) into discrete steps
 
 ### Cognitive Load
+
 How much information can a user process at once?
 
 ### Information Architecture
+
 How should content be organized so users can find it?
 
 ### Empty States
+
 What does the page look like when there's no data?
 
 ### Error Handling
+
 What happens when something goes wrong?
 
 ---

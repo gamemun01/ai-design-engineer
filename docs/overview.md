@@ -33,7 +33,7 @@ This repository is a knowledge collection for prompt-based AI agents focused on 
 3. Use the trigger keywords and slash commands from the skill to invoke the prompt when designing or reviewing UI pages.
 4. Refer to the asset images in `assets/` as visual blueprints for the 10 supported page types.
 -->
-1. Choose a skill based on the scenario guide in [`skills/SKILL_MATRIX.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/SKILL_MATRIX.md) (e.g., [`skills/core-system-prompt/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/core-system-prompt/SKILL.md) or [`skills/code-generation/SKILL.md`](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/code-generation/SKILL.md)).
+1. Choose a skill based on the scenario guide in [`skills/SKILL_MATRIX.md`](../skills/SKILL_MATRIX.md) (e.g., [`skills/foundation/core-system-prompt/SKILL.md`](../skills/foundation/core-system-prompt/SKILL.md) or [`skills/code/code-generation/SKILL.md`](../skills/code/code-generation/SKILL.md)).
 2. Copy the `System Instruction` and `Rules & Constraints` sections into your target AI system instructions or Claude project.
 3. Use the trigger instructions and workflows to run design, code generation, and review steps.
 4. Refer to the asset images in `assets/` as visual blueprints for the 10 supported page types.

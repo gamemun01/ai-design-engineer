@@ -33,25 +33,32 @@ This is the most common "first project" for AI-generated design — but it's als
 ## 🚀 Step-by-step (using the framework)
 
 ### Step 1: Foundation (Skill 01)
+
 Load `skills/core-system-prompt/SKILL.md` and `skills/prompt-context-loading/SKILL.md` to set up the agent's role and project context.
 
 **Project context to load:**
+
 - Product: Flowmetric — analytics for B2B SaaS
 - Target users: Product managers, growth teams
 - Brand: trustworthy, modern, data-driven
 - Stack: Next.js 14 (App Router) + TypeScript + Tailwind + shadcn/ui
 
 ### Step 2: UX Thinking (Skill 03)
+
 Open `prompts/02-ux-thinking.md` and execute it. This produces:
+
 - User journey map
 - Information architecture
 - Section-by-section content brief
 
 ### Step 3: Prompt Engineering (Phase 2)
+
 Use the 8-layer prompt from `02-prompting-patterns/` to translate the UX brief into structured prompts for the UI generation step.
 
 ### Step 4: Design System (Skill 05)
+
 Apply the design tokens from `04-design-system/`. For this example we use:
+
 - **Primary:** Indigo 600 (`#4f46e5`)
 - **Accent:** Cyan 500 (`#06b6d4`)
 - **Neutral:** Slate scale
@@ -59,15 +66,19 @@ Apply the design tokens from `04-design-system/`. For this example we use:
 - **Radius:** 0.75rem
 
 ### Step 5: UI Generation (Skill 05)
+
 Generate component variations per section.
 
 ### Step 6: AI-to-Code (Skill 06)
+
 Convert UI to React/Next.js code using `prompts/06-ai-to-code.md` as the system prompt. Output lives in `after/components/`.
 
 ### Step 7: Review (Skill 07)
+
 Run the 0-120 scorecard. See `after/REVIEW.md` for the final score.
 
 ### Step 8: Production Patterns (Phase 8)
+
 Apply accessibility, SEO, performance patterns from `08-production-patterns/`.
 
 ## 📁 Folder structure

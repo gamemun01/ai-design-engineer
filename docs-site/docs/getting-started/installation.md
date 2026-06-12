@@ -118,4 +118,4 @@ See [Tool adapters](tools.md) for a per-IDE walkthrough, or open an issue.
 
 - [Quick start](quickstart.md) — build your first page in 10 minutes
 - [Tool adapters](tools.md) — Claude Code / Cursor / Windsurf / VSCode
-- [8 phases](framework/phases.md) — understand the full pipeline
+- [8 phases](../framework/phases.md) — understand the full pipeline

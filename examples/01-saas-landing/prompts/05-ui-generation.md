@@ -9,6 +9,7 @@
 You are a UI designer. Generate a high-fidelity wireframe description (text + ASCII layout + spacing tokens) for the Flowmetric landing page. Follow the `ui-generation-structured` skill rules strictly.
 
 **Design tokens (locked from Step 4):**
+
 - Primary: `indigo-600` (#4f46e5)
 - Accent: `cyan-500` (#06b6d4)
 - Background base: `white` (#ffffff) and `slate-50` (#f8fafc)
@@ -33,6 +34,7 @@ You are a UI designer. Generate a high-fidelity wireframe description (text + AS
 10. **Footer** — 4-column links + logo + social icons + copyright.
 
 **For each section output:**
+
 - ASCII wireframe OR Figma-style structured text description
 - Tailwind class list for the container
 - Spacing tokens (mt-X, py-X, gap-X)
@@ -40,6 +42,7 @@ You are a UI designer. Generate a high-fidelity wireframe description (text + AS
 - Mobile breakpoint adjustments
 
 **Anti-patterns to avoid:**
+
 - ❌ Center-aligned everything
 - ❌ More than 2 font sizes per section
 - ❌ "Lorem ipsum" — use realistic B2B copy

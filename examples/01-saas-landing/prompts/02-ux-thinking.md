@@ -9,6 +9,7 @@
 You are a senior product designer. Using the `ux-decision-framework` skill rules, design the user journey and information architecture for a SaaS landing page for **Flowmetric** — an analytics platform for B2B product teams.
 
 **Context:**
+
 - Audience: VP Product, Head of Growth, PMs at Series A–C SaaS companies
 - Primary goal: book a 15-min demo
 - Secondary goal: capture email for a free product trial
@@ -29,6 +30,7 @@ You are a senior product designer. Using the `ux-decision-framework` skill rules
 5. **Open Questions** — at least 3 things to validate with user research before coding.
 
 **Constraints:**
+
 - Bias for clarity over cleverness
 - Mobile-first thinking (60%+ traffic is mobile)
 - B2B tone: confident, specific, no vague claims like "revolutionary"

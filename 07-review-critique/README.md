@@ -25,6 +25,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 #### 1️⃣ **Visual Quality** (Does it look good & professional?)
 
 **Spacing & Alignment**
+
 - Are elements aligned to grid? (check: every element should snap to 4px or 8px grid)
 - Is padding consistent? (use tokens, not random values)
 - Do edges align? (left, right, bottom should all be flush or intentionally spaced)
@@ -36,6 +37,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 ```
 
 **Hierarchy & Emphasis**
+
 - Is the primary action obvious? (color, size, placement)
 - Can the eye scan the page in < 5 seconds?
 - Are secondary elements de-emphasized? (smaller, lighter, lower contrast)
@@ -47,6 +49,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 ```
 
 **Color & Contrast**
+
 - Does every text element meet WCAG AA (4.5:1 for normal text)?
 - Is color used consistently? (red = danger, green = success, not mixed)
 - Do you have "visual noise"? (too many colors used?)
@@ -58,6 +61,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 ```
 
 **Typography**
+
 - Is there a clear hierarchy? (H1 > H2 > Body)
 - Are font sizes correct per token? (no custom sizes)
 - Is line-height appropriate? (1.5 for body text minimum)
@@ -69,6 +73,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 ```
 
 **Visual Consistency**
+
 - Do cards look the same style?
 - Are modals consistent with dialogs?
 - Do buttons follow the same pattern?
@@ -84,6 +89,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 #### 2️⃣ **UX Quality** (Is it easy and pleasant to use?)
 
 **Discoverability**
+
 - Is the primary action obvious and accessible?
 - Are secondary options discoverable but not overwhelming?
 - Does the user know what to do next?
@@ -95,9 +101,10 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 ```
 
 **Clarity**
+
 - Can a user understand what each element does without thinking?
 - Is the language clear? (avoid jargon, be specific)
-- Are error messages helpful? ("Invalid email" vs "Invalid format: must be user@example.com")
+- Are error messages helpful? ("Invalid email" vs "Invalid format: must be <user@example.com>")
 - Do icons make sense? (is your "settings" icon actually obvious?)
 
 ```
@@ -106,6 +113,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 ```
 
 **Friction & Efficiency**
+
 - How many clicks to accomplish the goal?
 - Are there unnecessary fields or steps?
 - Can power users speed up the process? (keyboard shortcuts, bulk actions)
@@ -117,6 +125,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 ```
 
 **Consistency**
+
 - Do similar actions work the same way across the app?
 - Are patterns repeated? (good for discoverability)
 - Is navigation consistent?
@@ -127,6 +136,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 ```
 
 **Feedback & Responsiveness**
+
 - Does the user know when something is loading?
 - Is feedback instant (< 100ms) or delayed with indication?
 - Are success/error states clear?
@@ -138,6 +148,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 ```
 
 **Edge Cases**
+
 - What happens when there's no data? (empty state shown?)
 - What happens on error? (helpful message + retry option?)
 - What happens on slow network? (loading states shown?)
@@ -153,6 +164,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 #### 3️⃣ **Engineering Quality** (Can it be built, maintained, scaled?)
 
 **Semantic HTML**
+
 - Are you using correct HTML tags? (<button>, <form>, <input>, not all <div>)
 - Is the DOM structure logical? (hierarchy makes sense)
 - Can a screen reader understand the page?
@@ -163,6 +175,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 ```
 
 **Accessibility**
+
 - WCAG 2.1 AA compliance (minimum standard)
 - Focus states visible on all interactive elements
 - Keyboard navigation works (Tab, Shift+Tab, Enter, Escape)
@@ -179,6 +192,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 ```
 
 **Responsiveness**
+
 - Does it work at 320px (mobile)?
 - Does it work at 768px (tablet)?
 - Does it work at 1920px (desktop)?
@@ -195,6 +209,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 ```
 
 **Performance**
+
 - Lighthouse score > 80
 - First Contentful Paint < 1.5s
 - Largest Contentful Paint < 2.5s
@@ -210,6 +225,7 @@ Critique reviews three independent dimensions: **Visual, UX, Engineering**.
 ```
 
 **Reusability & Maintainability**
+
 - Can this component be used in multiple places?
 - Is the code readable by other team members?
 - Are design tokens used (not hard-coded values)?
@@ -537,6 +553,7 @@ Total Score: 101/120 ✅ READY TO SHIP (Above 95/120 threshold)
 Use this before every deployment:
 
 ### Visual ✓
+
 - [ ] Spacing consistent (using tokens only)
 - [ ] Alignment correct (grid-based)
 - [ ] Colors on-brand and consistent
@@ -544,6 +561,7 @@ Use this before every deployment:
 - [ ] No visual inconsistencies
 
 ### UX ✓
+
 - [ ] Primary action obvious
 - [ ] User can complete task in < 2 min
 - [ ] Error messages helpful
@@ -552,6 +570,7 @@ Use this before every deployment:
 - [ ] Edge cases handled
 
 ### Engineering ✓
+
 - [ ] Semantic HTML
 - [ ] Accessibility: WCAG 2.1 AA
 - [ ] Keyboard navigation works

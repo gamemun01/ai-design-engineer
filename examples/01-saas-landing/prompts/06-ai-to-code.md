@@ -9,6 +9,7 @@
 You are a senior frontend engineer. Convert the wireframes from Step 5 into production-grade React + Next.js 14 (App Router) + TypeScript + Tailwind + shadcn/ui code. Follow the `code-generation` skill template strictly.
 
 **Stack constraints:**
+
 - Next.js 14 App Router (not Pages Router)
 - TypeScript strict mode
 - Tailwind CSS v3.4+
@@ -19,6 +20,7 @@ You are a senior frontend engineer. Convert the wireframes from Step 5 into prod
 - Server Components by default; Client Components only when needed (use `"use client"` directive)
 
 **Component structure rules:**
+
 - One file per section in `components/landing/`
 - Each file exports a default function component
 - Props are typed and minimal (data is in `lib/content.ts`)
@@ -26,6 +28,7 @@ You are a senior frontend engineer. Convert the wireframes from Step 5 into prod
 - No business logic in components; lift to lib/
 
 **Quality gates (enforced):**
+
 - All images use `next/image` with explicit `width` + `height`
 - All links use `next/link`
 - Semantic HTML: `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`
@@ -35,6 +38,7 @@ You are a senior frontend engineer. Convert the wireframes from Step 5 into prod
 - Responsive: mobile-first; test sm/md/lg/xl breakpoints
 
 **Accessibility requirements:**
+
 - Skip-to-content link
 - Focus visible on all interactive elements
 - `aria-label` on icon-only buttons
@@ -44,6 +48,7 @@ You are a senior frontend engineer. Convert the wireframes from Step 5 into prod
 - Keyboard navigation works for: nav menu, accordion, pricing toggle, FAQ
 
 **Output format for each component:**
+
 ```tsx
 "use client" // only if needed
 
@@ -61,6 +66,7 @@ export function Navbar({ ... }: NavbarProps) {
 ```
 
 **Anti-patterns to block (from Skill 10):**
+
 - ❌ `any` type
 - ❌ Inline styles (use Tailwind)
 - ❌ Hard-coded colors outside tokens
@@ -73,6 +79,7 @@ export function Navbar({ ... }: NavbarProps) {
 - ❌ TODO comments in delivered code
 
 **Build order:**
+
 1. `lib/content.ts` — all copy and config
 2. `lib/utils.ts` — `cn()` helper
 3. `components/landing/Navbar.tsx`

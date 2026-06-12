@@ -29,19 +29,20 @@ constraints, and then route to the appropriate downstream skill.
 ## Rules & Constraints
 
 ### 1. Read Order
-<!-- Original read order commented out to preserve history (Rule #1)
+<!-- Original read order commented out to preserve history (Rule #1).
+     Paths normalized to repo-relative form (was file:///D:/SourceCodeAll/...).
 Check these files in order. If a file is missing, record it as missing and
 continue without failure:
 
-1. [AGENTS.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/AGENTS.md)
+1. [AGENTS.md](../../../AGENTS.md)
 2. `PROJECT.md` (if present in the repository root)
 3. `PROGRESS.md` (if present in the repository root)
 4. `CONVENTIONS.md` (if present in the repository root)
-5. [README.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/README.md)
-6. [STRUCTURE.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/STRUCTURE.md)
-7. [package.json](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/package.json)
-8. [SKILL_MATRIX.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/SKILL_MATRIX.md)
-9. The relevant [SKILL.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills) files for the active task
+5. [README.md](../../../README.md)
+6. [STRUCTURE.md](../../../STRUCTURE.md)
+7. [package.json](../../../package.json)
+8. [SKILL_MATRIX.md](../../SKILL_MATRIX.md)
+9. The relevant [SKILL.md](../../) files for the active task
 -->
 Check these files in order. If a file is missing, record it as missing and
 continue without failure:

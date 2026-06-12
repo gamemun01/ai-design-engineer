@@ -4,7 +4,8 @@ const path = require('path');
 function findMdFiles(dir, fileList = []) {
   const files = fs.readdirSync(dir);
   for (const file of files) {
-    if (file === 'node_modules' || file === '.git' || file === '.antigravitycli' || file === '.kilo' || file === '.claude') {
+    // Skip dependency, tooling, VCS, and archive directories.
+    if (file === 'node_modules' || file === '.git' || file === '.antigravitycli' || file === '.kilo' || file === '.claude' || file === 'deprecated') {
       continue;
     }
     const filePath = path.join(dir, file);

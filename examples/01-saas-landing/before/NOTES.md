@@ -13,17 +13,17 @@
 
 ### 🟡 Major
 
-5. **TypeScript `any`** — 4 instances of `any` in event handlers and form types.
-6. **Mixed icon libraries** — uses Lucide in some places, react-icons in others, emoji in one place. Visual inconsistency.
-7. **No mobile menu** — nav links overflow on mobile, broken at 375px.
-8. **Pricing toggle doesn't work** — pure UI, no state management for monthly/annual.
+1. **TypeScript `any`** — 4 instances of `any` in event handlers and form types.
+2. **Mixed icon libraries** — uses Lucide in some places, react-icons in others, emoji in one place. Visual inconsistency.
+3. **No mobile menu** — nav links overflow on mobile, broken at 375px.
+4. **Pricing toggle doesn't work** — pure UI, no state management for monthly/annual.
 
 ### 🟢 Minor
 
-9. **Hard-coded copy** — "Lorem ipsum" in 2 places.
-10. **Console.log left in** — `console.log('CTA clicked')` in `Hero.tsx`.
-11. **No meta tags** — `app/layout.tsx` is missing description, OG image, etc.
-12. **Tailwind class soup** — one element has `bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-xl`
+1. **Hard-coded copy** — "Lorem ipsum" in 2 places.
+2. **Console.log left in** — `console.log('CTA clicked')` in `Hero.tsx`.
+3. **No meta tags** — `app/layout.tsx` is missing description, OG image, etc.
+4. **Tailwind class soup** — one element has `bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-xl`
 
 ## Expected score (without framework)
 
@@ -44,12 +44,14 @@
 ## Why this happens
 
 When you ask an LLM "build a landing page," it defaults to:
+
 - Showing off visual variety (gradients, animations) instead of clarity
 - Using the most-common Tailwind classes (blue-500, gray-900) without a system
 - Optimizing for "looks done" not "is done"
 - Skipping a11y/perf because they're invisible in screenshots
 
 The **AI Design Engineer framework** fixes this by enforcing:
+
 - A token system (Skill 04)
 - Explicit UX decisions before generation (Skill 03)
 - A code review scorecard (Skill 07)

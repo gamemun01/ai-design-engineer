@@ -16,7 +16,7 @@ Create a `.cursorrules` file in the root of your workspace. To avoid token
 bloat while retaining high performance:
 
 1. Copy the system prompt from
-   [core-system-prompt/SKILL.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/core-system-prompt/SKILL.md).
+   [core-system-prompt/SKILL.md](../skills/foundation/core-system-prompt/SKILL.md).
 2. Reference the location of other skills using markdown file paths (e.g.
    `When designing layouts, reference the skills in skills/ux-decision-framework/SKILL.md`).
 3. Cursor will automatically index the repository files, allowing you to
@@ -76,7 +76,7 @@ GitHub Spark builds micro-apps (Sparks) using natural language prompting.
 
 1. When creating a Spark, click **Customize Spark Instructions**.
 2. Paste the contents of
-   [ui-generation-structured/SKILL.md](file:///D:/SourceCodeAll/repos/ToyHermes/ai-design-engineer/skills/ui-generation-structured/SKILL.md)
+   [ui-generation-structured/SKILL.md](../skills/ui/ui-generation-structured/SKILL.md)
    to define visual layout boundaries.
 3. This prevents Spark from creating cluttered layouts, ensuring premium
    mobile-first interfaces by default.

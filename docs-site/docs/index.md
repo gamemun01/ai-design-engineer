@@ -3,7 +3,7 @@
 > **The open-source framework for AI-assisted design engineering.**
 > From idea → UX → UI → component → code → review → production.
 
-![Hero banner](../assets/hero-banner.png){ loading=lazy }
+![Hero banner](assets/hero-banner.png){ loading=lazy }
 
 ---
 
@@ -21,7 +21,7 @@ Most AI-generated UI looks impressive in a screenshot but breaks in production. 
 
 ## 🏗 8-Phase Pipeline
 
-![Pipeline](../assets/architecture-pipeline.png){ loading=lazy }
+![Architecture pipeline](assets/architecture-pipeline.png){ loading=lazy }
 
 | # | Phase | Lead | Output |
 |---|-------|------|--------|
@@ -36,7 +36,7 @@ Most AI-generated UI looks impressive in a screenshot but breaks in production. 
 
 ## 🛠 10 Skills Included
 
-![Skills grid](../assets/skills-grid.png){ loading=lazy }
+![Skills grid](assets/skills-grid.png){ loading=lazy }
 
 | Skill | Purpose |
 |---|---|
