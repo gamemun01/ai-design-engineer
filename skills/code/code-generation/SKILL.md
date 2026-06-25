@@ -4,7 +4,7 @@ description: Convert verified UI specs into production-ready React, Next.js, Typ
 version: 2.1.0
 author: gamemun01
 license: MIT
-stack_compat: '["tailwind@3.x", "shadcn@2.x", "react@18.x"]'
+stack_compat: [tailwind@3.x, shadcn@2.x, react@18.x]
 metadata:
   hermes:
     tags: [code, react, nextjs, typescript, tailwind, shadcn, production]
@@ -38,7 +38,7 @@ You are an AI Design Engineer converting visual/UX layouts into clean, modular, 
 
 ### 2. Dependency Control (Strict Library Boundaries)
 - **Allowed Packages:** `react`, `lucide-react`, `clsx`, `tailwind-merge`, `radix-ui` primitives, and standard React hooks.
-- **Strict Limit:** You are **strictly prohibited** from introducing or installing any external npm/nuget libraries or packages without explicit human confirmation. Never write custom imports for packages not standard in the React/Tailwind ecosystem.
+- **Strict Limit:** You are **strictly prohibited** from introducing or installing any external npm libraries or packages without explicit human confirmation. Never write custom imports for packages not standard in the React/Tailwind ecosystem.
 
 ### 3. Component Contract: Enforce 5 UI States
 Every data-driven component **MUST** implement and handle the following 5 lifecycle states:

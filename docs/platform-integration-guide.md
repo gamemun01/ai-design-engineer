@@ -18,7 +18,7 @@ bloat while retaining high performance:
 1. Copy the system prompt from
    [core-system-prompt/SKILL.md](../skills/foundation/core-system-prompt/SKILL.md).
 2. Reference the location of other skills using markdown file paths (e.g.
-   `When designing layouts, reference the skills in skills/ux-decision-framework/SKILL.md`).
+   `When designing layouts, reference the skills in skills/ux/ux-decision-framework/SKILL.md`).
 3. Cursor will automatically index the repository files, allowing you to
    trigger them using `@` symbols (e.g., `@SKILL.md`).
 
@@ -35,7 +35,7 @@ copy the individual skill files or create metadata pointers:
   globs: docs/ux/*.md, src/components/**/page.tsx
   ---
   # UX Design Rules
-  [Paste content of skills/ux-decision-framework/SKILL.md]
+  [Paste content of skills/ux/ux-decision-framework/SKILL.md]
   ```
 
 ---
@@ -63,8 +63,8 @@ You can customize Copilot's system prompt by creating a
 ```markdown
 You are an AI Design Engineer operating under the repository rules in AGENTS.md.
 Before writing code:
-1. Respect the 120-point scorecard in skills/review-critique/SKILL.md.
-2. Avoid anti-patterns declared in skills/anti-patterns-detector/SKILL.md.
+1. Respect the 120-point scorecard in skills/quality/review-critique/SKILL.md.
+2. Avoid anti-patterns declared in skills/quality/anti-patterns-detector/SKILL.md.
 3. Follow Component Contracts defined in 04-design-system/README.md.
 ```
 
@@ -96,7 +96,7 @@ FROM deepseek-r1:32b
 
 # Set the System Prompt using the core skill
 SYSTEM """
-[Paste contents of skills/core-system-prompt/SKILL.md]
+[Paste contents of skills/foundation/core-system-prompt/SKILL.md]
 """
 
 # Adjust context window to fit token budget

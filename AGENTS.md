@@ -45,9 +45,9 @@ npm run docs             # Print the documentation entry point
 npm run preview          # Serve the repository locally with npx serve .
 ```
 
-There is no build, compile, or application test step. On Windows, if the quoted
-glob in `npm run lint` prints CLI usage, lint targeted files directly, for
-example `npx.cmd markdownlint-cli AGENTS.md`.
+There is no build, compile, or application test step. `npm run lint` uses the
+cross-platform `scripts/lint-all.js` wrapper, so it works on Windows as well as
+POSIX shells.
 
 ## Coding Style & Naming Conventions
 

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-06-25
+
 ### Added
 
 - `npx create-ai-design-engineer` scaffolder with multi-tool support
@@ -28,5 +30,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Validation and link-check scripts
 - Production patterns: enterprise case studies
 
-[Unreleased]: https://github.com/gamemun01/ai-design-engineer/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/gamemun01/ai-design-engineer/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/gamemun01/ai-design-engineer/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/gamemun01/ai-design-engineer/releases/tag/v1.0.0

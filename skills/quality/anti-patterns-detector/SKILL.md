@@ -17,7 +17,7 @@ metadata:
 
 Use this skill as a final safety check after review/refinement or whenever a
 design/code artifact shows recurring AI-generated mistakes. It references the
-full catalog in `../ANTI_PATTERNS.md`; read that file when the audit needs broad
+full catalog in `../../ANTI_PATTERNS.md`; read that file when the audit needs broad
 coverage beyond the core detector checklist.
 
 ## System Instruction

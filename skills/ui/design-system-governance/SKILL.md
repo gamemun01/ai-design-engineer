@@ -4,6 +4,7 @@ description: Enforce design-system rules, spacing scales, typography hierarchy, 
 version: 2.1.0
 author: gamemun01
 license: MIT
+stack_compat: [tailwind, shadcn/ui, design-tokens]
 metadata:
   hermes:
     tags: [design-system, tokens, governance, accessibility, audit]

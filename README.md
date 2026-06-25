@@ -183,6 +183,11 @@ CI runs all of these on every PR — see [`.github/workflows/ci.yml`](.github/wo
 - [ ] v2.0.0 — Plugin marketplace for community skills
 - [ ] v2.1.0 — Visual regression integration (Chromatic / Percy)
 
+> **Note on versioning:** The numbers above are **product versions** (matching
+> `package.json`), not skill schema versions. Each skill's `version` field in its
+> YAML frontmatter tracks the **skill schema version** independently (currently
+> `2.1.0`). The two version tracks are unrelated.
+
 See [open issues](https://github.com/gamemun01/ai-design-engineer/issues) for the full list.
 
 ---

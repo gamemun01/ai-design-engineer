@@ -34,7 +34,7 @@ This is the most common "first project" for AI-generated design — but it's als
 
 ### Step 1: Foundation (Skill 01)
 
-Load `skills/core-system-prompt/SKILL.md` and `skills/prompt-context-loading/SKILL.md` to set up the agent's role and project context.
+Load `skills/foundation/core-system-prompt/SKILL.md` and `skills/foundation/prompt-context-loading/SKILL.md` to set up the agent's role and project context.
 
 **Project context to load:**
 

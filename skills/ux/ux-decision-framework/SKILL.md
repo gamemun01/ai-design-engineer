@@ -258,14 +258,14 @@ Response:
 
 ## Common Pitfalls
 1. Jumping straight to wireframes without documenting the user journey, task flow, and IA — UX rationale must precede visual choices.
-2. Confusing the 4 strategies (Assist, Automate, Augment, Empower) — pick one explicitly and justify the choice in the brief.
+2. Confusing the 4 strategies (Focus, Discover, Control, Assist) — pick one explicitly and justify the choice in the brief.
 3. Skipping accessibility decisions (touch targets, contrast, screen reader labels) until code generation — bake WCAG 2.1 AA rules into the brief from the start.
 4. Producing a UX brief that lists features instead of trade-offs — every decision must record what was chosen AND what was deferred.
 5. Forgetting edge cases (empty state, error state, partial state) at the UX level — the 5-state contract starts here, not in code.
 
 ## Verification Checklist
 - [ ] UX Brief includes: Product Context, User Context, UX Goal, Key Tasks, User Journey, Strategy, IA, Cognitive Load decisions, Accessibility rules, Trade-offs.
-- [ ] Strategy choice (Assist/Automate/Augment/Empower) is explicit with a 'Why it fits' justification.
+- [ ] Strategy choice (Focus/Discover/Control/Assist) is explicit with a 'Why it fits' justification.
 - [ ] All 5 UI states (Ideal, Loading, Empty, Error, Partial) are mapped at the UX level before code work begins.
 - [ ] Touch targets, contrast ratios, and font sizes are specified as concrete numbers, not vibes.
 - [ ] Trade-off section names what was deferred or hidden behind secondary navigation.

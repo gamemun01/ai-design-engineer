@@ -47,16 +47,16 @@ continue without failure:
 Check these files in order. If a file is missing, record it as missing and
 continue without failure:
 
-| 1. [AGENTS.md](../../../AGENTS.md) (must exist)
-| 2. `PROJECT.md` (if present in the repository root)
-| 3. `PROGRESS.md` (if present in the repository root)
-| 4. `CONVENTIONS.md` (if present in the repository root)
-| 5. [README.md](../../../README.md) (recommended)
-| 6. [platform-integration-guide.md](../../../docs/platform-integration-guide.md) (if present in `docs/` folder)
-| 7. [STRUCTURE.md](../../../STRUCTURE.md) (recommended)
-| 8. [package.json](../../../package.json) (recommended)
-| 9. [SKILL_MATRIX.md](../../SKILL_MATRIX.md) (recommended)
-| 10. The relevant [SKILL.md](../../) files for the active task (per skill) |
+1. [AGENTS.md](../../../AGENTS.md) (must exist)
+2. `PROJECT.md` (if present in the repository root)
+3. `PROGRESS.md` (if present in the repository root)
+4. `CONVENTIONS.md` (if present in the repository root)
+5. [README.md](../../../README.md) (recommended)
+6. [platform-integration-guide.md](../../../docs/platform-integration-guide.md) (if present in `docs/` folder)
+7. [STRUCTURE.md](../../../STRUCTURE.md) (recommended)
+8. [package.json](../../../package.json) (recommended)
+9. [SKILL_MATRIX.md](../../SKILL_MATRIX.md) (recommended)
+10. The relevant [SKILL.md](../../) files for the active task (per skill)
 
 ### 2. Context Budget
 
