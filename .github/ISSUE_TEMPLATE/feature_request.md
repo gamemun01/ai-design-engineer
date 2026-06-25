@@ -13,6 +13,7 @@ What pain point does this solve? Why does the current framework not cover it?
 ## Proposed solution
 
 Describe what you want. Be specific:
+
 - New skill? Which phase does it serve? What are its inputs/outputs?
 - New example? Which product type? Which stack?
 - Framework change? Which file/section?

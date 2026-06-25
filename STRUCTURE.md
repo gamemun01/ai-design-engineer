@@ -137,7 +137,7 @@ ai-design-engineer/
 
 ### 1. 01-Foundation (Read First)
 
-**Time: 15-20 min**  
+**Time: 15-20 min**
 **Purpose:** Understand what an AI Design Engineer is and isn't
 
 **Key takeaways:**
@@ -153,7 +153,7 @@ ai-design-engineer/
 
 ### 2. 02-Prompting-Patterns (Essential)
 
-**Time: 30-40 min**  
+**Time: 30-40 min**
 **Purpose:** Learn the 8-layer prompt architecture
 
 **Key takeaways:**
@@ -169,10 +169,10 @@ ai-design-engineer/
 
 ### 3. 03-UX-Thinking (Foundation)
 
-**Time: Coming soon (full content)**  
+**Time: Coming soon (full content)**
 **Purpose:** Learn UX reasoning beyond UI
 
-**Currently:** Outline with key concepts  
+**Currently:** Outline with key concepts
 **Future:** User research, journey maps, task flows
 
 **Read if:** Want to strengthen UX thinking
@@ -181,7 +181,7 @@ ai-design-engineer/
 
 ### 4. 04-Design-System (Critical)
 
-**Time: 25-35 min**  
+**Time: 25-35 min**
 **Purpose:** Define design tokens and component contracts
 
 **Key takeaways:**
@@ -197,10 +197,10 @@ ai-design-engineer/
 
 ### 5. 05-UI-Generation (Reference)
 
-**Time: Coming soon (full content)**  
+**Time: Coming soon (full content)**
 **Purpose:** Learn when/how to use each AI tool
 
-**Currently:** Quick comparison table  
+**Currently:** Quick comparison table
 **Future:** Detailed templates for each tool
 
 **Read if:** Want tool recommendations
@@ -209,10 +209,10 @@ ai-design-engineer/
 
 ### 6. 06-AI-to-Code (Reference)
 
-**Time: Coming soon (full content)**  
+**Time: Coming soon (full content)**
 **Purpose:** Design tokens → production code workflow
 
-**Currently:** Tech stack recommendation + workflow outline  
+**Currently:** Tech stack recommendation + workflow outline
 **Future:** Full code examples and deployment guide
 
 **Read if:** Taking AI UI to production React
@@ -221,7 +221,7 @@ ai-design-engineer/
 
 ### 7. 07-Review-Critique (Essential)
 
-**Time: 30-40 min**  
+**Time: 30-40 min**
 **Purpose:** Establish quality gates before shipping
 
 **Key takeaways:**
@@ -241,7 +241,7 @@ ai-design-engineer/
 
 ### 8. 08-Production-Patterns (Real World)
 
-**Time: 30-45 min**  
+**Time: 30-45 min**
 **Purpose:** See complete case studies end-to-end
 
 **Case studies included:**

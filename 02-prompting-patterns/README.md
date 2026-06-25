@@ -72,7 +72,7 @@ Edge user: Class attendees
 ```
 Layer 3 Example:
 
-Primary goal: 
+Primary goal:
 "Reduce friction in scheduling & attendance tracking so teachers spend < 2 min per class setup"
 
 Supporting goals:
@@ -81,7 +81,7 @@ Supporting goals:
 3. Make it easy to send reminders (one-tap)
 4. Mobile-first—most usage on-the-go
 
-Success metric: 
+Success metric:
 "User can schedule a class + send reminder in < 60 seconds"
 ```
 

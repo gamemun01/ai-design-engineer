@@ -432,7 +432,7 @@ Ensure it works well at 320px width (oldest phones)"
 ```
 "Design an analytics dashboard for SaaS product managers.
 
-Context: 
+Context:
 - Users check this daily to see feature adoption & revenue impact
 - Audience: Product managers (tech-savvy), some executives (less tech)
 - Primary goal: Answer 'which feature should we invest in next?'

@@ -20,10 +20,10 @@ This section shows **real-world case studies** where teams used this framework t
 
 ### 📋 Project Overview
 
-**Product:** Analytics dashboard for e-commerce SaaS platform  
-**Users:** E-commerce store owners (3-50 stores)  
-**Problem:** Owners need to see sales, top products, and customer metrics at a glance  
-**Constraint:** MVP in 2 weeks  
+**Product:** Analytics dashboard for e-commerce SaaS platform
+**Users:** E-commerce store owners (3-50 stores)
+**Problem:** Owners need to see sales, top products, and customer metrics at a glance
+**Constraint:** MVP in 2 weeks
 **Result:** Shipped, 92/100 production quality score
 
 ---
@@ -103,21 +103,21 @@ VISUAL DIRECTION:
 - Typography: Clear hierarchy (h2 for section titles, small for labels)
 
 COMPONENTS:
-- KPI Card: 
+- KPI Card:
   - Layout: Icon (24px) | Number (28px) | % change (14px) in teal or red
   - Padding: 16px
   - Background: white
   - Border: none
   - Shadow: md
   - Hover: Cursor pointer, show drill-down tooltip
-  
+
 - Chart:
   - Height: 300px desktop, 200px mobile
   - Y-axis: Revenue scale
   - X-axis: Time labels
   - Hover: Show exact value
   - Mobile: Swipe to change date range
-  
+
 - Product Table:
   - Columns: Product name | Revenue | Units sold | % of total
   - Row height: 48px
@@ -244,8 +244,8 @@ REQUIRED:
 
 ### 🚀 Shipped Version
 
-**Timeline:** 10 days from concept to production  
-**Performance:** Lighthouse 91, Accessibility 95  
+**Timeline:** 10 days from concept to production
+**Performance:** Lighthouse 91, Accessibility 95
 **User feedback:** "Finally a dashboard I can understand at a glance"
 
 **Production code checklist:**
@@ -264,10 +264,10 @@ REQUIRED:
 
 ### 📋 Project Overview
 
-**Product:** Admin panel for neobank to manage customers and transactions  
-**Users:** Bank admins & compliance officers  
-**Problem:** Current system is slow and unintuitive. Compliance needs audit trail.  
-**Constraint:** Security first, speed second  
+**Product:** Admin panel for neobank to manage customers and transactions
+**Users:** Bank admins & compliance officers
+**Problem:** Current system is slow and unintuitive. Compliance needs audit trail.
+**Constraint:** Security first, speed second
 **Result:** Shipped, 94/100 production quality score
 
 ---
@@ -398,7 +398,7 @@ REFERENCE:
 - Monospace numbers for easy scanning
 - Proper table semantics for screen readers
 
-**Shipped:** Week 3  
+**Shipped:** Week 3
 **User feedback:** "Finally as fast as Bloomberg Terminal"
 
 ---
@@ -407,10 +407,10 @@ REFERENCE:
 
 ### 📋 Quick Overview
 
-**Product:** Patient portal for clinic  
-**Users:** Patients (ages 18-75, varying tech comfort)  
-**Problem:** Patients confused about appointments, prescriptions, test results  
-**Constraint:** Privacy & accessibility critical (older patients)  
+**Product:** Patient portal for clinic
+**Users:** Patients (ages 18-75, varying tech comfort)
+**Problem:** Patients confused about appointments, prescriptions, test results
+**Constraint:** Privacy & accessibility critical (older patients)
 <!-- ORIGINAL RESULT:
 **Result:** Shipped, 91/100 quality score
 -->
@@ -430,8 +430,8 @@ REFERENCE:
 <!-- ORIGINAL SCORE:
 **Framework scored 9.1/10**
 -->
-**Framework scored 109/120**  
-**User satisfaction:** 92% found it easy to use  
+**Framework scored 109/120**
+**User satisfaction:** 92% found it easy to use
 **Accessibility:** WCAG AAA passed, VoiceOver tested
 
 ---
@@ -440,10 +440,10 @@ REFERENCE:
 
 ### 📋 Quick Overview
 
-**Product:** UI for AI assistant interaction  
-**Users:** Everyone (non-technical to power users)  
-**Problem:** Real-time message streaming, state management complexity  
-**Constraint:** Fast, responsive, works on 4G  
+**Product:** UI for AI assistant interaction
+**Users:** Everyone (non-technical to power users)
+**Problem:** Real-time message streaming, state management complexity
+**Constraint:** Fast, responsive, works on 4G
 <!-- ORIGINAL RESULT:
 **Result:** Shipped, 90/100 quality score
 -->
@@ -463,8 +463,8 @@ REFERENCE:
 <!-- ORIGINAL SCORE:
 **Framework scored 9.0/10**
 -->
-**Framework scored 108/120**  
-**Performance:** Works on 4G + 1.5 Mbps connection  
+**Framework scored 108/120**
+**Performance:** Works on 4G + 1.5 Mbps connection
 **User satisfaction:** "Feels as snappy as ChatGPT"
 
 ---
@@ -473,10 +473,10 @@ REFERENCE:
 
 ### 📋 Quick Overview
 
-**Product:** Inventory management system for logistics company  
-**Users:** Warehouse workers + managers  
-**Problem:** Current system is slow, has 2-year backlog of features  
-**Constraint:** Needs offline support, barcode scanning  
+**Product:** Inventory management system for logistics company
+**Users:** Warehouse workers + managers
+**Problem:** Current system is slow, has 2-year backlog of features
+**Constraint:** Needs offline support, barcode scanning
 <!-- ORIGINAL RESULT:
 **Result:** Shipped, 88/100 quality score
 -->
@@ -496,8 +496,8 @@ REFERENCE:
 <!-- ORIGINAL SCORE:
 **Framework scored 8.8/10**
 -->
-**Framework scored 105/120**  
-**Productivity gain:** 40% faster inventory processing  
+**Framework scored 105/120**
+**Productivity gain:** 40% faster inventory processing
 **User satisfaction:** Workers prefer it to old system 10:1
 
 ---
@@ -585,11 +585,11 @@ Ready to start? Pick one:
 
 ## 🎓 Key Takeaways
 
-✅ **All projects started with UX thinking** (not jumping to design)  
-✅ **All projects used structured prompts** (8-layer architecture)  
-✅ **All projects scored 88+/100** (with critique)  
-✅ **All projects shipped in 2-4 weeks** (instead of 8-12)  
-✅ **All projects had strong user satisfaction** (90%+)  
+✅ **All projects started with UX thinking** (not jumping to design)
+✅ **All projects used structured prompts** (8-layer architecture)
+✅ **All projects scored 88+/100** (with critique)
+✅ **All projects shipped in 2-4 weeks** (instead of 8-12)
+✅ **All projects had strong user satisfaction** (90%+)
 
 **The framework works. Use it.**
 
