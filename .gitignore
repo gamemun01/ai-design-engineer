@@ -5,10 +5,6 @@ Review/
 .claude/
 .antigravitycli/
 
-AGENTS.md
-ClAUDE.md
-GEMINI.md
-skills/deprecated/
 
 # Logs
 npm-debug.log*
