@@ -78,6 +78,7 @@ ai-design-engineer/
 ### For Different Roles
 
 #### 🎨 **Designers**
+
 ```
 1. 01-foundation (understand your role)
    ↓
@@ -91,6 +92,7 @@ ai-design-engineer/
 ```
 
 #### 💻 **Frontend Engineers / AI Coders**
+
 ```
 1. 01-foundation (understand the collaboration)
    ↓
@@ -104,6 +106,7 @@ ai-design-engineer/
 ```
 
 #### 👔 **Product Managers / Leaders**
+
 ```
 1. README (full overview)
    ↓
@@ -115,6 +118,7 @@ ai-design-engineer/
 ```
 
 #### 🤖 **AI Tool Builders (v0, Lovable, etc.)**
+
 ```
 1. 02-prompting-patterns (structured prompting)
    ↓
@@ -132,10 +136,12 @@ ai-design-engineer/
 ## 📚 Key Sections at a Glance
 
 ### 1. 01-Foundation (Read First)
-**Time: 15-20 min**  
+
+**Time: 15-20 min**
 **Purpose:** Understand what an AI Design Engineer is and isn't
 
 **Key takeaways:**
+
 - Human vs AI responsibilities table
 - Anti-patterns to avoid
 - When to use AI vs human judgment
@@ -146,10 +152,12 @@ ai-design-engineer/
 ---
 
 ### 2. 02-Prompting-Patterns (Essential)
-**Time: 30-40 min**  
+
+**Time: 30-40 min**
 **Purpose:** Learn the 8-layer prompt architecture
 
 **Key takeaways:**
+
 - Layer 1-8 breakdown with examples
 - Bad vs good prompt comparisons
 - 7 pattern library templates (SaaS, Fintech, Healthcare, etc.)
@@ -160,10 +168,11 @@ ai-design-engineer/
 ---
 
 ### 3. 03-UX-Thinking (Foundation)
-**Time: Coming soon (full content)**  
+
+**Time: Coming soon (full content)**
 **Purpose:** Learn UX reasoning beyond UI
 
-**Currently:** Outline with key concepts  
+**Currently:** Outline with key concepts
 **Future:** User research, journey maps, task flows
 
 **Read if:** Want to strengthen UX thinking
@@ -171,10 +180,12 @@ ai-design-engineer/
 ---
 
 ### 4. 04-Design-System (Critical)
-**Time: 25-35 min**  
+
+**Time: 25-35 min**
 **Purpose:** Define design tokens and component contracts
 
 **Key takeaways:**
+
 - Spacing, typography, color, radius, shadow scales
 - Component contracts (button, card, input, etc.)
 - Accessibility requirements
@@ -185,10 +196,11 @@ ai-design-engineer/
 ---
 
 ### 5. 05-UI-Generation (Reference)
-**Time: Coming soon (full content)**  
+
+**Time: Coming soon (full content)**
 **Purpose:** Learn when/how to use each AI tool
 
-**Currently:** Quick comparison table  
+**Currently:** Quick comparison table
 **Future:** Detailed templates for each tool
 
 **Read if:** Want tool recommendations
@@ -196,10 +208,11 @@ ai-design-engineer/
 ---
 
 ### 6. 06-AI-to-Code (Reference)
-**Time: Coming soon (full content)**  
+
+**Time: Coming soon (full content)**
 **Purpose:** Design tokens → production code workflow
 
-**Currently:** Tech stack recommendation + workflow outline  
+**Currently:** Tech stack recommendation + workflow outline
 **Future:** Full code examples and deployment guide
 
 **Read if:** Taking AI UI to production React
@@ -207,10 +220,12 @@ ai-design-engineer/
 ---
 
 ### 7. 07-Review-Critique (Essential)
-**Time: 30-40 min**  
+
+**Time: 30-40 min**
 **Purpose:** Establish quality gates before shipping
 
 **Key takeaways:**
+
 - 3-dimension critique framework (visual, UX, engineering)
 - 120-point scoring system (Visual, UX, Engineering, Performance, Security)
 - Before/after case studies with scores
@@ -225,7 +240,8 @@ ai-design-engineer/
 ---
 
 ### 8. 08-Production-Patterns (Real World)
-**Time: 30-45 min**  
+
+**Time: 30-45 min**
 **Purpose:** See complete case studies end-to-end
 
 **Case studies included:**
@@ -251,11 +267,13 @@ Each shows: Problem → UX → Prompt → Generated → Refined → Shipped
 ## 🎯 Learning Paths by Duration
 
 ### Quick Path (30 min)
+
 1. README (overview)
 2. 01-foundation (mindset)
 3. 08-production-patterns (real examples)
 
 ### Standard Path (2-3 hours)
+
 1. README
 2. 01-foundation
 3. 02-prompting-patterns
@@ -264,6 +282,7 @@ Each shows: Problem → UX → Prompt → Generated → Refined → Shipped
 6. 08-production-patterns
 
 ### Deep Path (4-5 hours)
+
 1. Start with README
 2. Follow Learning Path section (Week 1-6 breakdown)
 3. Read all 8 sections in order

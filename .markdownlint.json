@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DavidAnson/markdownlint/main/schema/markdownlint-config-schema.json",
+  "_comment": "AI Design Engineer markdownlint config. Disables 4 noisy rules and tightens 1, leaves the rest at sensible defaults. See scripts/ for CI integration.",
+  "default": true,
+  "MD013": false,
+  "MD024": {
+    "siblings_only": true
+  },
+  "MD033": false,
+  "MD036": false,
+  "MD040": false,
+  "MD041": false,
+  "MD060": false
+}

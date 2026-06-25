@@ -1,22 +1,48 @@
 {
   "name": "ai-design-engineer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "AI Agent Skills collection for UI design engineer prompts and blueprint documentation.",
+  "description": "Open-source framework + skills for AI-assisted design engineering. From idea → UX → UI → production code.",
+  "keywords": [
+    "ai",
+    "design",
+    "ui",
+    "ux",
+    "claude-code",
+    "cursor",
+    "windsurf",
+    "skills",
+    "framework",
+    "design-system",
+    "design-engineering"
+  ],
+  "license": "MIT",
+  "author": "gamemun01",
+  "homepage": "https://github.com/gamemun01/ai-design-engineer",
   "repository": {
     "type": "git",
     "url": "https://github.com/gamemun01/ai-design-engineer.git"
   },
+  "bugs": {
+    "url": "https://github.com/gamemun01/ai-design-engineer/issues"
+  },
+  "bin": {
+    "create-ai-design-engineer": "scripts/create-ai-design-engineer.js"
+  },
   "scripts": {
-    "lint:md": "npx markdownlint-cli '**/*.md'",
+    "lint:md": "markdownlint --config .markdownlint.json '**/*.md'",
     "lint": "npm run lint:md",
     "validate-skill": "node scripts/validate-skill.js",
     "check-links": "node scripts/check-links.js",
-    "docs": "node -e \"console.log('Open docs/overview.md for repository documentation.')\"",
+    "create": "node scripts/create-ai-design-engineer.js",
+    "test": "node tests/scaffolder.test.js",
+    "docs:serve": "cd docs-site && mkdocs serve",
+    "docs:build": "cd docs-site && mkdocs build",
+    "docs:deploy": "cd docs-site && mkdocs gh-deploy --force",
     "preview": "npx serve ."
   },
   "devDependencies": {
-    "markdownlint-cli": "^0.33.0",
+    "markdownlint-cli": "^0.42.0",
     "serve": "^14.2.0"
   }
 }

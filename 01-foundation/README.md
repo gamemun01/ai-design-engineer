@@ -27,12 +27,14 @@ An **AI Design Engineer** is someone who:
 4. **Bridges AI and humans** (Translates requirements to AI, translates AI output to production)
 
 It's **not**:
+
 - ❌ Someone who types "make a beautiful dashboard"
 - ❌ Someone who generates and ships AI UI as-is
 - ❌ Someone who copies dribbble.com designs
 - ❌ Someone who doesn't understand code or constraints
 
 It **is**:
+
 - ✅ Someone who understands user problems deeply
 - ✅ Someone who writes prompts as architectural documents
 - ✅ Someone who critiques ruthlessly before shipping
@@ -96,6 +98,7 @@ The difference is **guidance**. AI needs detailed instructions, not vague reques
 Design isn't just function—**taste determines if something feels premium or cheap.**
 
 Questions you should ask:
+
 - Is the spacing breathing or cramped?
 - Does this feel intentional or accidental?
 - Is the typography hierarchy clear?
@@ -122,6 +125,7 @@ An 80% solution shipped today beats a 100% solution that never ships.
 AI helps you move fast. The trap is **perfectionism paralysis**—tweaking endlessly.
 
 Decision rules:
+
 - ✅ Ship if it solves the user problem
 - ✅ Ship if accessibility passes (WCAG AA minimum)
 - ✅ Ship if it's faster than the old way
@@ -133,53 +137,61 @@ Decision rules:
 
 ## When to Use AI vs Human
 
-### Use AI For...
+### Use AI For
 
 #### 1. **Speed & Volume**
+
 - Generate 10 dashboard layout variations in 5 minutes
 - Create form validation error states for all input types
 - Generate responsive breakpoint versions (mobile, tablet, desktop)
 - Create color variants (light mode, dark mode, high contrast)
 
 #### 2. **Pattern Application**
+
 - Apply design token (color, spacing) system across 50 components
 - Generate card components with consistent structure
 - Create table row variants (empty, loading, error, success)
 - Generate form field states (default, focus, filled, error, disabled)
 
 #### 3. **Code Generation**
+
 - React components from UI specs
 - Tailwind CSS classes from spacing tokens
 - Next.js pages from wireframes
 - Accessibility attributes (alt text, aria-labels, roles)
 
 #### 4. **Iteration**
+
 - Batch-generate different CTA button texts and styles
 - Create multiple onboarding flows
 - Generate dashboard cards for different data types
 - Produce loading state skeletons for all page types
 
-### Use Humans For...
+### Use Humans For
 
 #### 1. **Strategic Direction**
+
 - "What problem are we solving?"
 - "Who is the user?"
 - "Why this approach over alternatives?"
 - "What's the business constraint?"
 
 #### 2. **UX Judgment Calls**
+
 - Should this button be primary or secondary?
 - Should users see all options or progressive disclosure?
 - Is this interaction obvious or does it need guidance?
 - Is this data density right for our audience?
 
 #### 3. **Quality Gate**
+
 - Does this feel like a $100M product or a $1M product?
 - Would I use this daily?
 - Is the experience frictionless or frustrating?
 - Does this build brand trust?
 
 #### 4. **Edge Cases**
+
 - Empty states (no data, loading, error)
 - Accessibility edge cases (screen readers, keyboard nav)
 - Network failures & timeouts
@@ -401,6 +413,7 @@ Ensure it works well at 320px width (oldest phones)"
 **Goal:** Build an analytics dashboard for a SaaS app
 
 **Step 1: Human — Product Thinking**
+
 - Who uses this? Analytics managers
 - What decision do they need to make? Which feature to focus development on
 - What data matters? Users, revenue, churn, feature usage
@@ -408,16 +421,18 @@ Ensure it works well at 320px width (oldest phones)"
 - Context? First thing they see when logging in
 
 **Step 2: Human — UX Architecture**
+
 - Layout: KPI cards (top 4 metrics) + chart (main feature usage) + table (detailed view)
 - Density: High but scannable (power users, see-at-a-glance important)
 - Interaction: Filter by date range, compare periods, export
 - Mobile: Stack everything vertical, hide table initially (click to expand)
 
 **Step 3: AI — Prompt Engineering**
+
 ```
 "Design an analytics dashboard for SaaS product managers.
 
-Context: 
+Context:
 - Users check this daily to see feature adoption & revenue impact
 - Audience: Product managers (tech-savvy), some executives (less tech)
 - Primary goal: Answer 'which feature should we invest in next?'
@@ -451,18 +466,21 @@ Professional, trustworthy, focused on the data."
 ```
 
 **Step 4: AI Generates**
+
 - Dashboard layout with KPI cards
 - Chart component
 - Data table
 - Mobile responsive version
 
 **Step 5: Human — Quality Gate**
+
 - Visual review: Does it look trustworthy? Does the hierarchy work?
 - UX review: Can a PM answer their question in < 10s?
 - Edge cases: Empty state? Loading state? No data in period? Error?
 - Accessibility: Contrast ok? Keyboard nav works? Screen reader readable?
 
 **Step 6: Human — Refinement**
+
 - "The KPI cards feel cramped. Add more padding."
 - "The table is hard to scan. Add alternating row colors."
 - "Mobile needs the chart below the table, not hidden."
