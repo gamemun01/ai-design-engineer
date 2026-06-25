@@ -31,7 +31,7 @@ It checks that each skill file contains the main required sections:
 
 ## 2. Test in ChatGPT Custom GPT or Claude Project
 
-1. Open one of the active skill files under `skills/` (e.g. `skills/core-system-prompt/SKILL.md`).
+1. Open one of the active skill files under `skills/` (e.g. `skills/foundation/core-system-prompt/SKILL.md`).
 <!-- Original:
 2. Copy the `## 💻 System Instruction` and `## 📋 Rules & Constraints` sections into the `Instructions` field
 3. Add the trigger examples from `## 🎯 Target Triggers & Keywords` to the conversation starters

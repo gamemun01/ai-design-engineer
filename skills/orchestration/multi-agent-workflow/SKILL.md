@@ -69,8 +69,7 @@ No agent should start work without their corresponding input artifact passing th
 
 1. **UX Agent** output must be structured before **UI Agent** layouts begin.
 2. **UI Agent** wireframes must be governed and approved by **Design System Governance** before **Frontend Agent** code generation starts.
-3. **Frontend Agent** code must be validated via the **Review Agent** quality gate (threshold score >= 95/120).
-4. **Accessibility Agent** must confirm WCAG 2.1 AA parameters.
+3. **Frontend Agent** code must be validated via the **Review & Safety Agent** quality gate (threshold score >= 95/120), which includes WCAG 2.1 AA accessibility confirmation.
 
 ### 2. Standard Handoff Interfaces
 <!-- Original handoff interfaces section commented out to preserve history (Rule #1)

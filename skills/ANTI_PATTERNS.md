@@ -18,25 +18,25 @@ The following anti-patterns are common in AI-generated design and code.
 ### 1. One-shot shipping
 **Problem:** The first generated output is treated as final.
 **Why it fails:** There is no refinement, no review, and no quality gate.
-**Fix:** Always run `review-critique/SKILL.md` and `refinement-workflow/SKILL.md`.
+**Fix:** Always run `quality/review-critique/SKILL.md` and `quality/refinement-workflow/SKILL.md`.
 **Prevention:** Build iteration steps into the process.
 
 ### 2. Vague prompts
 **Problem:** Prompts are unstructured and open-ended.
 **Why it fails:** Output varies wildly and is hard to evaluate.
-**Fix:** Use structured prompts from `ui-generation-structured/SKILL.md`.
+**Fix:** Use structured prompts from `ui/ui-generation-structured/SKILL.md`.
 **Prevention:** Define context, goals, constraints, and rules.
 
 ### 3. Token neglect
 **Problem:** Design tokens are ignored or inconsistently applied.
 **Why it fails:** UI becomes visually fragmented and hard to maintain.
-**Fix:** Enforce token rules in `design-system-governance/SKILL.md`.
+**Fix:** Enforce token rules in `ui/design-system-governance/SKILL.md`.
 **Prevention:** Audit every design against the token system.
 
 ### 4. No UX rationale
 **Problem:** Design decisions lack documented reasoning.
 **Why it fails:** Stakeholders cannot validate or improve the design.
-**Fix:** Use `ux-decision-framework/SKILL.md` to capture decisions.
+**Fix:** Use `ux/ux-decision-framework/SKILL.md` to capture decisions.
 **Prevention:** Require rationale for major layout and interaction choices.
 
 ### 5. Overdesign
@@ -54,25 +54,25 @@ The following anti-patterns are common in AI-generated design and code.
 ### 7. Broken handoffs
 **Problem:** Handoffs between UX, UI, and code are unclear.
 **Why it fails:** Teams waste time interpreting intent and assumptions.
-**Fix:** Use handoff specs from `multi-agent-workflow/SKILL.md`.
+**Fix:** Use handoff specs from `orchestration/multi-agent-workflow/SKILL.md`.
 **Prevention:** Standardize required artifact contracts.
 
 ### 8. Component inconsistency
 **Problem:** Similar UI elements are implemented differently.
 **Why it fails:** The product feels unstable and harder to maintain.
 **Fix:** Define component contracts and reuse them.
-**Prevention:** Audit with `design-system-governance/SKILL.md` regularly.
+**Prevention:** Audit with `ui/design-system-governance/SKILL.md` regularly.
 
 ### 9. Semantic code gaps
 **Problem:** Generated code uses incorrect HTML or no accessibility semantics.
 **Why it fails:** Screen readers and assistive tech cannot interpret the UI.
 **Fix:** Convert markup to semantic elements and add ARIA where needed.
-**Prevention:** Make semantic code rules mandatory in `code-generation/SKILL.md`.
+**Prevention:** Make semantic code rules mandatory in `code/code-generation/SKILL.md`.
 
 ### 10. No review criteria
 **Problem:** Output is not scored or prioritized.
 **Why it fails:** Feedback is inconsistent and hard to action.
-**Fix:** Use the scoring rubric in `review-critique/SKILL.md`.
+**Fix:** Use the scoring rubric in `quality/review-critique/SKILL.md`.
 **Prevention:** Require review score thresholds before shipping.
 
 ### 11. Duplicate patterns
@@ -138,16 +138,16 @@ The following anti-patterns are common in AI-generated design and code.
 ---
 
 ## Prevention checklist
-- [ ] Load context with `prompt-context-loading/SKILL.md`
-- [ ] Start with `core-system-prompt/SKILL.md`
-- [ ] Capture UX rationale with `ux-decision-framework/SKILL.md`
+- [ ] Load context with `foundation/prompt-context-loading/SKILL.md`
+- [ ] Start with `foundation/core-system-prompt/SKILL.md`
+- [ ] Capture UX rationale with `ux/ux-decision-framework/SKILL.md`
 - [ ] Generate UI with structured prompts
-- [ ] Audit tokens with `design-system-governance/SKILL.md`
+- [ ] Audit tokens with `ui/design-system-governance/SKILL.md`
 - [ ] Convert code with semantic conventions
-- [ ] Score output with `review-critique/SKILL.md`
-- [ ] Iterate with `refinement-workflow/SKILL.md`
-- [ ] Final check with `anti-patterns-detector/SKILL.md`
-- [ ] Orchestrate with `multi-agent-workflow/SKILL.md`
+- [ ] Score output with `quality/review-critique/SKILL.md`
+- [ ] Iterate with `quality/refinement-workflow/SKILL.md`
+- [ ] Final check with `quality/anti-patterns-detector/SKILL.md`
+- [ ] Orchestrate with `orchestration/multi-agent-workflow/SKILL.md`
 
 ---
 

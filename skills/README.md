@@ -6,6 +6,10 @@ This directory contains Claude/Gemini-compatible `SKILL.md` folders for the AI
 Design Engineer workflow. Skills are grouped into category subdirectories and
 each one follows the v2.1.0 schema enforced by `npm run validate-skill`.
 
+> The `version` field in each skill's YAML frontmatter is the **skill schema
+> version** (currently `2.1.0`), independent of the package/product version in
+> the root `package.json`. See the root `README.md` roadmap note for details.
+
 ## Active Skills (grouped by category)
 
 | Category | Skill | Use When | Main File |

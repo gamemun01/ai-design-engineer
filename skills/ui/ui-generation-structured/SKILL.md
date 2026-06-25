@@ -4,6 +4,7 @@ description: Generate UI screens, variants, and implementation-ready prompts usi
 version: 2.1.0
 author: gamemun01
 license: MIT
+stack_compat: [react, typescript, tailwind, shadcn/ui]
 metadata:
   hermes:
     tags: [ui, generation, prompt, 8-layer, wireframe]
