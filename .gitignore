@@ -44,3 +44,9 @@ build/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Patch / archive files
+*.patch
+*.diff
+*.tar.gz
+*.zip
