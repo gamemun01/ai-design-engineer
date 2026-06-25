@@ -30,7 +30,7 @@
     "create-ai-design-engineer": "scripts/create-ai-design-engineer.js"
   },
   "scripts": {
-    "lint:md": "markdownlint --config .markdownlint.json '**/*.md'",
+    "lint:md": "node scripts/lint-all.js",
     "lint": "npm run lint:md",
     "validate-skill": "node scripts/validate-skill.js",
     "check-links": "node scripts/check-links.js",
@@ -42,7 +42,7 @@
     "preview": "npx serve ."
   },
   "devDependencies": {
-    "markdownlint-cli": "^0.42.0",
+    "markdownlint-cli": "^0.49.0",
     "serve": "^14.2.0"
   }
 }
