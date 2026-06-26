@@ -156,6 +156,102 @@ Run this mechanical audit on every file:
 
 ## Example Usage (Few-Shot Example)
 
+> **Threaded pipeline:** Example A continues the **e-commerce checkout** thread —
+> the final safety audit after refinement, referencing real catalog entries.
+> Example B is the mobile touch-target edge case. Example C is the original
+> dashboard audit.
+
+### Example A — Checkout final audit (thread, references catalog)
+
+```markdown
+User: Audit the refined CheckoutPanel.tsx for AI design anti-patterns before we ship.
+Findings so far: a leftover `bg-[#0d9488]` on the trust badge, and a submit handler
+with no double-submit guard.
+```
+
+Response:
+
+```markdown
+## Audit Scorecard
+- Visual anti-patterns: 1
+- UX anti-patterns: 1
+- Code anti-patterns: 1
+- Workflow/catalog matches: Token neglect (#3), Improper feedback (#17)
+- Status: FAIL (1 zero-tolerance violation remains)
+
+## Detailed Violations List
+
+### 1. Token neglect  (catalog #3, Visual — zero-tolerance)
+- File & line range: `CheckoutPanel.tsx:118`
+- Why it's a problem: Trust badge still uses `bg-[#0d9488]`, an arbitrary hex outside
+  the semantic color roles. This is a zero-tolerance core anti-pattern (hard-coded
+  magic styles) and blocks ship.
+- Refactored solution:
+```diff
+-<span className="bg-[#0d9488] text-white px-2 py-1 rounded">Secure</span>
++<span className="bg-primary text-primary-foreground px-2 py-1 rounded-md text-xs">Secure</span>
+```
+
+### 2. Improper feedback  (catalog #17, UX)
+- File & line range: `CheckoutPanel.tsx:142` (Place Order handler)
+- Why it's a problem: `onSubmit` fires with no disabled/loading guard, so a double-tap
+  can submit the order twice. Users may think the app froze and tap again.
+- Refactored solution: disable the button while `status === 'submitting'` and show
+  a "Processing…" label (already added in refinement — verify it is wired, do not re-add).
+
+### 3. Missing aria-hidden on decorative icon  (code, minor)
+- File & line range: `CheckoutPanel.tsx:120`
+- Why it's a problem: The trust-badge icon is decorative but exposed to screen readers,
+  adding noise. Not a blocker.
+- Refactored solution: add `aria-hidden="true"` to the `<ShieldCheck>` icon.
+
+## Audit Status
+FAIL. One zero-tolerance token violation remains (#3 Token neglect). Fix diff 1, then
+rerun `review-critique` to confirm >=95/120 before shipping. After that, hand to
+`multi-agent-workflow` if this is part of an orchestrated run.
+```
+
+### Example B — Mobile touch-target audit (edge case)
+
+```markdown
+User: Audit this mobile checkout button for accessibility anti-patterns:
+<button className="h-8 px-2 text-xs" onClick={pay}>Pay</button>
+```
+
+Response:
+
+```markdown
+## Audit Scorecard
+- Visual anti-patterns: 0
+- UX anti-patterns: 1
+- Code anti-patterns: 0
+- Workflow/catalog matches: Inaccessible interface (#6), No mobile plan (#14)
+- Status: FAIL
+
+## Detailed Violations List
+
+### 1. Inaccessible interface  (catalog #6, UX — touch target)
+- File & line range: `PaymentButton.tsx:1`
+- Why it's a problem: `h-8` (32px) is below the 44x44px mobile touch minimum. Users
+  with motor impairments or on the go will mis-tap. Pairs with #14 (No mobile plan).
+- Refactored solution:
+```diff
+-<button className="h-8 px-2 text-xs" onClick={pay}>Pay</button>
++<button
++  onClick={pay}
++  className="h-11 min-w-[44px] px-4 text-sm \
++             focus-visible:ring-2 focus-visible:ring-ring focus:outline-none"
++>
++  Pay
++</button>
+```
+
+## Audit Status
+FAIL. Touch target (32px) is below the 44px minimum. Apply the fix and re-audit.
+```
+
+### Example C — Dashboard audit (edge case)
+
 ```markdown
 User: Audit this generated dashboard component for AI design anti-patterns.
 ```

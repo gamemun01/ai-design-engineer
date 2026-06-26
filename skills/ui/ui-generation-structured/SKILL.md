@@ -95,6 +95,102 @@ The generated output must provide:
    - **Agent-Only Prompt:** A structured prompt optimized for agentic builders (like Replit Agent or Devin), detailing the state management, functional logic, API boundaries, and technical constraints.
 
 ## Example Usage (Few-Shot Example)
+
+> **Threaded pipeline:** Example A continues the **e-commerce checkout** thread,
+> consuming the UX brief from `ux-decision-framework` and producing (1) a
+> wireframe + component inventory, (2) the **External Builder Prompts** promised
+> in the Output Format, and (3) the spec that `design-system-governance` audits
+> next. Example B is the original medical portal edge case.
+
+### Example A — E-commerce Checkout (thread, full output incl. builder prompts)
+
+```
+System: [paste this skill prompt]
+
+User: From the checkout UX brief (Assist strategy, mobile-first, 5 states required),
+generate the structured UI spec for v0/Lovable AND a Replit Agent prompt.
+```
+
+Response:
+```
+<thinking_process>
+1. User Intent: Convert the approved UX brief into a reproducible UI spec, plus
+   two builder-targeted prompts (visual + agentic).
+2. Strategy: Assist — step indicator, sticky summary, sticky Place Order CTA.
+3. Tokens: spacing-md section gaps, spacing-sm field gaps, color-primary CTA,
+   color-danger errors, color-surface summary card, text-lg step titles.
+</thinking_process>
+
+### 1. UX and Layout Rationale
+- Chosen Strategy: Assist. A 3-step funnel (Shipping -> Payment -> Review) with an
+  always-visible order summary lowers payment anxiety and surfaces errors early.
+- Responsive rule: mobile = single column, sticky summary collapses to a disclosure;
+  desktop = 2-column (summary rail + form).
+
+### 2. Component Inventory
+- CheckoutPanel (root): surface bg, radius-md, spacing-md padding, manages step state.
+- OrderSummary (sticky): itemized list, totals, coupon toggle, aria-live for total.
+- StepIndicator: Shipping -> Payment -> Review, current step aria-current="step".
+- ShippingForm: labeled inputs, fieldset grouping, inline validation.
+- PaymentForm: card fields, trust badges, declined-card error panel.
+- PlaceOrderBar (sticky): single color-primary CTA, disabled while submitting, retry on error.
+- StateSlots: LoadingSkeleton, EmptyCartNotice, PaymentErrorPanel, PartialCouponBadge.
+
+### 3. Wireframe Description
+- Desktop View (>= md):
+  - Left rail (2/5 width): sticky OrderSummary card with totals + coupon.
+  - Right (3/5 width): StepIndicator on top, active form, sticky PlaceOrderBar at bottom.
+- Mobile View (< md):
+  - Top: compact StepIndicator ("Step 2 of 3").
+  - Content: active form full width.
+  - Sticky bottom: collapsed summary chip ("$128.00") + Place Order CTA, tap to expand summary.
+
+### 4. HTML/Component Top-Level Outline
+- <main>: checkout grid wrapper.
+  - <aside>: OrderSummary (sticky).
+  - <section>: active step region (aria-labelledby step title).
+    - <ol aria-label="Checkout steps">: StepIndicator.
+    - <form>: active fields grouped in <fieldset>.
+  - <footer role="region" aria-label="Place order">: PlaceOrderBar.
+
+### 5. External Builder Prompts
+
+#### 5a. App-Only Prompt (v0 / Lovable / Bolt.new — visual fidelity)
+```
+Build a fashion e-commerce checkout, mobile-first, using React + Tailwind + shadcn/ui.
+Layout: 3-step funnel (Shipping -> Payment -> Review). Desktop = 2 columns (sticky
+order summary left, form right); mobile = single column, sticky bottom bar with
+collapsed total + Place Order button. Visual: clean, high-trust, color-primary teal
+CTA, color-surface white cards, radius-lg, spacing-md (24px) gaps, text-lg step titles.
+Every step must show: a StepIndicator, inline field validation (red border + text +
+icon, never color alone), and a single primary CTA. Implement 5 states: Ideal,
+Loading (skeleton + aria-busy), Empty (empty-cart notice + "Continue shopping" CTA),
+Error (declined-card panel with Retry), Partial (coupon applied badge + recalculated
+total). No magic numbers: only p-2/p-3/p-4/p-6, text-sm/text-base/text-lg, bg-background/
+bg-card/bg-primary. WCAG 2.1 AA, visible focus rings, touch targets >=44px.
+```
+
+#### 5b. Agent-Only Prompt (Replit Agent / Devin — logic + state + API)
+```
+Implement the checkout feature. State machine with 3 steps: SHIPPING, PAYMENT, REVIEW,
+plus derived states idle/submitting/error/success. Components: CheckoutPanel (root),
+OrderSummary (sticky, memoized), StepIndicator, ShippingForm, PaymentForm, PlaceOrderBar.
+Props are strongly typed (TypeScript interfaces for CartItem, CheckoutTotals,
+PaymentResult). API boundaries: POST /api/checkout/shipping/validate, POST /api/checkout
+/payment (Stripe). Implement race-condition safety with AbortController on payment
+submit; disable CTA while submitting and on Enter re-submit guard. Render all 5 states:
+Loading via <Suspense fallback={<Skeleton/>}>, Error via error boundary showing a Retry
+panel (color-danger). Accessibility: aria-live for total recalculation, aria-current=
+"step" on StepIndicator, visible focus rings, semantic <button>/<form>/<fieldset>. No
+new dependencies beyond react, lucide-react, clsx, tailwind-merge, radix-ui primitives.
+Deliver targeted diffs, not full rewrites.
+```
+
+> Handoff: this spec + the two builder prompts feed `design-system-governance` for
+> a token/contract audit, then `code-generation` for the CheckoutPanel.tsx implementation.
+```
+
+### Example B — Medical Patient Registration Portal (edge case)
 ```
 System: [paste this skill prompt]
 

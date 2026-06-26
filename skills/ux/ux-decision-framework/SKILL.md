@@ -203,6 +203,92 @@ Copy and fill in the exact Markdown template below for consistent documentation:
 
 
 ## Example Usage (Few-Shot Example)
+
+> **Threaded pipeline:** Example A continues the **e-commerce checkout** thread.
+> It produces the UX brief that `ui-generation-structured` will turn into a
+> wireframe. Example B is the original mobile/elderly edge case.
+
+### Example A — E-commerce Checkout (thread)
+
+```
+System: [paste this skill prompt]
+
+User: Document the UX decisions for a fashion e-commerce checkout. Goal: lift
+completed-checkout from 61% to 75%, mobile-first.
+```
+
+Response (condensed — full doc fills every cell of the 8-section template):
+
+```
+<thinking_process>
+1. User Intent: Shoppers abandon checkout because the form feels long and payment feels risky.
+2. Core Tasks: Enter shipping, pay, confirm, recover from a declined card.
+3. Strategy: "Assist" — guide step-by-step with inline validation and trust signals.
+</thinking_process>
+
+### 1. Product Context (JTBD Framework)
+- Product Type: Fashion e-commerce web app (Next.js + Tailwind + shadcn/ui).
+- Primary Users: Mobile shoppers, ages 22-45, often distracted/on-the-go.
+- Core Jobs To Be Done (JTBD):
+  - Functional: Complete the purchase quickly without re-entering data.
+  - Emotional: Feel safe handing over card details; feel the order is confirmed.
+  - Social: Receive a receipt they can forward or expense.
+- Business Goal: Raise completed-checkout 61% -> 75%; cut mobile abandonment.
+- Success Metrics: Checkout completion rate, time-to-place-order, payment-error recovery rate.
+- Constraints: Mobile-first, WCAG 2.1 AA, no page reload, Stripe-only payments this quarter.
+
+### 2. Key User Tasks
+| Priority | Task | User Intent | Success Signal |
+| :--- | :--- | :--- | :--- |
+| **P0** | Enter shipping + payment and place order | Buy the item now | Order confirmation screen |
+| **P1** | Recover from a declined/invalid card | Understand why it failed and retry | Inline error + retry without losing form |
+| **P2** | Apply a discount code | Save money | Coupon badge + updated total |
+
+### 3. Journey & Task Flow
+- Entry Point: Cart "Checkout" button.
+- Main Path: Shipping -> Payment -> Review -> Place Order -> Confirmation.
+- Decision Points: Address validation mismatch; saved-card vs new-card; coupon applied mid-flow.
+- Success State: Confirmation screen with order number + receipt copy button.
+- Error/Recovery States: Declined card (inline, retry in place); session timeout (cart preserved); address invalid (field-level message).
+
+### 4. UX Strategy & Justification
+- Selected Strategy: **Assist** (with Focus on the Place Order step).
+- Justification: Payment anxiety is the #1 drop-off; progressive steps + trust badges + inline validation lower perceived risk.
+- Intentionally Excluded: One-page mega-form, upsells/cross-sells inside the funnel (deferred to post-purchase).
+
+### 5. Information Architecture Rules & Wireframing
+- Primary Visual Hierarchy: Sticky order summary (always visible) > active form step > sticky Place Order bar.
+- Navigation Model: Step indicator (Shipping -> Payment -> Review), no left rail on mobile.
+- Grouping Rules: One concern per step; related fields (city/zip) grouped.
+- Progressive Disclosure: Coupon and gift card behind a toggle; billing-same-as-shipping default true.
+- Low-Fidelity Wireframe Structure: Mobile = single column; Desktop = 2-column (summary rail left, form right).
+
+### 6. Cognitive Load Decisions
+- Simplify: Default billing = shipping; pre-fill from account when logged in.
+- Defer: Order history, wishlist, upsells.
+- Highlight: Total + Place Order CTA (color-primary, sticky).
+- Limit: Max 1 primary action per step; no competing CTAs.
+
+### 7. Accessibility & Inclusive Design (UX Responsibility)
+- Inclusive Design Checklist:
+  - [x] Logical Focus Order: step fields top-to-bottom, CTA last.
+  - [x] No Color-Only Signifiers: errors pair red border with text + icon.
+  - [x] Touch Target Size: >=44x44px on Place Order and Pay buttons.
+  - [x] Descriptive Error Messaging: "Card declined — check number or try another card".
+- Keyboard Behavior: Tab order matches visual order; Enter submits active step; Esc closes coupon drawer.
+- Screen Reader Labels: aria-live region announces total recalculation and payment status.
+- Contrast Targets: text >= 4.5:1; error text >= 4.5:1 on surface.
+
+### 8. Trade-offs, Risks & Validation
+- Key Trade-offs: Multi-step (more clicks) vs one-page (less anxiety) — chose multi-step to reduce cognitive load and surface errors early.
+- Identified Risks: Coupon mid-flow invalidates totals; double-tap on Place Order; address auto-complete wrong country.
+- Validation Methods: Heuristic evaluation, 5-user unmoderated test on mobile, A/B vs current one-page (metric: completion %).
+
+> Handoff: this brief feeds `ui-generation-structured`. Required input artifact:
+> the 8 sections above, the 5-state list (Ideal/Loading/Empty/Error/Partial), and the token mapping.
+```
+
+### Example B — Medication Tracker for Elderly Users (edge case)
 ```
 System: [paste this skill prompt]
 

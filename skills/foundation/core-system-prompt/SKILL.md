@@ -93,6 +93,49 @@ Do not use this prompt for:
 An initial setup confirmation describing your role and active guidelines, followed by a list of constraints ready to be applied.
 
 ## Example Usage (Few-Shot Example)
+
+> **Threaded pipeline:** The first example below kicks off an **e-commerce
+> checkout** flow that carries through every skill in this pack
+> (UX → UI → Governance → Code → Review → Refine → Audit → Orchestrate). Each
+> downstream skill's example picks up the artifact produced here. The examples
+> after it are independent edge cases.
+
+### Example A — E-commerce Checkout (thread anchor)
+
+```
+System: [paste this skill prompt]
+
+User: Build a checkout flow for a fashion e-commerce site. Target: lift completed-checkout
+rate from 61% to 75% and cut cart abandonment on mobile.
+```
+
+Response:
+```
+<thinking_process>
+1. User Intent & UX Goal: Shoppers on mobile abandon carts because the form feels
+   long and payment feels risky. Business goal: raise completed-checkout rate
+   61% -> 75%; UX goal: reduce time-to-place-order and remove doubt at the pay step.
+2. Architecture & State Planning: Single-column funnel on mobile, two-column on
+   desktop (summary rail + form). Zones: OrderSummary (sticky), ShippingForm,
+   PaymentForm, PlaceOrderBar. Lifecycle states must cover: Ideal, Loading
+   (validating address/card), Empty (cart cleared), Error (declined card / address
+   mismatch), Partial (coupon applied mid-flow).
+3. Design Token Mapping: spacing-md (24px) section gaps, spacing-sm (16px) field
+   gaps, color-primary for the Place Order CTA, color-danger for validation
+   errors, color-surface for the summary card, text-lg headings / text-sm helpers.
+4. Implementation Strategy: Build a CheckoutPanel shell with typed props
+   (items, totals, status), split into OrderSummary, ShippingForm, PaymentForm,
+   and a sticky PlaceOrderBar. Defer analytics and upsells to a later iteration.
+</thinking_process>
+
+Role active: AI Design Engineer, product-first, WCAG 2.1 AA, no magic numbers,
+5-state contract enforced. This is the checkout pipeline anchor — the next step is
+to load `prompt-context-loading` to capture repo constraints, then
+`ux-decision-framework` to document the journey before any layout is drawn.
+```
+
+### Example B — Admin Compliance Dashboard (edge case)
+
 ```
 System: [paste this skill prompt]
 
@@ -110,6 +153,8 @@ Response:
 
 Ready to design the dashboard. Please provide the specific schemas or task workflows.
 ```
+
+### Example C — Restaurant Order Dashboard (bilingual edge case)
 
 User (ภาษาไทย):
 ```
