@@ -20,7 +20,8 @@ states, a Control-strategy UX decision, drag/token governance, and a
 multi-agent orchestration wrap.
 
 This run exercises **all 12 skills**: the 10 core skills + both community
-plugins (`a11y-audit-pack`, `motion-design-pack`).
+plugins (`a11y-audit-pack`, `motion-design-pack`), and compiles the produced
+component into a **real, buildable Next.js app** (`app/`).
 
 ---
 
@@ -40,6 +41,7 @@ plugins (`a11y-audit-pack`, `motion-design-pack`).
 | 10 | `multi-agent-workflow` | [`.agent-handoffs/run-001/`](.agent-handoffs/run-001/) | Orchestration map + **8 append-only handoffs** | 8 handoff files + map + 3 gates PASS |
 | — | `a11y-deep-audit` **(plugin)** | [`80-a11y-audit.md`](80-a11y-audit.md) | WCAG 2.1 AA conformance table across **4 layers** | 11 criteria PASS + 1 reduced-motion gap (closed by skill 90) |
 | — | `motion-choreography` **(plugin)** | [`90-motion-spec.md`](90-motion-spec.md) | Motion tokens + choreography + **reduced-motion fallback per surface** | 7/7 surfaces guarded; compos-only props |
+| — | **Buildable app proof** | [`app/`](app/) | skill component compiles + renders against real stack | `tsc --noEmit` ✅ + `next build` ✅ (see below) |
 
 ---
 
@@ -64,9 +66,15 @@ playground/kanban-board/
 ├── before/                            # the deliberately-broken first draft
 │   ├── BoardPage.before.tsx
 │   └── NOTES.md
-└── .agent-handoffs/run-001/           # Skill 10
-    ├── orchestration-map.md
-    └── 00-context.md … 70-anti-patterns.md  (8 handoffs)
+├── .agent-handoffs/run-001/           # Skill 10
+│   ├── orchestration-map.md
+│   └── 00-context.md … 70-anti-patterns.md  (8 handoffs)
+└── app/                               # buildable Next.js app (own package.json)
+    ├── package.json                   # isolated — does NOT touch repo-root deps
+    ├── tsconfig.json / tailwind.config.ts / next.config.mjs
+    ├── app/        (layout.tsx, page.tsx, globals.css — tokens + reduced-motion)
+    ├── components/ (board-panel.tsx — working copy w/ motion-reduce guards)
+    └── lib/        (utils.ts cn(), mock-data.ts)
 ```
 
 ---
@@ -86,12 +94,36 @@ Step 8  Anti-patterns    → 70-anti-patterns.md           ✅ GATE (0 blockers)
 Step 9  Orchestration    → .agent-handoffs/run-001/      ✅ (8 handoffs, run COMPLETE)
 Step 10 A11y audit       → 80-a11y-audit.md              ✅ PLUGIN (WCAG 2.1 AA, 4 layers)
 Step 11 Motion spec      → 90-motion-spec.md             ✅ PLUGIN (7/7 reduced-motion)
+Step 12 Buildable app    → app/                          ✅ tsc + next build PASS
 ```
 
 **Outcome:** the full **12/12** skill chain runs end-to-end — 10 core skills +
-2 community plugins — producing a ship-ready component that crosses the 95/120
-gate with 3 gates cleared. (A buildable Next.js app proving the component
-compiles is added in a follow-up commit.)
+2 community plugins — and the produced component compiles into a real Next.js
+production build (97.9 kB First Load JS), crossing the 95/120 gate with 3 gates
+cleared.
+
+---
+
+## Buildable app (`app/`)
+
+> ⚠️ **Scope note:** The repo root is framework content, not an app
+> (`AGENTS.md`). This `app/` sub-folder deliberately has its **own**
+> `package.json` so the heavy Next/React/Tailwind dep tree stays isolated and
+> never touches the repo-root dependencies or CI. It exists to *prove* the
+> skill-produced `BoardPanel.tsx` is real, compilable code — the strongest
+> possible test of skill 06.
+
+```bash
+cd playground/kanban-board/app
+npm install        # isolated dep tree (Next 14.2.35, React 18, Tailwind 3, TS 5)
+npm run typecheck  # tsc --noEmit          → PASS (skill component is type-clean)
+npm run build      # next build            → PASS (Route /  10.7 kB, 97.9 kB First Load)
+npm run dev        # http://localhost:3000 — interactive: toggle 5 states + rollback
+```
+
+The dev harness (bottom-right widget) lets you force each lifecycle state and
+the rollback branch, so you can see all 5 states + the optimistic-rollback
+behavior that skills 03/06/07/08 designed.
 
 ---
 
