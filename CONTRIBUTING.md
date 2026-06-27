@@ -77,6 +77,43 @@ Tool adapters live in `scripts/create-ai-design-engineer.js` (the `generateToolC
 3. Update the README
 4. Add a test in `tests/`
 
+### 🧩 Publishing a plugin
+
+Plugins are community skill packs that extend the core 10 skills without forking the framework. They live under `plugins/community/` (in-repo) or in an external GitHub repo, and are listed in the static [`plugins/registry.json`](plugins/registry.json). There is no hosted backend — see [`plugins/README.md`](plugins/README.md).
+
+To publish a plugin:
+
+1. **Create the structure**:
+
+   ```text
+   my-plugin/
+   ├── plugin.json              # manifest (see plugins/README.md for the schema)
+   └── skills/
+       └── my-skill/
+           └── SKILL.md          # follows the v2.1.0 schema
+   ```
+
+2. **Validate locally**:
+
+   ```bash
+   node scripts/validate-plugin.js ./my-plugin
+   ```
+
+   This checks the manifest fields, that every declared `SKILL.md` exists and passes the v2.1.0 schema, that the name is kebab-case + unique, and that no skill name collides with the core 10.
+
+3. **Add an entry** to [`plugins/registry.json`](plugins/registry.json) (or place the plugin under `plugins/community/` for an in-repo example).
+
+4. **Open a PR**. A maintainer will verify the plugin passes `npm run validate-plugin` and `npm run test:plugins`.
+
+A good plugin:
+
+- **Has a clear scope** — one capability beyond the core skills (e.g. deep a11y audit, motion design).
+- **Declares `related_core_skills`** in its manifest so the skill graph stays navigable.
+- **Respects the same constraints** — tokens, the 5-state contract, WCAG 2.1 AA, no magic numbers.
+- **Ships MIT-licensed** content.
+
+See [`plugins/community/a11y-audit-pack`](plugins/community/a11y-audit-pack) and [`plugins/community/motion-design-pack`](plugins/community/motion-design-pack) as references.
+
 ## Pull request process
 
 1. **Fork** the repo and create your branch from `dev/feature`

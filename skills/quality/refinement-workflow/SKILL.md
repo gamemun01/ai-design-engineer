@@ -128,6 +128,98 @@ Provide targeted code diffs. Summarize modified areas and remaining concerns.
 
 ## Example Usage (Few-Shot Example)
 
+> **Threaded pipeline:** Example A continues the **e-commerce checkout** thread. It
+> consumes the FAIL scorecard from `review-critique` (58/120), applies **multiple
+> targeted diffs** (not a rewrite), and predicts the re-score. Example B is the
+> original single-diff edge case.
+
+### Example A — Checkout refinement (thread, multi-fix 58 -> 98)
+
+```markdown
+User: Refine CheckoutPanel.tsx. Review score is 58/120 because: (1) CTA is a
+div onClick with no keyboard handler, (2) magic numbers p-[17px]/bg-[#0d9488]/
+rounded-[9px], (3) only Ideal+Loading states exist, (4) total recomputed every
+render. Apply targeted diffs only.
+```
+
+Response:
+
+````markdown
+## Change Log Summary
+- 🔴 High: Converted Place Order `div onClick` -> `<button>` with `focus-visible:ring-2`,
+  `disabled` while submitting, and Enter-to-submit. (Semantic Markup +5, Focus Visibility +5)
+- 🔴 High: Added Empty (empty-cart CTA), Error (declined-card panel + Retry), and Partial
+  (coupon discount row) states via a discriminated `status` union. (Component Lifecycle +20)
+- 🔴 High: Tokenized all magic values: `bg-[#0d9488]`->`bg-primary`, `p-[17px]`->`p-4`,
+  `rounded-[9px]`->`rounded-lg`, added `h-11` (44px) touch target. (Token Alignment +10)
+- 🟡 Medium: Memoized total with `useMemo`; wrapped summary total in `aria-live="polite"`;
+  added `aria-current="step"` to StepIndicator. (Render Efficiency +6, ARIA +2)
+- 🟢 Low: Added `aria-hidden` to decorative trust-badge icon. (Polish)
+
+## Targeted Code Diffs
+
+### Diff 1 — CTA: div onClick -> semantic button with state + focus (High)
+```diff
+-<div className="bg-[#0d9488] w-[320px] h-[42px] rounded-[9px] text-[15px]"
+-     onClick={submit}>
+-  Place Order — ${total}
+-</div>
++<button
++  onClick={submit}
++  disabled={status === 'submitting'}
++  onKeyDown={(e) => { if (e.key === 'Enter') submit(); }}
++  className="w-full max-w-md h-11 rounded-lg text-base font-medium \
++             bg-primary text-primary-foreground hover:bg-primary/90 \
++             disabled:opacity-50 disabled:cursor-not-allowed \
++             focus-visible:ring-2 focus-visible:ring-ring focus:outline-none"
++>
++  {status === 'submitting' ? 'Processing…' : `Place Order — $${memoizedTotal.toFixed(2)}`}
++</button>
+```
+
+### Diff 2 — Add missing lifecycle states (High, branch on a status union)
+```diff
++type CheckoutStatus = 'ideal' | 'loading' | 'empty' | 'error' | 'submitting';
++
+ export function CheckoutPanel({ items, totals, status, paymentError, onRetry }: CheckoutPanelProps) {
+-  // only Ideal + Loading existed
++  if (status === 'loading') return <CheckoutLoadingSkeleton />;
++  if (status === 'empty' || items.length === 0) return <CheckoutEmptyState />;
++  if (status === 'error')
++    return <CheckoutErrorState error={paymentError ?? 'Unknown error'} onRetry={onRetry} />;
+   // ... existing Ideal rendering ...
++  {/* PARTIAL: discount row renders only when a coupon is applied */}
++  {typeof totals.discount === 'number' && (
++    <p className="text-sm text-success" aria-live="polite">
++      Coupon applied: −${totals.discount.toFixed(2)}
++    </p>
++  )}
+ }
+```
+
+### Diff 3 — Memoize total + aria-live (Medium)
+```diff
+-const total = items.reduce((s, i) => s + i.price * i.qty, 0); // recomputed every render
++const memoizedTotal = useMemo(() => totals.total, [totals.total]);
+ ...
+-<span>${total.toFixed(2)}</span>
++<span aria-live="polite">${memoizedTotal.toFixed(2)}</span>
+```
+
+## Self-Check Review Score Prediction
+- Previous score: 58 / 120
+- Estimated score after changes: 98 / 120
+  - Visual 12 -> 23 (+11: tokenization, h-11 touch target, responsive width)
+  - UX 8 -> 33 (+25: Empty/Error/Partial states, aria-current step)
+  - Engineering 8 -> 23 (+15: semantic button, focus ring, Enter handler)
+  - Performance 8 -> 14 (+6: useMemo + memoized summary)
+  - Security 12 -> 15 (+3: discriminated union tightens prop typing)
+- Remaining concerns (non-blocking): memoize the item list; add aria-hidden to
+  trust-badge icon. Re-run `review-critique` to confirm 98/120 before shipping.
+````
+
+### Example B — Dashboard single-diff refinement (edge case)
+
 ```markdown
 User: Refine the dashboard component. Review score is 72/120 because keyboard
 focus is missing, empty state is absent, and spacing uses arbitrary values.

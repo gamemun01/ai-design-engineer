@@ -1,0 +1,17 @@
+{
+  "name": "a11y-audit-pack",
+  "version": "1.0.0",
+  "description": "Accessibility deep-audit skill that goes beyond the core review-critique scorecard: automated axe-core-style checks, focus-trap validation, screen-reader flow walkthroughs, and WCAG 2.1 AA conformance reports.",
+  "author": "ai-design-engineer-community",
+  "license": "MIT",
+  "skills": [
+    "skills/a11y-deep-audit/SKILL.md"
+  ],
+  "homepage": "https://github.com/gamemun01/ai-design-engineer/tree/main/plugins/community/a11y-audit-pack",
+  "source": "local:plugins/community/a11y-audit-pack",
+  "tags": ["accessibility", "audit", "wcag", "a11y", "screen-reader"],
+  "metadata": {
+    "min_framework_version": "1.3.0",
+    "related_core_skills": ["review-critique", "anti-patterns-detector"]
+  }
+}

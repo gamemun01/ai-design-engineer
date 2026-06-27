@@ -152,9 +152,16 @@ See [Tool adapters](docs-site/docs/getting-started/tools.md) for setup.
 
 ## 📚 Examples
 
-| # | Example | Stack | Score |
-|---|---------|-------|-------|
-| [01](examples/01-saas-landing/) | SaaS landing page (before/after) | Next.js + TS + Tailwind + shadcn/ui | 46 → 107 |
+| # | Example | Domain | Stack | Score |
+|---|---------|--------|-------|-------|
+| [01](examples/01-saas-landing/) | SaaS landing page | Marketing | Next.js + TS + Tailwind + shadcn/ui | 46 → 107 |
+| [02](examples/02-e-commerce-checkout/) | E-commerce checkout | E-commerce | Next.js + TS + Tailwind + shadcn/ui | 48 → 98 |
+| [03](examples/03-analytics-dashboard/) | Analytics dashboard | Dashboard | Next.js + TS + Tailwind + shadcn/ui + Recharts | 44 → 101 |
+| [04](examples/04-mobile-fitness/) | Mobile fitness app | Mobile | Next.js PWA + Tailwind (or RN + NativeWind) | 48 → 99 |
+| [05](examples/05-docs-site/) | Documentation site | Docs | Next.js + MDX + Tailwind + shadcn/ui | 50 → 100 |
+| [06](examples/06-engineering-blog/) | Engineering blog | Blog | Next.js + MDX + Tailwind + shadcn/ui | 52 → 102 |
+
+> Example 02 (checkout) is the **threaded example** referenced across all 10 skills' `## Example Usage` sections.
 
 [Browse all examples →](examples/)
 
@@ -166,6 +173,9 @@ The framework comes with validation scripts:
 
 ```bash
 npm run validate-skill   # Check all SKILL.md files have required structure
+npm run validate-plugin  # Validate community plugins (manifest + skills)
+npm run test:skills      # Contract checks + golden snapshot drift (skills & examples)
+npm run test:plugins     # Plugin registry + manifest + golden snapshot checks
 npm run check-links      # Find broken internal links
 npm run lint:md          # Markdown lint
 ```
@@ -178,9 +188,9 @@ CI runs all of these on every PR — see [`.github/workflows/ci.yml`](.github/wo
 
 - [x] v1.0.0 — 8 phases, 10 skills, MIT license
 - [x] v1.1.0 — `npx` scaffolder, GitHub Actions, docs site
-- [ ] v1.2.0 — 5 more working examples (e-commerce, dashboard, mobile, docs site, blog)
-- [ ] v1.3.0 — Skill test runner with golden outputs
-- [ ] v2.0.0 — Plugin marketplace for community skills
+- [x] v1.2.0 — 5 more working examples (e-commerce, dashboard, mobile, docs site, blog)
+- [x] v1.3.0 — Skill test runner with golden outputs
+- [x] v2.0.0 — Plugin marketplace for community skills
 - [ ] v2.1.0 — Visual regression integration (Chromatic / Percy)
 
 > **Note on versioning:** The numbers above are **product versions** (matching
