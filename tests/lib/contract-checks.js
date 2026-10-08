@@ -193,7 +193,7 @@ function checkSkill(filePath, knownSkillNames) {
     if (/<!--/.test(line)) inComment = true;
     const metaQuoted = /`[^`]*file:\/\/\/[^`]*`/.test(line);
     const insideBlock = inComment;
-    if (/<!--.*-->/.test(line) && !/<!--[^>]*$/.test(line)) inComment = false;
+    if (/<!--[\s\S]*-->/.test(line) && !/<!--[^>]*$/.test(line)) inComment = false;
     if (/file:\/\/\//.test(line) && !metaQuoted && !insideBlock) {
       fileUrlLines.push(idx + 1);
     }
