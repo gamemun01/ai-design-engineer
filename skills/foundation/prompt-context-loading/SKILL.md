@@ -108,6 +108,49 @@ To minimize context window usage (avoiding the 18,000+ token Full Profile bloat)
 
 ## Example Usage (Few-Shot Example)
 
+> **Threaded pipeline:** Example A continues the **e-commerce checkout** thread
+> started in `core-system-prompt`. It hands off to `ux-decision-framework`.
+> Example B is the original skill-update context (edge case).
+
+### Example A — Checkout pipeline context load (thread)
+
+```markdown
+User: We're starting the e-commerce checkout redesign. Load the project context
+and tell me which constraints apply before we design the flow.
+```
+
+Response:
+
+```markdown
+# Context Loading Summary
+
+## Files Checked
+| File | Status | Actionable Notes |
+|---|---|---|
+| AGENTS.md | Found | Repo is a docs/framework repo; no app test step — treat as docs QC. |
+| PROJECT.md | Missing | Continue without project-specific override. |
+| CONVENTIONS.md | Missing | Fall back to AGENTS.md naming rules (kebab-case, preserve 8-layer terminology). |
+| README.md | Found | Stack examples are React + Next.js + TS + Tailwind + shadcn/ui; checkout must match. |
+| STRUCTURE.md | Found | Shared docs in `docs/`; visual blueprints in `assets/`. |
+| package.json | Found | Validate with `npm run validate-skill`; lint with `npm run lint`. |
+| SKILL_MATRIX.md | Found | Route UX-first work through `ux-decision-framework`. |
+
+## Active Constraints
+- Repository rules: `AGENTS.md` is canonical; keep `CLAUDE.md`/`GEMINI.md` as pointers.
+- Commands: `npm run lint`, `npm run validate-skill`.
+- Naming conventions: kebab-case for files/assets; keep ordered framework dirs (e.g. `06-ai-to-code/`).
+- Validation requirements: each `SKILL.md` needs frontmatter + the 7 required body sections.
+- Accessibility target: WCAG 2.1 AA; reviews use the 0-120 scorecard (>=95 to ship).
+- Risks or open questions: no `PROJECT.md`, so product metrics for checkout (61% -> 75%) come from the user prompt only.
+
+## Next Skill
+- Selected skill: `ux-decision-framework`
+- Reason: checkout is a UX problem first — journey, error/empty states, and IA must be decided before UI.
+- Required input artifact: product context (fashion e-commerce), target metrics, mobile-first constraint, stack.
+```
+
+### Example B — Skill-update context load (edge case)
+
 ```markdown
 User: Before updating the skills, load the project context and tell me what
 rules apply.

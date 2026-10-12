@@ -1,0 +1,17 @@
+{
+  "name": "motion-design-pack",
+  "version": "1.0.0",
+  "description": "Motion and micro-interaction design skill: token-based animation timing curves, entrance/exit choreography, scroll-driven motion, and reduced-motion fallbacks. Complements core ui-generation-structured when animation is part of the design language.",
+  "author": "ai-design-engineer-community",
+  "license": "MIT",
+  "skills": [
+    "skills/motion-choreography/SKILL.md"
+  ],
+  "homepage": "https://github.com/gamemun01/ai-design-engineer/tree/main/plugins/community/motion-design-pack",
+  "source": "local:plugins/community/motion-design-pack",
+  "tags": ["motion", "animation", "micro-interaction", "transition", "reduced-motion"],
+  "metadata": {
+    "min_framework_version": "1.3.0",
+    "related_core_skills": ["ui-generation-structured", "design-system-governance"]
+  }
+}

@@ -131,6 +131,85 @@ An Audit Report detailing:
 4. **Actionable Fix Recommendations:** Explicit guidance on class/token changes.
 
 ## Example Usage (Few-Shot Example)
+
+> **Threaded pipeline:** Example A continues the **e-commerce checkout** thread,
+> auditing the code produced from the `ui-generation-structured` spec. The fixes
+> here feed `code-generation`. Example B is the original single-element audit.
+
+### Example A — Checkout code audit (thread, 4 violations)
+
+```
+System: [paste this skill prompt]
+
+User: Audit the generated checkout Place Order bar and summary before code-generation
+finalizes it:
+
+<button className="bg-[#0d9488] w-[320px] h-[42px] rounded-[9px] text-[15px]"
+        onClick={submit}>
+  Place Order — $128.00
+</button>
+<p className="text-[#475569] mt-[13px]">Secure payment via Stripe.</p>
+```
+
+Response:
+```
+<thinking_process>
+1. User Intent: Governance audit of the checkout CTA + helper text before it ships.
+2. Token check (4 violations):
+   - bg-[#0d9488]: arbitrary hex -> must be color-primary (bg-primary).
+   - w-[320px]: arbitrary width -> use responsive token-based width (w-full max-w-md).
+   - h-[42px]: arbitrary height, below 44px touch target -> h-11 (44px) minimum.
+   - rounded-[9px]: arbitrary radius -> radius-sm (rounded-md, 8px) or radius-md (rounded-lg, 12px).
+   - text-[15px]: arbitrary text size -> text-base (16px).
+   - text-[#475569]: arbitrary muted hex -> color-muted (text-muted-foreground).
+   - mt-[13px]: arbitrary margin -> spacing-sm (mt-4, 16px) or spacing-xs (mt-3, 12px).
+3. Contract check: button lacks disabled state styling and visible focus ring.
+4. a11y check: CTA re-announces price but no aria-live; helper text fine.
+</thinking_process>
+
+### 1. Design System Token Verification
+* Spacing: `mt-[13px]` violates the 4px/8px scale (13 is off-grid).
+* Colors: `bg-[#0d9488]` and `text-[#475569]` are arbitrary hex; must map to semantic roles.
+* Borders/Radius: `rounded-[9px]` is arbitrary; off the radius-sm/radius-md scale.
+* Typography: `text-[15px]` sits between text-sm (14) and text-base (16); not a token.
+* Sizing: `h-[42px]` is both arbitrary AND below the 44px mobile touch minimum.
+
+### 2. Component Contract Violations
+- Button contract requires a visible focus outline and a disabled (submitting) state — neither present.
+- Width `w-[320px]` is a fixed magic value; buttons should be responsive, not pixel-locked.
+
+### 3. Consistency Rationale
+- No exemption tag (`// @design-exception:`) present, so none of these are approved exceptions.
+- The teal brand color is legitimate, but it must be declared at the theme layer as `--primary`, not inlined.
+
+### 4. Actionable Fix Recommendations
+```diff
+-<button className="bg-[#0d9488] w-[320px] h-[42px] rounded-[9px] text-[15px]"
+-        onClick={submit}>
++<button
++  onClick={submit}
++  disabled={isSubmitting}
++  className="w-full max-w-md h-11 rounded-lg text-base font-medium \
++             bg-primary text-primary-foreground \
++             hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed \
++             focus-visible:ring-2 focus-visible:ring-ring focus:outline-none"
++>
+   Place Order — $128.00
+ </button>
+-<p className="text-[#475569] mt-[13px]">Secure payment via Stripe.</p>
++<p className="text-sm text-muted-foreground mt-3">Secure payment via Stripe.</p>
+```
+Token map applied: `bg-[#0d9488] -> color-primary`, `text-[#475569] -> color-muted`,
+`h-[42px] -> h-11 (44px, a11y-compliant)`, `w-[320px] -> w-full max-w-md (responsive)`,
+`rounded-[9px] -> radius-md (rounded-lg)`, `text-[15px] -> text-base`, `mt-[13px] -> spacing-xs (mt-3)`.
+Status: FAIL -> re-audit after `code-generation` applies the diff.
+
+> Handoff: this audit + diff is the input to `code-generation`. The fixed
+> CheckoutPanel.tsx then goes to `review-critique` for the 0-120 scorecard.
+```
+
+### Example B — Single-element audit (edge case)
+
 ```
 System: [paste this skill prompt]
 

@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-06-26",
+  "description": "AI Design Engineer community plugin registry. Static index of plugins (collections of community skills) that extend the core 10 skills. To add a plugin, open a PR adding an entry here — see plugins/README.md.",
+  "plugins": [
+    {
+      "name": "a11y-audit-pack",
+      "version": "1.0.0",
+      "description": "Accessibility deep-audit skill that goes beyond the core review-critique scorecard: automated axe-core-style checks, focus-trap validation, screen-reader flow walkthroughs, and WCAG 2.1 AA conformance reports.",
+      "author": "ai-design-engineer-community",
+      "license": "MIT",
+      "source": "local:plugins/community/a11y-audit-pack",
+      "homepage": "https://github.com/gamemun01/ai-design-engineer/tree/main/plugins/community/a11y-audit-pack",
+      "tags": ["accessibility", "audit", "wcag", "a11y", "screen-reader"],
+      "skills": ["a11y-deep-audit"]
+    },
+    {
+      "name": "motion-design-pack",
+      "version": "1.0.0",
+      "description": "Motion and micro-interaction design skill: token-based animation timing curves, entrance/exit choreography, scroll-driven motion, and reduced-motion fallbacks. Complements core ui-generation-structured when animation is part of the design language.",
+      "author": "ai-design-engineer-community",
+      "license": "MIT",
+      "source": "local:plugins/community/motion-design-pack",
+      "homepage": "https://github.com/gamemun01/ai-design-engineer/tree/main/plugins/community/motion-design-pack",
+      "tags": ["motion", "animation", "micro-interaction", "transition", "reduced-motion"],
+      "skills": ["motion-choreography"]
+    }
+  ]
+}

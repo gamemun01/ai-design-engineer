@@ -1,0 +1,38 @@
+{
+  "01-saas-landing": {
+    "name": "01-saas-landing",
+    "before_score": 46,
+    "after_score": 107,
+    "delta": 61
+  },
+  "02-e-commerce-checkout": {
+    "name": "02-e-commerce-checkout",
+    "before_score": 48,
+    "after_score": 98,
+    "delta": 50
+  },
+  "03-analytics-dashboard": {
+    "name": "03-analytics-dashboard",
+    "before_score": 44,
+    "after_score": 101,
+    "delta": 57
+  },
+  "04-mobile-fitness": {
+    "name": "04-mobile-fitness",
+    "before_score": 48,
+    "after_score": 99,
+    "delta": 51
+  },
+  "05-docs-site": {
+    "name": "05-docs-site",
+    "before_score": 50,
+    "after_score": 100,
+    "delta": 50
+  },
+  "06-engineering-blog": {
+    "name": "06-engineering-blog",
+    "before_score": 52,
+    "after_score": 102,
+    "delta": 50
+  }
+}

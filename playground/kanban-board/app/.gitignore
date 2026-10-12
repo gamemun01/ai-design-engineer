@@ -1,0 +1,8 @@
+# Buildable Next.js app — generated artifacts never tracked.
+# (node_modules/ and .next/ are also covered by the repo-root .gitignore,
+#  but this file makes the app self-contained if copied out.)
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts

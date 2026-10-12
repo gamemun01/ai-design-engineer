@@ -87,6 +87,112 @@ The review critique must output:
 ---
 
 ## Example Usage (Few-Shot Example)
+
+> **Threaded pipeline:** The examples below cover both sides of the gate for the
+> **e-commerce checkout** thread. Example A is the **FAIL** pass (the component as
+> first generated) — this is what feeds `refinement-workflow`. Example B is the
+> **PASS** pass after refinement (>=95/120). Example C is the original generic
+> FAIL case.
+
+### Example A — Checkout, first review: FAIL (58/120)
+
+```
+System: [paste this skill prompt]
+
+User: Review the first-pass CheckoutPanel.tsx. Notes: CTA is a div onClick with no
+keyboard handler; magic numbers p-[17px], bg-[#0d9488]; only Ideal + Loading states
+exist; total recomputed inline on every render; no aria-live.
+```
+
+Response:
+```
+<thinking_process>
+1. User Intent: Gate the checkout component before shipping.
+2. Audit checkpoints:
+   - Token Alignment: p-[17px], bg-[#0d9488], rounded-[9px] -> FAIL.
+   - Component Lifecycle: only Ideal + Loading; Empty/Error/Partial missing -> FAIL (blocker).
+   - Semantic Markup: CTA is div onClick, no role/keyboard -> FAIL (blocker).
+   - Focus Visibility: no focus-visible ring -> FAIL.
+   - ARIA: no aria-live on total, no aria-current on steps -> partial.
+   - Render Efficiency: total recomputed every render, no useMemo -> partial.
+   - Security: typed props present, no dangerouslySetInnerHTML -> PASS.
+3. Score calc: Visual 12, UX 8, Engineering 8, Performance 8, Security 12 -> 48... re-check
+   blockers force Engineering lower. Final: 58/120.
+</thinking_process>
+
+### 🚨 CI Design Review Status: FAILED (58/120)
+
+| Checkpoint | Status | Score | Notes |
+| :--- | :---: | :---: | :--- |
+| **Visual Quality** | PARTIAL | 12 / 25 | `bg-[#0d9488]`, `p-[17px]`, `rounded-[9px]` violate tokens. |
+| **UX Quality** | FAIL | 8 / 35 | Missing Empty, Error, Partial states; only Ideal+Loading. |
+| **Engineering Quality** | FAIL | 8 / 25 | `div onClick` CTA, no role/keyboard, no focus ring. |
+| **Performance** | PARTIAL | 8 / 20 | Total recomputed every render; no memoization. |
+| **Security** | PASS | 12 / 15 | Typed props, no unsafe HTML. |
+| **TOTAL SCORE** | **FAIL** | **58 / 120** | **Below 95/120 threshold; blockers present.** |
+
+### 🛠️ Prioritized Fix List
+#### 🔴 High Priority (Production Blockers)
+1. Convert CTA `div onClick` to `<button>` with visible focus + disabled-while-submitting.
+2. Implement Empty, Error (declined card + retry), and Partial (coupon) states.
+3. Replace all magic values: `bg-[#0d9488]`->`bg-primary`, `p-[17px]`->`p-4`, `rounded-[9px]`->`rounded-lg`.
+4. Add keyboard handler (Enter submits) and aria-current on the StepIndicator.
+
+#### 🟡 Medium Priority (Usability & Design System)
+1. Memoize the total with `useMemo`; wrap summary in aria-live region.
+2. Add `aria-live="polite"` so total recalculation is announced.
+
+#### 🟢 Low Priority (Polish)
+1. Add `aria-label` to icon-only trust badge.
+
+> Handoff: blockers above are the input to `refinement-workflow`. Re-score after
+> the targeted diffs are applied (see Example B for the passing pass).
+```
+
+### Example B — Checkout, second review after refinement: PASS (98/120)
+
+```
+System: [paste this skill prompt]
+
+User: Re-review the CheckoutPanel after refinement. Changes applied: CTA is now a
+<button> with focus ring + disabled state; all magic values tokenized; Empty/Error/
+Partial states added; total memoized with useMemo + aria-live; StepIndicator has
+aria-current="step".
+```
+
+Response:
+```
+<thinking_process>
+1. User Intent: Confirm the refined component clears the 95/120 gate.
+2. Re-audit:
+   - Token Alignment: all classes map to tokens -> PASS (25).
+   - Component Lifecycle: all 5 states present -> PASS (35).
+   - Semantic Markup: <main>/<aside>/<section>/<footer>/<button>, role=alert/region -> PASS (25).
+   - Focus Visibility: focus-visible:ring-2 on CTA + retry -> PASS.
+   - ARIA: aria-live total, aria-current step -> PASS.
+   - Render Efficiency: useMemo(total), memoized summary -> near PASS.
+   - Security: typed union status, no unsafe HTML -> PASS (15).
+3. Score calc: 25+34+25+14+15 = 113... check deductions: 1 perf point off for
+   non-memoized item list (minor). Final 98/120.
+</thinking_process>
+
+### ✅ CI Design Review Status: PASSED (98/120)
+
+| Checkpoint | Status | Score | Notes |
+| :--- | :---: | :---: | :--- |
+| **Visual Quality** | PASS | 23 / 25 | All tokenized; minor: trust badge icon could use aria-hidden. |
+| **UX Quality** | PASS | 33 / 35 | All 5 states present; sticky summary collapses cleanly on mobile. |
+| **Engineering Quality** | PASS | 23 / 25 | Semantic landmarks; Enter-to-submit added. |
+| **Performance** | PARTIAL | 14 / 20 | Total memoized; item list not yet memoized (non-blocking). |
+| **Security** | PASS | 15 / 15 | Discriminated-union status; no unsafe HTML; typed props. |
+| **TOTAL SCORE** | **PASS** | **98 / 120** | **Above 95/120 threshold; no blockers.** |
+
+### ✅ Ship Readiness
+- No blockers. Two minor (non-blocking) notes logged for a future polish pass:
+  memoize the item list and add aria-hidden to the trust-badge icon.
+- Approved to ship. Hand off to `anti-patterns-detector` for the final catalog audit.
+
+### Example C — Generic component review: FAIL (30/120, edge case)
 ```
 System: [paste this skill prompt]
 

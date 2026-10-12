@@ -304,6 +304,68 @@ To execute this multi-agent system programmatically or manually, conform to the 
 
 ## Example Usage (Few-Shot Example)
 
+> **Threaded pipeline:** Example A is the full orchestration of the **e-commerce
+> checkout** thread started in `core-system-prompt` — it shows every agent, its
+> CLI adapter, the handoff file it writes, and the gate between stages. The
+> artifact names match the schemas in "Standard Handoff Interfaces". Example B is
+> the original condensed SaaS dashboard edge case.
+
+### Example A — Checkout pipeline, 8-agent execution map (thread)
+
+```markdown
+User: Orchestrate the e-commerce checkout redesign end-to-end across specialized
+agents. Target: completed-checkout 61% -> 75%, mobile-first, ship when
+review-critique >= 95/120.
+```
+
+Response:
+
+```markdown
+## Orchestration Execution Map
+Run ID: checkout-redesign
+Handoff directory: `.agent-handoffs/checkout-redesign/`
+Topology: Sequential (with a conditional refinement loop at the Review gate)
+
+| Step | Agent | CLI adapter | Skill | Output | Gate |
+|---|---|---|---|---|---|
+| 0 | Context Agent | gemini | prompt-context-loading | 00-context.md | — |
+| 1 | UX Agent | claude | ux-decision-framework | 10-ux-decision.md | UX brief has 8 sections |
+| 2 | UI Agent | claude | ui-generation-structured | 20-ui-blueprint.md | Has builder prompts |
+| 3 | Design System Agent | gemini | design-system-governance | 30-design-system-audit.md | PASS (no magic values) |
+| 4 | Frontend Agent | gemini | code-generation | 40-frontend-implementation.md | 5 states + types |
+| 5 | Review Agent | claude | review-critique | 50-review-scorecard.md | >= 95/120 |
+| 6 | Refinement Agent | gemini | refinement-workflow | 60-refinement-log.md | (conditional) |
+| 7 | Safety Agent | claude | anti-patterns-detector | 70-anti-patterns.md | No zero-tolerance |
+
+### Handoff Compliance Validation
+- Current transition: Context (00) -> UX (10)
+- Required input: `00-context.md` with product goals, target metrics, stack
+- Status: PASS — brief contains metrics (61% -> 75%), stack (Next.js + Tailwind + shadcn), WCAG target
+- Conditional gate: if Step 5 scores < 95/120, route to Step 6 (Refinement) then back to Step 5 (re-score). Three-strike circuit breaker applies.
+
+### Task Assignment Brief (for the next agent: UX Agent)
+UX Agent: read `.agent-handoffs/checkout-redesign/00-context.md`, produce
+`10-ux-decision.md` matching the UX_DECISION schema. Include: Product Context
+(JTBD), priority tasks (P0 place order, P1 recover declined card, P2 apply coupon),
+journey with success/error states, Assist strategy justification, IA + wireframe
+zones (sticky summary), accessibility rules (>=44px targets, 4.5:1 contrast), and
+trade-offs (multi-step vs one-page). Do NOT create visual layouts yet — that is
+Step 2 (UI Agent).
+
+### Resilience Notes
+- Circuit breaker: if Review (Step 5) fails < 95/120 for 3 consecutive iterations,
+  halt and produce a Human Escalation Report (per the Three-Strike Rule).
+- Retry budget: max 2 retries per stage for non-fatal errors (e.g., a missing
+  aria-label). Fatal errors (e.g., XSS, missing error state) do not retry — escalate.
+- Idempotency: re-running Step 4 with the same `30-design-system-audit.md` must
+  produce identical `CheckoutPanel.tsx`, no duplicate code insertion.
+
+> Final handoff: `70-anti-patterns.md` with PASS status is the ship artifact. The
+> runner logs every agent's input/output under `.agent-handoffs/checkout-redesign/logs/`.
+```
+
+### Example B — SaaS billing dashboard (edge case)
+
 ```markdown
 User: Set up a multi-agent workflow for a SaaS billing dashboard redesign.
 ```

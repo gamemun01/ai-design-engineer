@@ -47,10 +47,33 @@ if (mdFiles.length === 0) {
 console.log(`Linting ${mdFiles.length} markdown file(s)...`);
 
 const configPath = path.join(repoRoot, '.markdownlint.json');
-const args = ['--config', configPath, ...mdFiles];
-const result = spawnSync('markdownlint', args, {
-  stdio: 'inherit',
-  shell: true,
-});
 
-process.exit(result.status || 0);
+// Windows has an ~8191-character command-line limit. Passing every file path
+// as a separate argument overflows it once the repo grows past ~70-80 markdown
+// files (the path list is the bulk of the command). Chunk the file list into
+// batches and invoke markdownlint once per batch, aggregating the exit code so
+// any failure in any batch still fails the whole run.
+const MAX_BATCH_CHARS = 6000; // conservative; leaves room for binary path + flags
+let failed = false;
+for (let i = 0; i < mdFiles.length; ) {
+  const batch = [];
+  let batchLen = 0;
+  while (i < mdFiles.length && batchLen + mdFiles[i].length + 1 < MAX_BATCH_CHARS) {
+    batch.push(mdFiles[i]);
+    batchLen += mdFiles[i].length + 1;
+    i++;
+  }
+  // Guard against a single path longer than the budget (shouldn't happen, but
+  // avoids an infinite loop if it ever does).
+  if (batch.length === 0) {
+    batch.push(mdFiles[i]);
+    i++;
+  }
+  const result = spawnSync('markdownlint', ['--config', configPath, ...batch], {
+    stdio: 'inherit',
+    shell: true,
+  });
+  if (result.status !== 0) failed = true;
+}
+
+process.exit(failed ? 1 : 0);

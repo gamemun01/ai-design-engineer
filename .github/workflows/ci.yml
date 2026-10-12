@@ -32,6 +32,35 @@ jobs:
       - run: npm run validate-skill
       - run: npm run check-links
 
+  test-skills:
+    name: Skill & Example Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - run: npm ci
+      # Contract checks (cross-refs, pitfalls/checklist counts, example
+      # completeness, REVIEW score >= gate) + golden snapshot drift detection.
+      - run: npm run test:skills
+
+  test-plugins:
+    name: Plugin Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - run: npm ci
+      # Validate all community plugins (manifest + v2.1.0 skills) and check the
+      # registry + golden snapshot for drift.
+      - run: npm run validate-plugin
+      - run: npm run test:plugins
+
   docs-build:
     name: Build Docs
     runs-on: ubuntu-latest

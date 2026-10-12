@@ -1,0 +1,82 @@
+{
+  "code-generation": {
+    "name": "code-generation",
+    "version": "2.1.0",
+    "related_count": 4,
+    "tags_count": 7,
+    "pitfalls_count": 5,
+    "checklist_count": 6
+  },
+  "core-system-prompt": {
+    "name": "core-system-prompt",
+    "version": "2.1.0",
+    "related_count": 4,
+    "tags_count": 4,
+    "pitfalls_count": 5,
+    "checklist_count": 5
+  },
+  "prompt-context-loading": {
+    "name": "prompt-context-loading",
+    "version": "2.1.0",
+    "related_count": 4,
+    "tags_count": 4,
+    "pitfalls_count": 5,
+    "checklist_count": 5
+  },
+  "multi-agent-workflow": {
+    "name": "multi-agent-workflow",
+    "version": "2.1.0",
+    "related_count": 5,
+    "tags_count": 5,
+    "pitfalls_count": 5,
+    "checklist_count": 5
+  },
+  "anti-patterns-detector": {
+    "name": "anti-patterns-detector",
+    "version": "2.1.0",
+    "related_count": 4,
+    "tags_count": 5,
+    "pitfalls_count": 5,
+    "checklist_count": 5
+  },
+  "refinement-workflow": {
+    "name": "refinement-workflow",
+    "version": "2.1.0",
+    "related_count": 4,
+    "tags_count": 5,
+    "pitfalls_count": 5,
+    "checklist_count": 5
+  },
+  "review-critique": {
+    "name": "review-critique",
+    "version": "2.1.0",
+    "related_count": 4,
+    "tags_count": 6,
+    "pitfalls_count": 5,
+    "checklist_count": 6
+  },
+  "design-system-governance": {
+    "name": "design-system-governance",
+    "version": "2.1.0",
+    "related_count": 5,
+    "tags_count": 5,
+    "pitfalls_count": 5,
+    "checklist_count": 5
+  },
+  "ui-generation-structured": {
+    "name": "ui-generation-structured",
+    "version": "2.1.0",
+    "related_count": 4,
+    "tags_count": 5,
+    "pitfalls_count": 5,
+    "checklist_count": 5
+  },
+  "ux-decision-framework": {
+    "name": "ux-decision-framework",
+    "version": "2.1.0",
+    "related_count": 4,
+    "tags_count": 5,
+    "pitfalls_count": 5,
+    "checklist_count": 5
+  }
+}
