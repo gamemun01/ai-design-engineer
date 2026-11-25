@@ -1,0 +1,5 @@
+simulation: studio-provider-contract
+routing: path
+mocks:
+  - routeKey: llm
+    path: ../mocks/custom-llm/config.yaml

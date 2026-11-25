@@ -1,6 +1,6 @@
 {
   "name": "ai-design-engineer",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "description": "Open-source framework + skills for AI-assisted design engineering. From idea → UX → UI → production code.",
   "keywords": [
@@ -37,8 +37,15 @@
     "create": "node scripts/create-ai-design-engineer.js",
     "plugins": "node scripts/plugin-cli.js",
     "validate-plugin": "node scripts/validate-plugin.js",
-    "test": "node tests/scaffolder.test.js && node tests/skills.test.js && node tests/plugins.test.js",
-    "test:skills": "node tests/skills.test.js",
+    "skills:codex:register": "node scripts/register-codex-skills.js --write",
+    "skills:codex:check": "node scripts/register-codex-skills.js --check",
+    "studio": "node apps/studio/server/start.mjs --open",
+    "studio:serve": "node apps/studio/server/start.mjs",
+    "studio:build": "npm --prefix apps/studio run build",
+    "studio:test": "npm --prefix apps/studio test",
+    "studio:package": "node scripts/package-studio.mjs",
+    "test": "node tests/scaffolder.test.js && node tests/skill-integrity.test.js && node tests/codex-registration.test.js && node tests/skills.test.js && node tests/plugins.test.js",
+    "test:skills": "node tests/skill-integrity.test.js && node tests/codex-registration.test.js && node tests/skills.test.js",
     "test:plugins": "node tests/plugins.test.js",
     "docs:serve": "cd docs-site && mkdocs serve",
     "docs:build": "cd docs-site && mkdocs build",
@@ -46,7 +53,14 @@
     "preview": "npx serve ."
   },
   "devDependencies": {
+    "fflate": "0.8.3",
     "markdownlint-cli": "^0.49.0",
     "serve": "^14.2.0"
+  },
+  "overrides": {
+    "compression": "^1.8.2",
+    "js-yaml@>=5.0.0 <5.4.1": "^5.5.0",
+    "smol-toml": "^1.9.1",
+    "katex": "^0.18.2"
   }
 }

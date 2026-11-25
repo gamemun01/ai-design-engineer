@@ -1,0 +1,87 @@
+name: Prepare Skill Studio draft release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version matching both package files (for example 1.2.0)
+        required: true
+        default: "1.2.0"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: studio-release-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  package:
+    runs-on: windows-latest
+    env:
+      RELEASE_VERSION: ${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: "24.22.0"
+          package-manager-cache: false
+      - name: Validate requested version
+        shell: pwsh
+        run: |
+          node -e "const fs=require('fs'); const v=process.env.RELEASE_VERSION; if(!/^\d+\.\d+\.\d+$/.test(v)) throw Error('Invalid release version'); for(const p of ['package.json','apps/studio/package.json']) if(JSON.parse(fs.readFileSync(p)).version!==v) throw Error('Version mismatch: '+p); if(!fs.existsSync('docs/releases/v'+v+'.md')) throw Error('Missing release notes');"
+      - run: npm ci --ignore-scripts
+      - run: npm ci --prefix apps/studio --ignore-scripts
+      - run: npm run lint
+      - run: npm run validate-skill
+      - run: npm run validate-plugin
+      - run: npm run skills:codex:check
+      - run: npm run check-links
+      - run: npm test
+      - run: npm run studio:test
+      - run: npm audit --audit-level=low
+      - run: npm audit --prefix apps/studio --audit-level=low
+      - run: node scripts/prepare-studio-runtime.mjs
+      - run: npm run studio:package
+      - run: node scripts/package-studio.mjs --runtime-dir=.release-runtime/node-v24.22.0-win-x64
+      - run: node scripts/verify-studio-package.mjs --bundled-runtime
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: studio-release
+          path: dist/releases/*
+          if-no-files-found: error
+          retention-days: 14
+
+  draft:
+    needs: package
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+    env:
+      RELEASE_VERSION: ${{ inputs.version }}
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RELEASE_TARGET: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: studio-release
+          path: dist/releases
+      - name: Verify archives and create a draft
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$RELEASE_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          (cd dist/releases && sha256sum --check SHA256SUMS.txt)
+          tag="v$RELEASE_VERSION"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release already exists; refusing to replace it."
+            exit 1
+          fi
+          gh release create "$tag" dist/releases/*.zip dist/releases/SHA256SUMS.txt --draft --target "$RELEASE_TARGET" --title "Skill Studio $RELEASE_VERSION" --notes-file "docs/releases/$tag.md"

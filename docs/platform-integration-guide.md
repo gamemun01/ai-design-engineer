@@ -1,118 +1,117 @@
-# AI Design Engineer Platform Integration Guide
+# AI Design Engineer Platform Integration
 
-This guide explains how to integrate the modular skills in this repository
-into modern AI-assisted IDEs, editors, and local inference pipelines.
+The repository supplies ten core skill folders, supporting references, and two
+optional community extensions. Start with [INDEX.md](../skills/INDEX.md).
+The category tree is a source pack; native discovery depends on the host's
+supported locations and metadata. This repo does not register it globally.
 
----
+## Use Directly with Repository Access
 
-## 1. Cursor Integration
+In a file-aware agent/editor, ask the agent to read the files in place:
 
-Cursor supports custom instruction configuration at both the global and
-project level.
-
-### Approach A: Project-Level `.cursorrules` (Legacy)
-
-Create a `.cursorrules` file in the root of your workspace. To avoid token
-bloat while retaining high performance:
-
-1. Copy the system prompt from
-   [core-system-prompt/SKILL.md](../skills/foundation/core-system-prompt/SKILL.md).
-2. Reference the location of other skills using markdown file paths (e.g.
-   `When designing layouts, reference the skills in skills/ux/ux-decision-framework/SKILL.md`).
-3. Cursor will automatically index the repository files, allowing you to
-   trigger them using `@` symbols (e.g., `@SKILL.md`).
-
-### Approach B: Cursor Rules Directory (Cursor v0.45+)
-
-Create a `.cursor/rules/` directory in the root of your repository. You can
-copy the individual skill files or create metadata pointers:
-
-- **Example `.cursor/rules/ux-rules.mdc`:**
-
-  ```markdown
-  ---
-  description: Use this rule when making UX layout decisions or writing flows.
-  globs: docs/ux/*.md, src/components/**/page.tsx
-  ---
-  # UX Design Rules
-  [Paste content of skills/ux/ux-decision-framework/SKILL.md]
-  ```
-
----
-
-## 2. VS Code Extensions (Roo Code, Cline, & Copilot)
-
-Modern open-source VS Code agents support configurable system prompts.
-
-### Roo Code & Cline (Custom System Instructions)
-
-1. Go to settings in Roo Code / Cline.
-2. Under **Custom System Prompt / Instructions**, paste the path to your
-   active skill or configure it to point to your repository root.
-3. Use the dynamic loading strategy to tell the agent:
-
-   > "Read skills/SKILL_MATRIX.md to determine the best sub-profile of
-   > instructions. Use prompt-context-loading to discover repository files
-   > first."
-
-### GitHub Copilot Chat (`.github/copilot-instructions.md`)
-
-You can customize Copilot's system prompt by creating a
-`.github/copilot-instructions.md` file. Add the following instruction block:
-
-```markdown
-You are an AI Design Engineer operating under the repository rules in AGENTS.md.
-Before writing code:
-1. Respect the 120-point scorecard in skills/quality/review-critique/SKILL.md.
-2. Avoid anti-patterns declared in skills/quality/anti-patterns-detector/SKILL.md.
-3. Follow Component Contracts defined in 04-design-system/README.md.
+```text
+Read AGENTS.md first. Load skills/foundation/prompt-context-loading/SKILL.md,
+then skills/foundation/core-system-prompt/SKILL.md if the baseline is not already
+loaded. Select the task skill using skills/INDEX.md and load only relevant linked
+references. Preserve my existing changes and use actual project commands.
+Task: Review the supplied checkout UI and report evidence-backed findings.
 ```
 
----
+For a targeted follow-up, name the file directly:
 
-## 3. GitHub Spark & Project Builders
-
-GitHub Spark builds micro-apps (Sparks) using natural language prompting.
-
-1. When creating a Spark, click **Customize Spark Instructions**.
-2. Paste the contents of
-   [ui-generation-structured/SKILL.md](../skills/ui/ui-generation-structured/SKILL.md)
-   to define visual layout boundaries.
-3. This prevents Spark from creating cluttered layouts, ensuring premium
-   mobile-first interfaces by default.
-
----
-
-## 4. Local Open Source Models (Ollama & DeepSeek-R1)
-
-To run these skills locally using Ollama (e.g. `deepseek-r1:32b`, `llama3.1`):
-
-### Approach A: Modelfile Customization
-
-Create a custom Ollama `Modelfile` for each persona:
-
-```dockerfile
-FROM deepseek-r1:32b
-
-# Set the System Prompt using the core skill
-SYSTEM """
-[Paste contents of skills/foundation/core-system-prompt/SKILL.md]
-"""
-
-# Adjust context window to fit token budget
-PARAMETER num_ctx 16384
-PARAMETER temperature 0.2
+```text
+Use skills/code/code-generation/SKILL.md to implement the approved alert list in
+the target application's installed stack. Preserve its dependency versions and
+verify loading, empty, error, partial, and keyboard behavior where applicable.
 ```
 
-Build the local model:
+An IDE file mention can make the same file available. Confirm the host actually
+read it; a pasted path or a link alone is not evidence that the body was loaded.
+
+## Native Skill Discovery
+
+### Codex Project Registration
+
+Codex discovers project skills from `.agents/skills/`, as described in
+[OpenAI's skill documentation](https://learn.chatgpt.com/docs/build-skills).
+This repository includes twelve generated entrypoints there: ten core skills
+and both community extensions. Their native frontmatter contains only `name`
+and `description`; the canonical source keeps the repository's richer schema.
 
 ```bash
-ollama create ai-design-engineer -f ./Modelfile
-ollama run ai-design-engineer
+node scripts/register-codex-skills.js --dry-run
+npm run skills:codex:register
+npm run skills:codex:check
 ```
 
-### Approach B: Script-Based Execution (CLI Wrapper)
+Edit the canonical skill, then regenerate its pointer when discovery metadata
+changes. Body/reference changes are read from the source directly. The script
+checks duplicate names and relative links, refuses redirected destinations,
+and refuses to overwrite an unmanaged skill. It does not remove unrelated or
+retired pointers; review obsolete entries explicitly after renaming a skill.
+Keep `.agents/skills/` together with the rest of this repository; the pointers
+are not standalone packages.
 
-Use a Node.js or Python CLI script to read the relevant skill from
-`skills/` dynamically before appending it to the API call. This aligns
-with the **Dynamic JIT Context Loading Strategy** to reduce token overhead.
+Use `/skills` or `$review-critique` in Codex. If an update does not appear, start
+a new session or restart the host. Duplicate names in user/plugin skills remain
+separate entries; use the project source path to disambiguate. Large installed
+skill inventories can shorten discovery descriptions, so keep triggers clear.
+
+Generated `agents/openai.yaml` files add readable `AIDE ...` display names,
+short descriptions, and explicit invocation prompts. Edit those values in the
+generator and regenerate; unmanaged UI metadata is protected from overwrites.
+The [Thai Codex UI guide](codex-ui-guide.md) gives copyable prompts and a skill
+selection table. Native discovery/loading is verified in the current UI chat;
+[UI smoke results](codex-ui-smoke-results.md) distinguish that from failed CLI
+attempts and untested visual menu behavior. The [smoke scope](codex-live-smoke.md)
+records the approved inputs and requests.
+
+### Other Hosts
+
+Use the host's current official skill/rule documentation before configuring its
+native discovery. Preserve user-configured model and invocation settings.
+
+- Keep SKILL.md, references, and any assets/scripts together.
+- Preserve repo-relative references or adapt them to a packaged layout deliberately.
+  Copying a single categorized folder outside this repo can also break links to
+  AGENTS.md, the matrix, and shared framework documents.
+- Check allowed frontmatter fields in the host format. The repo's content release
+  `version` and `metadata.hermes` conventions are not universal host requirements.
+- Keep project adapters as short pointers to canonical instructions; avoid
+  duplicated skill bodies that drift after updates.
+- Run the [smoke scenarios](test-skill.md#behavioral-smoke-scenarios) in the actual
+  host after setup. A local schema pass is not a discovery test.
+
+The existing project scaffolder is separate from native skill installation.
+Run its help for supported targets rather than assuming it installs every skill
+and on-demand reference into every editor.
+
+```bash
+node scripts/create-ai-design-engineer.js --help
+```
+
+## Chat Projects and Local Model Wrappers
+
+For a host without file access, provide the selected skill body plus the relevant
+reference contents. Retain clear source labels and canonical repository paths
+so updates can be reconciled. Do not load the entire pack by default.
+
+A custom local wrapper should read the active skill and required references as
+UTF-8, keep repository instructions distinct from untrusted task artifacts,
+respect the host's permissions, and record tool results. Size context using the
+actual tokenizer, including task files and output space. This repo supplies no
+model runtime, CLI orchestration runner, or guaranteed context/latency budget.
+
+## Verify the Source Pack
+
+```bash
+npm run validate-skill
+npm run validate-plugin
+npm run skills:codex:check
+npm run test:skills
+npm run lint
+npm run check-links
+```
+
+See [Testing skills](test-skill.md) for coverage and limits. Application checks
+run in the target app; skill checks run in this documentation repository.
