@@ -1,7 +1,7 @@
 ---
 name: refinement-workflow
 description: Iteratively improve generated UI or code after review findings by fixing high-impact issues, rescoring, and stopping when quality gates pass. Use after review-critique reports scores below threshold, when the user asks to refine or improve output, or when issues must be resolved without broad rewrites.
-version: 2.1.0
+version: 2.2.0
 author: gamemun01
 license: MIT
 metadata:
@@ -40,10 +40,7 @@ You are an AI Design Engineer specializing in component refactoring and iterativ
 - **Preservation Rule:** Do not modify working helper functions, utilities, or component props unless necessary.
 
 ### 3. Iteration Limits & Escapes
-<!-- Original iteration rules commented out to preserve history (Rule #1)
-- **Quality Threshold:** Iterate until the component scores **>= 95 / 120** on the `review-critique` scorecard, with all blocker checkboxes cleared.
-- **Three-Strike Rule:** If the design fails the gate after **3 sequential iterations**, stop and generate an escalation report highlighting the unresolved blockers for human developer intervention.
--->
+
 - **Quality Threshold:** Iterate until the component scores **>= 95 / 120** on the `review-critique` scorecard, with all blocker checkboxes cleared.
 - **Three-Strike Rule:** If the design fails the gate after **3 sequential iterations**, stop and generate an escalation report highlighting the unresolved blockers for human developer intervention.
 
@@ -54,7 +51,7 @@ You must execute an autonomous correction loop to resolve code, style, security,
     - If the score is below the Gatekeeper Threshold (**< 95/120**) or if any critical blocker is checked:
       - Automatically generate a targeted patch or diff to correct the issues.
       - Apply the patch/diff in the workspace.
-      - Re-verify by running the build/linter/compiler tools (e.g. `npm run validate-skill` or standard linters).
+      - Run the affected project's actual checks from its manifest. For this documentation repo use lint/skill validation/Node contract tests; `validate-skill` does not compile React or test application behavior.
       - Re-evaluate the updated code using the `review-critique` scorecard.
       - Repeat this self-correction cycle for a maximum of 3 iterations.
 3.  **Human Escalation Rule:** If the code still fails to meet the shipping threshold (**< 95/120**) or has unresolved blocker issues after 3 full cycles of the autonomous loop:
@@ -66,6 +63,13 @@ You must execute an autonomous correction loop to resolve code, style, security,
       - Clear recommendations or choices for the user to resolve the issue.
 
 ### 4. Regression Checklist
+
+Apply changes only within the user's authorized scope and preserve existing
+working-tree edits. If critical runtime checks are unavailable, report NOT
+VERIFIED and the next required check instead of repeatedly patching to raise an
+invented score. Stop when evidence-backed gates pass; do not manufacture polish
+iterations. For a docs-only task, use validators and review findings rather than
+the UI scorecard.
 
 Before submitting the refined output, you **MUST** run this self-audit to prevent regression bugs:
 - [ ] **Functional Integrity:** Ensure existing functions, event handlers, props, and states work as before.
@@ -124,16 +128,19 @@ Provide targeted code diffs. Summarize modified areas and remaining concerns.
 
 1. **Change Log Summary:** A bulleted list of modifications mapped to the prioritized issue list.
 2. **Targeted Code Diffs:** Readable git-style file diffs showing only changed lines.
-3. **Self-Check Review Score Prediction:** Pre-audit calculation of the anticipated new `review-critique` score.
+3. **Verification Results:** Checks run, actual outcomes, remaining blockers, and review status. A predicted score may be labeled provisional but cannot substitute for verification.
 
 ## Example Usage (Few-Shot Example)
+
+Examples are illustrative. Metrics, scores, and assumed verification below are
+not measured results for the current task; replace them with actual evidence.
 
 > **Threaded pipeline:** Example A continues the **e-commerce checkout** thread. It
 > consumes the FAIL scorecard from `review-critique` (58/120), applies **multiple
 > targeted diffs** (not a rewrite), and predicts the re-score. Example B is the
 > original single-diff edge case.
 
-### Example A — Checkout refinement (thread, multi-fix 58 -> 98)
+### Example A — Checkout refinement (thread, multi-fix 58 -> 108)
 
 ```markdown
 User: Refine CheckoutPanel.tsx. Review score is 58/120 because: (1) CTA is a
@@ -147,13 +154,13 @@ Response:
 ````markdown
 ## Change Log Summary
 - 🔴 High: Converted Place Order `div onClick` -> `<button>` with `focus-visible:ring-2`,
-  `disabled` while submitting, and Enter-to-submit. (Semantic Markup +5, Focus Visibility +5)
+  `disabled` while submitting, and native keyboard activation. (Semantic Markup +5, Focus Visibility +5)
 - 🔴 High: Added Empty (empty-cart CTA), Error (declined-card panel + Retry), and Partial
-  (coupon discount row) states via a discriminated `status` union. (Component Lifecycle +20)
+  (coupon discount row) states via explicit status branches. (Component Lifecycle review required)
 - 🔴 High: Tokenized all magic values: `bg-[#0d9488]`->`bg-primary`, `p-[17px]`->`p-4`,
   `rounded-[9px]`->`rounded-lg`, added `h-11` (44px) touch target. (Token Alignment +10)
-- 🟡 Medium: Memoized total with `useMemo`; wrapped summary total in `aria-live="polite"`;
-  added `aria-current="step"` to StepIndicator. (Render Efficiency +6, ARIA +2)
+- 🟡 Medium: Used the authoritative total directly and announced meaningful total changes;
+  added `aria-current="step"` to StepIndicator. Verify behavior before scoring.
 - 🟢 Low: Added `aria-hidden` to decorative trust-badge icon. (Polish)
 
 ## Targeted Code Diffs
@@ -165,15 +172,15 @@ Response:
 -  Place Order — ${total}
 -</div>
 +<button
++  type="button"
 +  onClick={submit}
 +  disabled={status === 'submitting'}
-+  onKeyDown={(e) => { if (e.key === 'Enter') submit(); }}
 +  className="w-full max-w-md h-11 rounded-lg text-base font-medium \
 +             bg-primary text-primary-foreground hover:bg-primary/90 \
 +             disabled:opacity-50 disabled:cursor-not-allowed \
 +             focus-visible:ring-2 focus-visible:ring-ring focus:outline-none"
 +>
-+  {status === 'submitting' ? 'Processing…' : `Place Order — $${memoizedTotal.toFixed(2)}`}
++  {status === 'submitting' ? 'Processing…' : `Place Order — $${displayedTotal.toFixed(2)}`}
 +</button>
 ```
 
@@ -190,32 +197,33 @@ Response:
    // ... existing Ideal rendering ...
 +  {/* PARTIAL: discount row renders only when a coupon is applied */}
 +  {typeof totals.discount === 'number' && (
-+    <p className="text-sm text-success" aria-live="polite">
++    <p className="text-sm text-foreground" aria-live="polite">
 +      Coupon applied: −${totals.discount.toFixed(2)}
 +    </p>
 +  )}
  }
 ```
 
-### Diff 3 — Memoize total + aria-live (Medium)
+### Diff 3 — Authoritative total + aria-live (Medium)
 ```diff
 -const total = items.reduce((s, i) => s + i.price * i.qty, 0); // recomputed every render
-+const memoizedTotal = useMemo(() => totals.total, [totals.total]);
++const displayedTotal = totals.total;
  ...
 -<span>${total.toFixed(2)}</span>
-+<span aria-live="polite">${memoizedTotal.toFixed(2)}</span>
++<span aria-live="polite">${displayedTotal.toFixed(2)}</span>
 ```
 
 ## Self-Check Review Score Prediction
 - Previous score: 58 / 120
-- Estimated score after changes: 98 / 120
+- Estimated score after changes: 108 / 120
   - Visual 12 -> 23 (+11: tokenization, h-11 touch target, responsive width)
-  - UX 8 -> 33 (+25: Empty/Error/Partial states, aria-current step)
-  - Engineering 8 -> 23 (+15: semantic button, focus ring, Enter handler)
-  - Performance 8 -> 14 (+6: useMemo + memoized summary)
-  - Security 12 -> 15 (+3: discriminated union tightens prop typing)
-- Remaining concerns (non-blocking): memoize the item list; add aria-hidden to
-  trust-badge icon. Re-run `review-critique` to confirm 98/120 before shipping.
+  - UX 18 -> 33 (+15: Empty/Error/Partial states added; aria-current step)
+  - Engineering 8 -> 23 (provisional: semantic button and focus ring)
+  - Performance and Security: require measurement and trust-boundary checks;
+    a typed status or memoization does not justify increased points by itself.
+- Verification status: NOT VERIFIED in this illustrative example. The projected
+  108/120 is not a release gate result. Confirm keyboard activation calls submit
+  once, async errors preserve form data, and the server prevents duplicate orders.
 ````
 
 ### Example B — Dashboard single-diff refinement (edge case)
@@ -258,4 +266,3 @@ Response:
 - [ ] Re-score is run after every iteration; the delta is recorded.
 - [ ] No new features or scope additions are introduced during refinement.
 - [ ] The final iteration produces a scorecard that passes the threshold and a list of remaining acceptable trade-offs.
-

@@ -1,7 +1,7 @@
 ---
 name: ux-decision-framework
 description: Create UX decision documents from product context, user goals, journeys, task flows, information architecture, accessibility, and trade-offs. Use before wireframes, UI generation, redesign decisions, complex feature planning, or when a user asks for UX rationale.
-version: 2.1.0
+version: 2.2.0
 author: gamemun01
 license: MIT
 metadata:
@@ -24,21 +24,9 @@ visual polish with no interaction or information architecture impact.
 
 You are an AI Design Engineer guiding the product design team through user experience decisions before any layout or code is generated. Your task is to output a clear UX rationale, user task flows, and trade-offs using the structured UX decision process. Accessibility (a11y) and Inclusive Design are core UX responsibilities from the very start, not engineering afterthoughts.
 
-<!-- Original UX Decision Process commented out to preserve history (Rule #1)
-### UX Decision Process
-1. **Clarify Product Context:** Identify product type, primary users, success metrics, and constraints.
-2. **Identify Core Tasks:** List the top 3-5 tasks that matter most to users.
-3. **Journey & Task Flow:** Map the entry points, decision points, required data, and success/error states.
-4. **Choose UX Strategy:** (Focus, Discover, Control, or Assist).
-5. **Information Architecture (IA):** Detail visual hierarchies, grouping of actions, and progressive disclosures.
-6. **Cognitive Load:** Limit visual complexity and set guidelines for choices.
-7. **Accessibility & Usability:** Enforce keyboard navigation, helper text, and contrast guardrails from the outset.
-8. **Trade-offs:** Justify the final approach, noting risks and deprioritized items.
--->
-
 ### UX Decision Process & Phases
 We operate through four sequential UX phases:
-1. **Strategy (Align Goals):** Frame the problem using the **Jobs To Be Done (JTBD)** methodology (mapping functional, emotional, and social dimensions) and define the **Agent Maturity Model** (Level 1: Task Automation, Level 2: Semi-Autonomous, Level 3: Fully Autonomous, Level 4: Strategic Partner).
+1. **Strategy (Align Goals):** Frame the problem using **Jobs To Be Done (JTBD)**, covering the dimensions supported by evidence. Use the pack's illustrative **Agent Maturity Model** only for agentic products; omit it for ordinary screens.
 2. **Information Architecture (IA):** Map user journeys, task flows, content hierarchy, navigation models, and taxonomy.
 3. **Wireframing (Low-fidelity):** Structure layout, content zones, responsive breakpoints (mobile vs desktop grids), and outline interactive annotations.
 4. **Validation (Test Assumptions):** Define success criteria, task success rates, and validate designs via heuristic evaluations or test scenarios.
@@ -60,80 +48,25 @@ We operate through four sequential UX phases:
 - **Control:** Surface status, alerts, and actions for power/operator users.
 - **Assist:** Guide users with progressive disclosures, wizard steps, and contextual help.
 
+### Evidence & Scope
+- Separate observed research, user-provided facts, assumptions, and proposed experiments. Example conversion rates and personas are illustrative, not measured results.
+- Document success, loading, empty, error, and partial states where applicable; mark irrelevant states N/A with a reason.
+- Ask for essential missing product decisions only. Use labeled assumptions for reversible layout choices.
+- Keep WCAG 2.1 AA as the repo baseline; consider WCAG 2.2 AA for new work, especially focus obscured by sticky UI, dragging alternatives, and accessible authentication. See [WCAG 2.2](https://www.w3.org/TR/WCAG22/).
+
 ## Expected Output Format
 
 Always output a `UX Decision Document` using this exact structure:
 
 1. **Document Title:** `# UX Decision Document: [Feature/Screen Name]`
 2. **Standardized Markdown Sections:** Use the 8 sections defined in the template below.
-3. **Instructional Completeness:** Fill out every sub-bullet and table cell. No placeholder fields should remain empty.
+3. **Instructional Completeness:** Replace placeholders with evidence, labeled assumptions, open questions, or N/A with a reason. Do not fabricate research to complete the template. For small changes, include only affected sections.
 
 ---
 
 ## Blank Fill-in Template (Copy-Pasteable)
 
 Copy and fill in the exact Markdown template below for consistent documentation:
-
-<!-- Original Blank Fill-in Template commented out to preserve history (Rule #1)
-```markdown
-# UX Decision Document: [Feature/Screen Name]
-
-## 1. Product Context
-- **Product Type:** [e.g., SaaS, Mobile App, Internal Portal]
-- **Primary Users:** [e.g., Admin, Customer, Developer]
-- **User Problem:** [Describe the problem the user is experiencing]
-- **Business Goal:** [What business metric or value this solves]
-- **Success Metrics:** [KPIs, task completion rate, etc.]
-- **Constraints:** [Design limits, API capabilities, timeline]
-
-## 2. Key User Tasks
-| Priority | Task | User Intent | Success Signal |
-| :--- | :--- | :--- | :--- |
-| **P0** | [Primary Task] | [What does user want to do] | [Completion verification] |
-| **P1** | [Secondary Task] | [What does user want to do] | [Completion verification] |
-| **P2** | [Tertiary Task] | [What does user want to do] | [Completion verification] |
-
-## 3. Journey & Task Flow
-- **Entry Point:** [How the user enters this screen/action]
-- **Main Path:** [Step-by-step happy path flow]
-- **Decision Points:** [If/else branching criteria]
-- **Success State:** [Ideal ending state description]
-- **Error/Recovery States:** [What happens when validation fails / how they recover]
-
-## 4. UX Strategy & Justification
-- **Selected Strategy:** [Focus / Discover / Control / Assist]
-- **Justification:** [Why this strategy fits the user needs and context]
-- **Intentionally Excluded:** [Features or flows left out to keep focus]
-
-## 5. Information Architecture Rules
-- **Primary Visual Hierarchy:** [What gets read first, second, third]
-- **Navigation Model:** [Tabs, sidebar, inline breadcrumbs]
-- **Grouping Rules:** [How related fields or actions are grouped together]
-- **Progressive Disclosure:** [What is hidden initially / how is it revealed]
-
-## 6. Cognitive Load Decisions
-- **Simplify:** [What elements were stripped/reduced]
-- **Defer:** [What actions were postponed to later steps]
-- **Highlight:** [What is visually emphasized (e.g., CTA)]
-- **Limit:** [How choices/numbers of fields are constrained]
-
-## 7. Accessibility & Inclusive Design (UX Responsibility)
-- **Inclusive Design Checklist:**
-  - [ ] **Logical Focus Order:** Ensure tab/keyboard navigation flows logically (top-to-bottom, left-to-right).
-  - [ ] **No Color-Only Signifiers:** Color is never the sole indicator of status, error, or action (always pair with text or icons).
-  - [ ] **Touch Target Size:** Interactive elements have touch targets of at least 44x44px (ideally 48x48px).
-  - [ ] **Descriptive Error Messaging:** Form field errors explain exactly what is wrong and how to fix it.
-- **Keyboard Behavior:** [Focus ordering, tab index rules, trigger keys]
-- **Screen Reader Labels:** [Aria attributes, descriptive labels for icons]
-- **Touch Target Minimum:** [Target sizes, e.g., 44x44px or 48x48px]
-- **Contrast Targets:** [Minimum contrast ratios for text and indicators]
-
-## 8. Trade-offs and Risks
-- **Key Trade-offs:** [What did we compromise (e.g. speed vs dense info)]
-- **Identified Risks:** [Potential failure loops, user errors]
-- **Validation Methods:** [How we will test this layout (e.g. user interview)]
-```
--->
 
 ```markdown
 # UX Decision Document: [Feature/Screen Name]
@@ -204,6 +137,9 @@ Copy and fill in the exact Markdown template below for consistent documentation:
 
 ## Example Usage (Few-Shot Example)
 
+Examples are illustrative. Metrics, scores, and assumed verification below are
+not measured results for the current task; replace them with actual evidence.
+
 > **Threaded pipeline:** Example A continues the **e-commerce checkout** thread.
 > It produces the UX brief that `ui-generation-structured` will turn into a
 > wireframe. Example B is the original mobile/elderly edge case.
@@ -220,11 +156,10 @@ completed-checkout from 61% to 75%, mobile-first.
 Response (condensed — full doc fills every cell of the 8-section template):
 
 ```
-<thinking_process>
+Decision summary (illustrative):
 1. User Intent: Shoppers abandon checkout because the form feels long and payment feels risky.
 2. Core Tasks: Enter shipping, pay, confirm, recover from a declined card.
 3. Strategy: "Assist" — guide step-by-step with inline validation and trust signals.
-</thinking_process>
 
 ### 1. Product Context (JTBD Framework)
 - Product Type: Fashion e-commerce web app (Next.js + Tailwind + shadcn/ui).
@@ -297,11 +232,10 @@ User: Map the UX decisions for a medication tracker mobile app for elderly users
 
 Response:
 ```
-<thinking_process>
+Decision summary (illustrative):
 1. User Intent: Needs a UX decision plan for a mobile app tracking medications for elderly users.
 2. Core Tasks: View daily schedule, log pill taken, add a new medication.
 3. Strategy: "Assist" and "Focus" strategies are crucial here due to target audience visual/cognitive needs.
-</thinking_process>
 
 ### 1. Product Context
 - Product type: Mobile native application

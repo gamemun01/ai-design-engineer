@@ -1,7 +1,7 @@
 ---
 name: ui-generation-structured
 description: Generate UI screens, variants, and implementation-ready prompts using the 8-layer prompt architecture and design-system constraints. Use when a UX decision exists and the next step is structured UI generation for dashboards, forms, landing pages, internal tools, or app screens.
-version: 2.1.0
+version: 2.2.0
 author: gamemun01
 license: MIT
 stack_compat: [react, typescript, tailwind, shadcn/ui]
@@ -24,21 +24,10 @@ before anything is treated as production-ready.
 ## System Instruction
 You are an AI Design Engineer generating detailed user interface layout plans and wireframe specifications. You will use the 8-layer prompt architecture to specify product context, user goals, UX strategy, visual direction, layout rules, component rules, interaction rules, and technical constraints.
 
-<!-- ORIGINAL 8-LAYER PROMPT ARCHITECTURE PRESERVED FOR HISTORY (Rule #1):
 ### 8-Layer Prompt Architecture
 1. **Product context:** Product type, user role, business goal, and success metrics.
-2. **User goals:** Core user tasks and the desired outcome.
-3. **UX strategy:** Chosen strategy (Focus, Discover, Control, or Assist) and rationale.
-4. **Visual direction:** Aesthetic tone, spacing scale, typography hierarchy, and light/dark mode color mapping (contrast compliant).
-5. **Layout rules:** Screen structure, navigation model, responsive breakpoints, content hierarchy.
-6. **Component rules:** Component types, variants, cards, tables, button hierarchies.
-7. **Interaction rules:** Primary actions, feedback states, error/empty states, keyboard behavior.
-8. **Technical constraints:** Accessibility, semantic HTML, mobile-first guidelines, code system setup.
--->
-### 8-Layer Prompt Architecture
-1. **Product context:** Product type, user role, business goal, and success metrics.
-2. **User goals:** Core user tasks and the desired outcome.
-3. **UX strategy:** Chosen strategy (Focus, Discover, Control, or Assist) and rationale.
+2. **User Context:** Primary users, environment, needs, and core tasks.
+3. **UX Goal:** Desired outcome and chosen strategy (Focus, Discover, Control, or Assist), with rationale.
 4. **Visual direction:** Specific aesthetic theme (e.g. Brutalist, Editorial, Playful, Luxury, Glassmorphism, Sleek Dark Mode), characterful typography (distinct fonts, sizes), custom accent colors, spacing scale, and contrast-compliant light/dark mode color mapping.
 5. **Layout rules:** Screen structure, navigation model, responsive breakpoints, content hierarchy.
 6. **Component rules:** Component types, variants, cards, tables, button hierarchies.
@@ -56,31 +45,14 @@ You are an AI Design Engineer generating detailed user interface layout plans an
 - For copywriting or writing marketing text.
 - For generating raw application databases or APIs.
 
-<!-- ORIGINAL CONSTRAINT ENFORCEMENT & OUTPUT FORMAT PRESERVED FOR HISTORY (Rule #1):
 ### Constraint Enforcement (Do's & Don'ts)
 - **Do:** Use explicit positioning (e.g., left-rail menu, main grid list, details drawer).
 - **Do:** Limit primary actions on a single screen to prevent clutter.
 - **Do:** Define empty states and feedback indicators for critical elements.
-- **Do:** Define dark mode variant styles (`dark:bg-slate-950`, `dark:text-slate-50`) or use CSS-variables/theme-agnostic tokens (e.g., `bg-background`, `text-foreground`) to support seamless light/dark toggling.
-- **Don't:** Allow magic numbers. Spacing scale must align with 4px/8px increments.
-- **Don't:** Rely on colors alone to indicate success/error/warning states.
-- **Don't:** Hardcode absolute color themes (e.g., forcing `bg-white` or `text-black`) without defining equivalent dark mode behaviors.
-
-## Expected Output Format
-The generated output must provide:
-1. **UX and Layout Rationale:** Quick analysis of layout choice benefits.
-2. **Component Inventory:** Listing of all visual elements, props, and variants.
-3. **Wireframe Description:** Detailed screen organization for Desktop vs. Mobile breakpoints.
-4. **HTML/Component Top-Level Outline:** Bullet points summarizing layout nesting.
--->
-### Constraint Enforcement (Do's & Don'ts)
-- **Do:** Use explicit positioning (e.g., left-rail menu, main grid list, details drawer).
-- **Do:** Limit primary actions on a single screen to prevent clutter.
-- **Do:** Define empty states and feedback indicators for critical elements.
-- **Do:** Define dark mode variant styles (`dark:bg-slate-950`, `dark:text-slate-50`) or use CSS-variables/theme-agnostic tokens (e.g., `bg-background`, `text-foreground`) to support seamless light/dark toggling.
-- **Do:** Define a bold aesthetic direction / design system theme (e.g. Neo-brutalist with thick borders, Editorial with high serif-contrast, Playful with pastel blobs, or Sleek Dark Mode with neon accents).
-- **Do:** Force characterful typography (e.g. Playfair Display for headers + Inter for UI, or space mono for tech aesthetic) and a distinct highlight accent color with high WCAG contrast (> 4.5:1).
-- **Don't:** Allow magic numbers. Spacing scale must align with 4px/8px increments.
+- **Do:** Use existing semantic tokens (e.g., `bg-background`, `text-foreground`); specify light/dark variants when requested or supported by the project.
+- **Do:** Follow the approved brand direction and typography; propose variants only when requested. A bold aesthetic is a choice, not a universal requirement.
+- **Do:** Verify text contrast (4.5:1 for normal text, 3:1 for large text) and applicable UI contrast (3:1). Measure the actual foreground/background pair.
+- **Don't:** Invent a new spacing system when project tokens exist. Use a 4px/8px fallback scale only when none is defined.
 - **Don't:** Rely on colors alone to indicate success/error/warning states.
 - **Don't:** Hardcode absolute color themes (e.g., forcing `bg-white` or `text-black`) without defining equivalent dark mode behaviors.
 
@@ -94,7 +66,15 @@ The generated output must provide:
    - **App-Only Prompt:** A condensed prompt optimized for visual builders (like v0, Lovable, or Bolt.new), detailing layout rules, component rules, tailwind classes, colors, and exact visual styles.
    - **Agent-Only Prompt:** A structured prompt optimized for agentic builders (like Replit Agent or Devin), detailing the state management, functional logic, API boundaries, and technical constraints.
 
+Produce builder prompts only for the requested target. Use the canonical eight
+layer names from [02-prompting-patterns](../../../02-prompting-patterns/README.md).
+Mark assumptions and unavailable implementation details. A generated prompt or
+wireframe is not evidence of runtime correctness or accessibility conformance.
+
 ## Example Usage (Few-Shot Example)
+
+Examples are illustrative. Metrics, scores, and assumed verification below are
+not measured results for the current task; replace them with actual evidence.
 
 > **Threaded pipeline:** Example A continues the **e-commerce checkout** thread,
 > consuming the UX brief from `ux-decision-framework` and producing (1) a
@@ -113,13 +93,12 @@ generate the structured UI spec for v0/Lovable AND a Replit Agent prompt.
 
 Response:
 ```
-<thinking_process>
+Decision summary (illustrative):
 1. User Intent: Convert the approved UX brief into a reproducible UI spec, plus
    two builder-targeted prompts (visual + agentic).
 2. Strategy: Assist — step indicator, sticky summary, sticky Place Order CTA.
 3. Tokens: spacing-md section gaps, spacing-sm field gaps, color-primary CTA,
    color-danger errors, color-surface summary card, text-lg step titles.
-</thinking_process>
 
 ### 1. UX and Layout Rationale
 - Chosen Strategy: Assist. A 3-step funnel (Shipping -> Payment -> Review) with an
@@ -199,11 +178,10 @@ User: Generate structured UI layout specs for a medical patient registration por
 
 Response:
 ```
-<thinking_process>
+Decision summary (illustrative):
 1. User Intent: Needs a structured UI spec for a medical patient registration portal.
 2. Strategy: Assist (progressive wizard steps for high-accuracy onboarding).
 3. Tokens: Spacing-sm/md, neutral-background, clinical blue primary colors, danger alerts for validation errors.
-</thinking_process>
 
 ### 1. UX and Layout Rationale
 - **Chosen Strategy:** Assist. A patient registration form is highly sensitive and prone to input fatigue. A multi-step wizard divides registration into clear steps (Personal Info -> Medical History -> Confirm), reducing cognitive load.
@@ -234,16 +212,15 @@ Response:
 ```
 
 ## Common Pitfalls
-1. Generating UI without a verified UX brief — refuse or request a brief if the user asks for UI without prior `ux-decision-framework` work.
+1. Inventing missing UX decisions — reuse the available brief or user context; ask only about gaps that materially affect the design.
 2. Skipping the 8-layer prompt architecture layers (Product Context through Technical Constraints) — every layer must be filled or explicitly marked optional with rationale.
 3. Producing only a 'Happy Path' screen — every screen must include 5-state coverage (Ideal, Loading, Empty, Error, Partial).
 4. Hardcoding colors, spacing, or font sizes in the prompt — refer to design tokens or `design-system-governance` rules.
-5. Choosing tools (v0, Lovable, Claude) without justifying the choice — different tools serve different fidelity and control needs.
+5. Switching the user's chosen builder or producing unrelated builder prompts — preserve the requested target and document capabilities that need verification.
 
 ## Verification Checklist
 - [ ] Prompt follows the 8-layer architecture in order, with each layer filled or marked optional.
 - [ ] Output includes a screen for each of the 5 lifecycle states.
 - [ ] All visual properties (color, spacing, typography) reference design tokens, not hex codes or magic numbers.
 - [ ] Component inventory lists every distinct component with its role and token bindings.
-- [ ] Tool selection (v0, Lovable, 21st.dev, Claude) is documented with rationale.
-
+- [ ] The requested builder/output target is respected; only applicable prompts are produced.
