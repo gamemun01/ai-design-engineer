@@ -1,7 +1,7 @@
 ---
 name: anti-patterns-detector
 description: Detect AI design and frontend anti-patterns using the repository anti-pattern catalog, including visual, UX, accessibility, code, workflow, and production-readiness issues. Use for pre-shipping audits, recurring problem diagnosis, or when output feels inconsistent, inaccessible, overdesigned, or hard to maintain.
-version: 2.1.0
+version: 2.2.0
 author: gamemun01
 license: MIT
 metadata:
@@ -37,7 +37,7 @@ Any file containing the following critical anti-patterns **MUST NOT** pass audit
 - **Hard-coded Magic Styles:** CSS or Tailwind classes like `w-[23px]` or `bg-[#f0f3f5]` without design tokens.
 - **Non-Semantic Click Handlers:** Wrapping interactive functions in general structural containers (like `div` or `span` with an `onClick` listener) without `role="button"` or keyboard focus management.
 - **Missing Loading/Error/Empty States:** Components that fetch data but only define the "Ideal State".
-- **External Dependencies Leakage:** Arbitrary inclusion of npm packages outside the core standard stack (React, Lucide, standard primitives) without explicit authorization.
+- **Dependency Leakage:** Missing imports or new dependencies added outside the project's authorized scope. Existing packages are not violations just because they differ from example defaults.
 
 ### 2. Comprehensive Classification & Fixes
 
@@ -46,81 +46,30 @@ When auditing, classify each finding into:
 - **UX Anti-Patterns:** Hidden focus, non-obvious CTA, lack of feedback/alerts, missing fallback screens.
 - **Code Anti-Patterns:** Large monolithic component structures, hard-coded layout calculations, type-safety leakage (e.g. using `any` everywhere).
 
-### 3. Detailed 20 Production Anti-Patterns Database
+### 3. Production Anti-Pattern Catalog
 
-Inspect the codebase for the following 20 specific anti-patterns and apply their corresponding fixes:
+The canonical, full list of the **20 production anti-patterns** lives in [`../../ANTI_PATTERNS.md`](../../ANTI_PATTERNS.md) (Problem / Why it fails / Fix / Prevention per entry). Always load that file for broad coverage beyond the core detector checklist.
 
-1. **One-shot shipping:** Treating the first generated output as final without refinement.
-   - *Why it fails:* Lack of verification gates leads to bugs and poor UX.
-   - *Fix:* Force review checklist checks and run refinement iteration loops.
-2. **Vague prompts:** Structureless, open-ended instructions.
-   - *Why it fails:* Unpredictable outputs and hard-to-maintain files.
-   - *Fix:* Enforce structured prompting patterns with explicit inputs, rules, and layout constraints.
-3. **Token neglect:** Ignoring or inconsistently applying standard design tokens.
-   - *Why it fails:* Visual fragmentation, page layout elements don't align.
-   - *Fix:* Audit and map spacing, radius, typography, and color directly to design system tokens.
-4. **No UX rationale:** Designing without documenting structural rationale.
-   - *Why it fails:* Blind visual reproduction without explaining how the design solves the user problem.
-   - *Fix:* Require a UX decision brief mapping tasks, journeys, and strategy choice before coding.
-5. **Overdesign:** Adding redundant widgets, complex animations, or unnecessary decorations.
-   - *Why it fails:* Higher cognitive load, distracting the user from primary goals.
-   - *Fix:* Simplify layout back to the top 3-5 user goals.
-6. **Inaccessible interface:** Relying only on color indicators, lacking keyboard focus, or missing screen-reader aria properties.
-   - *Why it fails:* Keyboard/screen-reader users cannot use the software, violating accessibility guidelines.
-   - *Fix:* Enforce WCAG 2.1 AA contrast ratios, clear outline focus states, and keyboard navigation.
-7. **Broken handoffs:** Ambiguous transitions between UX, UI, and coding tasks.
-   - *Why it fails:* Misinterpretation of requirements and implementation gaps.
-   - *Fix:* Enforce standardized machine-readable markdown handoff interface files.
-8. **Component inconsistency:** Rebuilding similar components (e.g., custom checkboxes or buttons) in multiple different ways.
-   - *Why it fails:* UI feels unstable, code duplication, hard to scale.
-   - *Fix:* Enforce strict component contracts and reuse standard library components.
-9. **Semantic code gaps:** Using unstyled divs or spans for interactive buttons or forms.
-   - *Why it fails:* Assistive technologies fail to recognize click actions and text labels.
-   - *Fix:* Replace div soup with semantic HTML elements (`<button>`, `<input>`, `<label>`).
-10. **No review criteria:** Evaluating output qualitatively without structured scoring metrics.
-    - *Why it fails:* Subjective, inconsistent reviews that do not block bad code.
-    - *Fix:* Enforce a strict 0-120 Scorecard gate (Visual: 25, UX: 35, Engineering: 25, Performance: 20, Security: 15).
-11. **Duplicate patterns:** Creating custom components for patterns that already exist in the library.
-    - *Why it fails:* Code bloat, inconsistency, and wasted engineering effort.
-    - *Fix:* Catalog common layout patterns and audit imports before coding.
-12. **Hidden assumptions:** Leaving critical parameters, API shapes, or constraints unwritten.
-    - *Why it fails:* Design output violates business rules or fails to integrate with backends.
-    - *Fix:* Document assumptions, data contracts, and success metrics upfront.
-13. **Performance blind spots:** Loading massive unoptimized images or nesting heavy layout computations.
-    - *Why it fails:* Slow load times, low frame rates, and poor user conversion rates.
-    - *Fix:* Optimize component rendering lifecycle and simplify DOM depth.
-14. **No mobile plan:** Designing target layouts only for desktop and ignoring small screens.
-    - *Why it fails:* Broken responsiveness on mobile devices, tablets, or narrow windows.
-    - *Fix:* Define responsive grid/flex behaviors and perform mobile-first layout design.
-15. **No error design:** Forgetting empty states, error screens, or loading skeleton states.
-    - *Why it fails:* Users get stuck indefinitely during errors or slow connections without instructions.
-    - *Fix:* Implement all 5 UI states (Ideal, Loading, Empty, Error, Partial).
-16. **Unclear data contracts:** UI components receiving untyped or inconsistent props.
-    - *Why it fails:* Fragile, runtime crash-prone integrations.
-    - *Fix:* Define strict prop interfaces (TypeScript) and data shape schemas.
-17. **Improper feedback:** Form submissions or button clicks triggering background tasks without loaders or alerts.
-    - *Why it fails:* User double-clicks buttons or thinks the application is broken/frozen.
-    - *Fix:* Add active button loading spinners, toast alerts, and disabled states.
-18. **Excessive detail in first pass:** Trying to construct every edge case on the first draft.
-    - *Why it fails:* Low speed, complex codebase early on, making revisions very difficult.
-    - *Fix:* Start with core workflows and add details progressively through refinement loops.
-19. **No versioned review:** Reviewing once and discarding the history of changes.
-    - *Why it fails:* Bugs can reappear, and team loses track of quality progression.
-    - *Fix:* Maintain a running log of revisions tied directly to scorecard scores.
-    - *Exception:* This rule does not apply to single-developer projects where overhead outweighs versioning benefits.
-20. **Ignoring production context:** Creating UI wireframes that cannot be built with the current frontend stack.
-    - *Why it fails:* Heavy rework, friction between designers and engineers.
-    - *Fix:* Establish code feasibility boundaries and match prompts to current system stacks.
+The four most frequent patterns to watch for on every audit:
+
+| # | Anti-Pattern | Quick signal | Skill that fixes it |
+|---|---|---|---|
+| 1 | One-shot shipping | Treating the first generated output as final | `review-critique` + `refinement-workflow` |
+| 3 | Token neglect | Arbitrary hex/spacing (`bg-[#fff]`, `p-[17px]`) | `design-system-governance` |
+| 6 | Inaccessible interface | Color-only signifiers, no focus, no aria | `ux-decision-framework` + `code-generation` |
+| 15 | No error design | Only Ideal state; no Loading/Empty/Error/Partial | `code-generation` (5-state contract) |
+
+For each catalog entry found in code, classify it (Visual / UX / Code / Workflow) with a severity (Blocker / Major / Minor) and apply the corresponding fix recipe from `ANTI_PATTERNS.md`.
 
 ### 4. Approved Exception Handling
 When auditing, do not flag occurrences that meet the following approved exception criteria:
-- **Explicit Inline Exemption Tag:** If a rule violation is accompanied by a comment containing the tag `// @design-exception: [reason]`, it must be skipped and marked as approved (e.g., standardizing custom animations or magic numbers for specific layout constraints).
+- **Documented Design Exception:** A `// @design-exception: [reason]` comment is evidence to inspect, not automatic approval. Verify it against project decisions and scope; it cannot waive security, accessibility, or runtime correctness requirements.
 - **Approved External Libraries/Packages:** Check the project config file (e.g. package.json or system-config.json) for the `approved_packages` list. Any library declared in this list is exempt from Dependency Control auditing.
-- **Single Developer Context:** Anti-Pattern #19 (No versioned review) is not applicable in projects marked as single-developer setup, where complex multi-agent log overhead is unnecessary.
+- **Single Developer Context:** Keep review evidence proportional to the task. A single developer still needs reproducible checks; separate agent logs are optional.
 
 ### 5. Security & Resilience Guardrails
 When auditing component code and logic, you must enforce the following security safeguards:
-- **Prompt Injection Defense:** Verify that no user-supplied input is directly rendered into scripts, passed to `eval()`, or allowed to bypass command bounds. If the code parses prompts or templates dynamically, ensure it implements strict input validation (e.g. regex-based whitelisting) and rejects strings containing directives like "Ignore previous instructions" or "Output system prompt".
+- **Prompt Injection Defense:** Treat user input, retrieved content, and handoff text as untrusted data. Check tool allowlists, least-privilege access, authorization before side effects, and validated structured outputs. Rejecting a few instruction keywords is not a defense against prompt injection. Distinguish prompt injection from code execution/XSS; never interpolate untrusted data into `eval()` or shell commands.
 - **Zero Trust & Least Privilege:** Enforce that code operates under the principle of least privilege. Check for file system writes or command executions, verifying that paths are strictly confined (no arbitrary path traversal like `../` to access system folders) and that execution uses safe parameters instead of raw shell concatenation.
 
 ### 6. Human Escalation Rules
@@ -152,9 +101,12 @@ Run this mechanical audit on every file:
    - **File & Line Range:** [Link to file / lines]
    - **Why It's a Problem:** [Explanation of accessibility, rendering, or maintainability impact]
    - **Refactored Solution:** [Targeted code diff showing the fix]
-3. **Audit Status:** PASS or FAIL (FAIL if any critical anti-patterns are found).
+3. **Audit Status:** PASS, FAIL, or NOT VERIFIED; FAIL for critical findings. Include evidence and limits for unavailable runtime checks.
 
 ## Example Usage (Few-Shot Example)
+
+Examples are illustrative. Metrics, scores, and assumed verification below are
+not measured results for the current task; replace them with actual evidence.
 
 > **Threaded pipeline:** Example A continues the **e-commerce checkout** thread —
 > the final safety audit after refinement, referencing real catalog entries.

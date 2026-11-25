@@ -1,7 +1,7 @@
 ---
 name: a11y-deep-audit
 description: Run a deep accessibility audit beyond the core review-critique scorecard, covering automated axe-core-style checks, keyboard/focus-trap validation, screen-reader flow walkthroughs, and a WCAG 2.1 AA conformance report. Use when a11y is a first-class requirement, before shipping public-facing UI, or when review-critique flags accessibility risk.
-version: 2.1.0
+version: 2.2.0
 author: ai-design-engineer-community
 license: MIT
 metadata:
@@ -58,6 +58,18 @@ conformance report with evidence and remediation diffs.
 - Live regions announce dynamic updates; landmarks define page structure.
 - Respect `prefers-reduced-motion` for all non-essential animation.
 
+### Evidence and WCAG 2.2
+Use WCAG 2.1 AA as this repo's baseline and record the target standard before
+auditing. For new work, also assess relevant [WCAG 2.2 AA criteria](https://www.w3.org/TR/WCAG22/):
+focus not obscured, dragging alternatives, target size minimum (24x24 CSS px or
+the defined spacing/exceptions), and accessible authentication. A 44x44 CSS px
+target is a useful design preference, not the AA minimum.
+
+Report PASS, FAIL, NOT VERIFIED, or N/A per criterion, with scope and evidence.
+Automated tools alone do not prove conformance; missing browser/screen-reader
+access means those checks remain NOT VERIFIED. State tool/version, actual results,
+tested pages/states, and limitations. Do not infer legal compliance from a score.
+
 ## Expected Output Format
 
 ```markdown
@@ -66,9 +78,9 @@ conformance report with evidence and remediation diffs.
 ## Conformance Summary
 | WCAG Criterion | Level | Status | Evidence |
 |---|---|---|---|
-| 1.4.3 Contrast | AA | PASS/FAIL | [ratio + elements] |
-| 2.1.1 Keyboard | A | PASS/FAIL | [findings] |
-| 4.1.2 Name/Role/Value | A | PASS/FAIL | [findings] |
+| 1.4.3 Contrast | AA | PASS/FAIL/NOT VERIFIED/N/A | [ratio + elements] |
+| 2.1.1 Keyboard | A | PASS/FAIL/NOT VERIFIED/N/A | [findings] |
+| 4.1.2 Name/Role/Value | A | PASS/FAIL/NOT VERIFIED/N/A | [findings] |
 
 ## Findings (prioritized)
 ### 🔴 Critical (blocks use)
@@ -80,10 +92,13 @@ conformance report with evidence and remediation diffs.
 \`\`\`
 
 ## Verdict
-[Conforms / Does not conform] to WCAG 2.1 AA. [Blockers remaining].
+[Findings and tested scope against the agreed WCAG target]. [Blockers and unverified criteria].
 ```
 
 ## Example Usage (Few-Shot Example)
+
+The response below assumes measured results supplied for the example; it is not
+evidence for the current application.
 
 ```
 System: [paste this skill prompt]
@@ -132,7 +147,7 @@ re-run `review-critique` (Accessibility dimension should rise to >=9/10).
 1. Treating this skill as a replacement for the core `review-critique` accessibility checks — it extends them; run both.
 2. Auditing only the visual DOM and ignoring keyboard/screen-reader flows — layers 2 and 3 catch the failures that screenshots hide.
 3. Reporting contrast failures without stating the actual ratio — every contrast finding needs a measured ratio and the offending elements.
-4. Forgetting `prefers-reduced-motion` and auto-playing media — these are WCAG 2.1 AA (2.2.2, 2.3.3) and are commonly missed.
+4. Mislabeling motion criteria — 2.2.2 Pause, Stop, Hide is Level A; 2.3.3 Animation from Interactions is AAA. Reduced-motion support is recommended; do not classify every animation as an AA failure.
 5. Producing findings without remediation diffs — every critical finding must include a concrete before/after code change.
 
 ## Verification Checklist

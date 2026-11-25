@@ -1,22 +1,25 @@
 ---
 name: design-system-governance
 description: Enforce design-system rules, spacing scales, typography hierarchy, semantic color roles, accessibility constraints, and component contracts. Use when auditing generated UI, creating design tokens, reviewing component consistency, or preventing arbitrary styles.
-version: 2.1.0
+version: 2.2.0
 author: gamemun01
 license: MIT
 stack_compat: [tailwind, shadcn/ui, design-tokens]
 metadata:
   hermes:
     tags: [design-system, tokens, governance, accessibility, audit]
-    related_skills: [ux-decision-framework, ui-generation-structured, code-generation, review-critique, anti-patterns-detector]
+    related_skills: [ux-decision-framework, ui-generation-structured, code-generation, review-critique, anti-patterns-detector, refinement-workflow]
 ---
 <!-- markdownlint-disable -->
 
 # Design System Governance — AI Design Engineer
 
-> [!WARNING]
-> **Tailwind CSS v4 Transition Compatibility Note:**
-> Tailwind v4 replaces CSS-in-JS `tailwind.config.js` with CSS-first configuration. Token names and standard classes remain the same, but custom color/spacing definitions must be declared in the main CSS file using `@theme` syntax instead of JavaScript exports. See: [tailwindcss.com/docs/v4-beta](https://tailwindcss.com/docs/v4-beta)
+> [!NOTE]
+> **Version-aware tokens:** Inspect the target project's token export and CSS
+> before auditing. Tailwind v4 uses CSS-first `@theme`; legacy JavaScript config
+> can be loaded with `@config`. Utility names/defaults changed between v3 and v4.
+> See the [upgrade guide](https://tailwindcss.com/docs/upgrade-guide) and
+> [theme variables](https://tailwindcss.com/docs/theme). A migration is separate work.
 
 ## Trigger Description
 
@@ -38,7 +41,11 @@ You are an AI Design Engineer auditing generated layouts and code to ensure stri
 
 ### Core Tokens Source of Truth & Utility Mapping
 
-To audit generated code effectively, verify that all classes are mapped correctly according to this token-to-utility reference:
+Use the project's actual token export as source of truth. The tables below are
+illustrative fallback mappings, not guaranteed Tailwind/shadcn defaults. Verify
+computed CSS: font root size, spacing base, radius/shadow definitions, and theme
+variants can change their pixel values. Do not equate matching utility names
+with matching values.
 
 #### 1. Spacing Tokens
 | Token Name | Pixel Value | Tailwind Utility Class (examples) | CSS Custom Property |
@@ -69,16 +76,16 @@ To audit generated code effectively, verify that all classes are mapped correctl
 | `color-text` | Primary Body Text | `text-foreground` | `var(--foreground)` |
 | `color-muted` | Secondary Muted Text | `text-muted-foreground` | `var(--muted-foreground)` |
 | `color-primary` | Primary Brand Actions | `bg-primary`, `text-primary-foreground` | `var(--primary)`, `var(--primary-foreground)` |
-| `color-success` | Success & Confirm States | `bg-emerald-50`, `text-emerald-700` | `var(--success)`, `var(--success-foreground)` |
-| `color-warning` | Warning & Status Alerts | `bg-amber-50`, `text-amber-700` | `var(--warning)`, `var(--warning-foreground)` |
+| `color-success` | Success & Confirm States | `bg-success`, `text-success-foreground` (define first) | `var(--success)`, `var(--success-foreground)` |
+| `color-warning` | Warning & Status Alerts | `bg-warning`, `text-warning-foreground` (define first) | `var(--warning)`, `var(--warning-foreground)` |
 | `color-danger` | Danger, Validation Errors | `bg-destructive`, `text-destructive-foreground` | `var(--destructive)`, `var(--destructive-foreground)` |
 
 #### 4. Border Radius Tokens
 | Token Name | Pixel Value | Tailwind Utility Class | CSS Custom Property |
 |---|---|---|---|
-| `radius-sm` | 8px | `rounded-md` | `var(--radius)` (base) |
-| `radius-md` | 12px | `rounded-lg` | `var(--radius-md)` |
-| `radius-lg` | 16px | `rounded-xl` | `var(--radius-lg)` |
+| `radius-sm` | 8px (fallback) | Project utility or `rounded-[var(--radius-sm)]` | `var(--radius-sm)` |
+| `radius-md` | 12px (fallback) | Project utility or `rounded-[var(--radius-md)]` | `var(--radius-md)` |
+| `radius-lg` | 16px (fallback) | Project utility or `rounded-[var(--radius-lg)]` | `var(--radius-lg)` |
 
 #### 5. Elevation / Shadow Tokens
 | Token Name | Visual Style | Tailwind Utility Class | CSS Custom Property |
@@ -88,39 +95,24 @@ To audit generated code effectively, verify that all classes are mapped correctl
 | `shadow-lg` | Dialog/Modal Popups | `shadow-lg` | `var(--shadow-lg)` |
 
 
-<!-- Original Component Contracts & Governance Checklist:
 ### Component Contracts
 *   **Button:** Primary action (uses `color-primary`), Secondary action (border + neutral surface), Tertiary (text link). Disabled state must suppress interactions. Focus outline is mandatory.
 *   **Card:** Radius-md, surface background, border color, with `spacing-md` or `spacing-lg` padding. Must contain a clear heading element.
-*   **Input:** Text label MUST exist above the input element. Helper and error texts must use semantic markers (`color-danger` for error).
-*   **Table:** Only for tabular data. Maximum 6 columns on desktop. Interactive rows need hover states.
-
-### Governance Checklist (Strict Gate)
-- [ ] All margins and paddings map to a valid spacing token.
-- [ ] Text size classes are mapped directly to typography tokens.
-- [ ] Background, surface, border, and text elements use semantic color roles.
-- [ ] Components (buttons, cards, forms) satisfy their contract.
-- [ ] Accessible alternative labels exist for icons and screen readers.
-- [ ] Layout remains consistent on Desktop and Mobile viewports.
--->
-### Component Contracts
-*   **Button:** Primary action (uses `color-primary`), Secondary action (border + neutral surface), Tertiary (text link). Disabled state must suppress interactions. Focus outline is mandatory.
-*   **Card:** Radius-md, surface background, border color, with `spacing-md` or `spacing-lg` padding. Must contain a clear heading element.
-*   **Input:** Text label MUST exist above the input element. Helper and error texts must use semantic markers (`color-danger` for error).
-*   **Table:** Only for tabular data. Maximum 6 columns on desktop. Interactive rows need hover states.
+*   **Input:** Provide a programmatically associated accessible label; position it according to the project pattern. Associate helper/error text with `aria-describedby` and use `aria-invalid` where appropriate.
+*   **Table:** Use for tabular data. Choose columns from user tasks and viewport constraints; offer responsive disclosure/scrolling with accessible controls. Use actual buttons/links for row actions.
 
 ### Strict Contract Conformity & Enforcement
 To prevent design system erosion and ensure complete alignment, the AI auditor must enforce the following strict conformity checks:
-1. **Token Adherence Check:** Reject any code block introducing arbitrary color codes (e.g., HEX, RGB), custom font sizes (e.g., `text-[15px]`), or custom padding/margins (e.g., `p-[17px]`).
+1. **Token Adherence Check:** Flag unexplained component-level magic values. Literal values in token definitions and documented layout exceptions are legitimate; verify their purpose and authorization.
 2. **Prop & API Conformity Check:** Verify that the component's generated interface strictly implements the props, states, and responsive definitions in the Component Contract. Fail any review that creates custom visual variants or layout API parameters not defined in the design system.
-3. **Configuration Sovereignty Check:** Ensure styling and custom token adjustments are located exclusively in the theme config layers (e.g., Tailwind CSS v4 `@theme` block or CSS custom properties). Do not allow ad-hoc overrides or local custom style overrides inside components.
+3. **Configuration Sovereignty Check:** Keep shared tokens in the project's theme layer. Component-scoped CSS for specific behavior is allowed when it consumes tokens and follows project conventions; avoid ad-hoc overrides that bypass them.
 4. **Style Drift Prevention:** Reject styles that manually hardcode padding or margin overrides to bypass standard design tokens.
 
 ### Governance Checklist (Strict Gate)
-- [ ] **Token Validation:** No arbitrary values (HEX, RGB, pixels) exist. Every class maps to a predefined token.
+- [ ] **Token Validation:** Component styles consume defined tokens or justified exceptions; custom status utilities exist and computed values match the contract.
 - [ ] **Contract Compliance:** Buttons, cards, and input fields fulfill all properties, states (hover, focus, disabled, active), and viewport conditions.
 - [ ] **Accessibility (WCAG AA):** Check for contrast, aria-labels on icon-only buttons, keyboard navigation support, and semantic HTML elements.
-- [ ] **Theme Sovereignty:** No inline styling overrides or local overrides. Custom tokens are only defined at the theme-level layer.
+- [ ] **Theme Sovereignty:** Shared tokens live in the theme layer; component-specific behavior follows project conventions.
 - [ ] **Layout Consistency:** Grid/Flex structures use standard responsive layouts matching tablet/mobile breakpoint requirements.
 
 ## Expected Output Format
@@ -131,6 +123,9 @@ An Audit Report detailing:
 4. **Actionable Fix Recommendations:** Explicit guidance on class/token changes.
 
 ## Example Usage (Few-Shot Example)
+
+Examples are illustrative. Metrics, scores, and assumed verification below are
+not measured results for the current task; replace them with actual evidence.
 
 > **Threaded pipeline:** Example A continues the **e-commerce checkout** thread,
 > auditing the code produced from the `ui-generation-structured` spec. The fixes
@@ -152,34 +147,33 @@ finalizes it:
 ```
 
 Response:
-```
-<thinking_process>
+````markdown
+Decision summary (illustrative):
 1. User Intent: Governance audit of the checkout CTA + helper text before it ships.
-2. Token check (4 violations):
+2. Token check (7 deviations from the example contract):
    - bg-[#0d9488]: arbitrary hex -> must be color-primary (bg-primary).
    - w-[320px]: arbitrary width -> use responsive token-based width (w-full max-w-md).
-   - h-[42px]: arbitrary height, below 44px touch target -> h-11 (44px) minimum.
-   - rounded-[9px]: arbitrary radius -> radius-sm (rounded-md, 8px) or radius-md (rounded-lg, 12px).
+   - h-[42px]: arbitrary height, below preferred 44px touch target -> h-11 (44px) preferred touch size.
+   - rounded-[9px]: arbitrary radius -> the project-defined radius token; verify its utility mapping.
    - text-[15px]: arbitrary text size -> text-base (16px).
    - text-[#475569]: arbitrary muted hex -> color-muted (text-muted-foreground).
    - mt-[13px]: arbitrary margin -> spacing-sm (mt-4, 16px) or spacing-xs (mt-3, 12px).
 3. Contract check: button lacks disabled state styling and visible focus ring.
-4. a11y check: CTA re-announces price but no aria-live; helper text fine.
-</thinking_process>
+4. a11y check: Verify whether dynamic price updates need a scoped live-region announcement; helper text is static.
 
 ### 1. Design System Token Verification
 * Spacing: `mt-[13px]` violates the 4px/8px scale (13 is off-grid).
 * Colors: `bg-[#0d9488]` and `text-[#475569]` are arbitrary hex; must map to semantic roles.
 * Borders/Radius: `rounded-[9px]` is arbitrary; off the radius-sm/radius-md scale.
 * Typography: `text-[15px]` sits between text-sm (14) and text-base (16); not a token.
-* Sizing: `h-[42px]` is both arbitrary AND below the 44px mobile touch minimum.
+* Sizing: `h-[42px]` is an unexplained value below the preferred 44px touch size.
 
 ### 2. Component Contract Violations
 - Button contract requires a visible focus outline and a disabled (submitting) state — neither present.
 - Width `w-[320px]` is a fixed magic value; buttons should be responsive, not pixel-locked.
 
 ### 3. Consistency Rationale
-- No exemption tag (`// @design-exception:`) present, so none of these are approved exceptions.
+- No project decision justifies these exceptions; an exemption comment alone would not establish approval.
 - The teal brand color is legitimate, but it must be declared at the theme layer as `--primary`, not inlined.
 
 ### 4. Actionable Fix Recommendations
@@ -206,7 +200,7 @@ Status: FAIL -> re-audit after `code-generation` applies the diff.
 
 > Handoff: this audit + diff is the input to `code-generation`. The fixed
 > CheckoutPanel.tsx then goes to `review-critique` for the 0-120 scorecard.
-```
+````
 
 ### Example B — Single-element audit (edge case)
 
@@ -218,15 +212,14 @@ User: Audit this React code block:
 ```
 
 Response:
-```
-<thinking_process>
+````markdown
+Decision summary (illustrative):
 1. User Intent: Wants design system audit of a specific code snippet.
 2. Token check:
-   - bg-[#ff0000]: Arbitrary hex, violates "No magic numbers" color role. Should use `bg-danger`.
+   - bg-[#ff0000]: Arbitrary hex, violates "No magic numbers" color role. Should use `bg-destructive`.
    - p-[17px]: Arbitrary padding, violates spacing-sm (16px) or spacing-md (24px) scale. Should use `p-4` (16px).
-   - rounded-[10px]: Arbitrary radius, violates radius-sm (8px) or radius-md (12px). Should use `rounded-lg` (8px) or `rounded-xl` (12px).
+   - rounded-[10px]: Arbitrary radius, violates radius-sm (8px) or radius-md (12px). Use the configured radius utility and verify computed values.
    - text-[15px]: Arbitrary text size, violates text-sm (14px) or text-base (16px). Should use `text-sm` or `text-base`.
-</thinking_process>
 
 ### 1. Design System Token Verification
 *   **Spacing:** Violates spacing scale. `p-[17px]` does not match standard 8px/4px layout guidelines.
@@ -235,7 +228,7 @@ Response:
 *   **Typography:** Violates typography sizes. `text-[15px]` is arbitrary.
 
 ### 2. Component Contract Violations
-- The element acts as an Alert Banner but uses a generic `div` without alert landmarks or semantic roles (`role="alert"`).
+- The element acts as an Alert Banner but needs an appropriate announcement only if it is a newly inserted urgent message; static copy does not require `role="alert"`.
 
 ### 3. Consistency Rationale
 - No justification was provided for breaking token scales.
@@ -244,9 +237,9 @@ Response:
 Change the code to use semantic tokens:
 ```diff
 -<div className="bg-[#ff0000] p-[17px] rounded-[10px] text-[15px] font-bold">Alert!</div>
-+<div role="alert" className="bg-danger text-danger-foreground p-4 rounded-md text-base font-bold">Alert!</div>
++<div role="alert" className="bg-destructive text-destructive-foreground p-4 rounded-md text-base font-bold">Alert!</div>
 ```
-```
+````
 
 ## Common Pitfalls
 1. Auditing only one dimension (e.g., only spacing) — visual consistency is multi-dimensional (spacing, typography, color, radius, shadows, motion).

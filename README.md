@@ -6,10 +6,10 @@
 ### The open-source framework for AI-assisted design engineering
 **From idea → UX → UI → code → review → production**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.1.0-brightgreen.svg)](CHANGELOG.md)
-[![Node 18+](https://img.shields.io/badge/node-18%2B-green.svg)](package.json)
-[![Skills](https://img.shields.io/badge/skills-10-blueviolet.svg)](skills/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](License)
+[![Version](https://img.shields.io/badge/version-1.2.0-brightgreen.svg)](CHANGELOG.md)
+[![Node 24 LTS](https://img.shields.io/badge/node-24_LTS-green.svg)](package.json)
+[![Skills](https://img.shields.io/badge/skills-13-blueviolet.svg)](skills/)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-orange.svg)](CONTRIBUTING.md)
 
 [**Get started**](#-quick-start) · [**Examples**](examples/) · [**Docs**](https://gamemun01.github.io/ai-design-engineer/) · [**Discord**](https://discord.gg/aide)
@@ -19,6 +19,36 @@
 </div>
 
 ---
+
+## Skill Studio App
+
+ใช้งาน Skill ผ่าน App ภาษาไทย: **เลือกช่วงงาน → เติมบริบท → คัดลอกไป Codex
+หรือส่งให้ Custom LLM → ตรวจผล → ต่อยอดขั้นถัดไป**
+
+รวมคลัง 13 Skills, ค้นหา/อ่านเนื้อหา, ตั้งค่า LLM ของตัวเอง,
+เก็บคำตอบ และนำเข้า/ส่งออก Workspace โดยไม่บันทึก API key ลงไฟล์
+
+Windows x64 ใช้ ZIP แบบรวม Node แล้วเปิด `Start Studio.cmd` ได้เลย
+ดู [คู่มือและ Flow](docs/studio-guide.md), [แพ็ก Release 1.2.0](docs/releases/v1.2.0.md)
+และ [ผลตรวจจริง](docs/studio-validation.md)
+เมื่อเผยแพร่แล้ว ไฟล์ดาวน์โหลดจะอยู่ในหน้า GitHub Releases ของ Repo
+
+รันจาก source:
+
+```bash
+npm ci
+npm ci --prefix apps/studio
+npm run studio:build
+npm run studio
+```
+
+เปิด App ในเบราว์เซอร์ที่ `http://127.0.0.1:4318` โดยใช้ Node 24 LTS รุ่นปัจจุบัน
+Custom LLM รองรับ OpenAI-compatible Chat Completions และ Responses API
+มี preset ของ Ollama/LM Studio และกรอก Base URL/model เองได้
+
+ขั้น **ออกแบบ Project** ใช้ `project-design-advisor` เริ่มจาก Idea, ตรวจความพร้อม
+G1–G8, เตรียม Dev Handoff และวิเคราะห์ CR เทียบ baseline โดยไม่สร้าง approval เอง
+ดู [วิธีใช้ Project Design Advisor](docs/project-design-advisor-guide.md)
 
 ## 💡 The problem
 
@@ -30,7 +60,8 @@ Most AI-generated UI looks great in a screenshot but breaks in production:
 - 🧱 **Spaghetti code** — 5,000-line components, no structure
 - 🐛 **"Almost works"** — 4 instances of `any`, console.logs in prod
 
-**AI Design Engineer** fixes this with an **8-phase framework** + **10 specialized skills** that make the human the strategic decision-maker and the AI the executor.
+**AI Design Engineer** combines an **8-phase framework** + **11 core skills** and
+**2 community skills**, keeping humans responsible for product decisions and quality.
 
 ---
 
@@ -70,22 +101,23 @@ See the [full comparison](examples/01-saas-landing/) including source code.
 
 ---
 
-## 🛠 10 Skills Included
+## 🛠 11 Core Skills Included
 
 ![Skills](assets/skills-grid.png)
 
-| Skill | Purpose | Token cost |
-|---|---|---|
-| [`core-system-prompt`](skills/foundation/core-system-prompt/) | Set AI role, rules, tone | ~800 |
-| [`prompt-context-loading`](skills/foundation/prompt-context-loading/) | Load project context efficiently | ~600 |
-| [`ux-decision-framework`](skills/ux/ux-decision-framework/) | UX thinking before UI | ~1,400 |
-| [`ui-generation-structured`](skills/ui/ui-generation-structured/) | Generate UI variations systematically | ~1,200 |
-| [`design-system-governance`](skills/ui/design-system-governance/) | Enforce tokens & component contracts | ~1,000 |
-| [`code-generation`](skills/code/code-generation/) | Code templates per stack | ~1,800 |
-| [`review-critique`](skills/quality/review-critique/) | 0-120 scorecard | ~900 |
-| [`refinement-workflow`](skills/quality/refinement-workflow/) | Iterate without regressing | ~700 |
-| [`anti-patterns-detector`](skills/quality/anti-patterns-detector/) | Block bad output early | ~1,100 |
-| [`multi-agent-workflow`](skills/orchestration/multi-agent-workflow/) | Coordinate multiple AI agents | ~1,500 |
+| Skill | Purpose |
+|---|---|
+| [`core-system-prompt`](skills/foundation/core-system-prompt/) | Set AI role, rules, tone |
+| [`prompt-context-loading`](skills/foundation/prompt-context-loading/) | Load project context efficiently |
+| [`project-design-advisor`](skills/ux/project-design-advisor/) | Idea discovery, design readiness, Dev handoff and CR analysis |
+| [`ux-decision-framework`](skills/ux/ux-decision-framework/) | UX thinking before UI |
+| [`ui-generation-structured`](skills/ui/ui-generation-structured/) | Generate UI variations systematically |
+| [`design-system-governance`](skills/ui/design-system-governance/) | Enforce tokens & component contracts |
+| [`code-generation`](skills/code/code-generation/) | Code templates per stack |
+| [`review-critique`](skills/quality/review-critique/) | 0-120 scorecard |
+| [`refinement-workflow`](skills/quality/refinement-workflow/) | Iterate without regressing |
+| [`anti-patterns-detector`](skills/quality/anti-patterns-detector/) | Block bad output early |
+| [`multi-agent-workflow`](skills/orchestration/multi-agent-workflow/) | Coordinate multiple AI agents |
 
 See [`skills/SKILL_MATRIX.md`](skills/SKILL_MATRIX.md) for which to load when.
 
@@ -112,20 +144,33 @@ npm install
 
 ### Option C: Use the framework in an existing project
 
-Copy the skills you need:
+Keep the source pack and its linked resources together. In an agent with file
+access, load the selected source files in place:
+
+```text
+Read AGENTS.md and skills/foundation/prompt-context-loading/SKILL.md.
+Load skills/foundation/core-system-prompt/SKILL.md, then use skills/INDEX.md
+to select the task skill. Read only relevant supporting references.
+```
+
+For native Codex discovery in this repo, use the generated `.agents/skills/`
+pointers (ten core skills plus two community extensions):
 
 ```bash
-# For Claude Code
-cp -r skills/ /path/to/your-project/.claude/skills/
-
-# For Cursor
-cp -r skills/ /path/to/your-project/.cursor/skills/
+npm run skills:codex:register
+npm run skills:codex:check
 ```
+
+Then invoke a skill such as `$review-critique`. See the
+[platform integration guide](docs/platform-integration-guide.md) for host setup
+and discovery limits. Copying one skill file alone can break shared references.
+For the desktop app, see [วิธีใช้ Skill ใน Codex UI](docs/codex-ui-guide.md)
+with copyable prompts and all twelve `AIDE ...` names.
 
 ### 60-second workflow
 
-1. **Load** `skills/foundation/core-system-prompt/SKILL.md` into your AI tool
-2. **Load** `skills/foundation/prompt-context-loading/SKILL.md` and provide project context
+1. **Load** `skills/foundation/prompt-context-loading/SKILL.md` and provide project context
+2. **Load** `skills/foundation/core-system-prompt/SKILL.md` into your AI tool
 3. **Run** the prompts from `02-prompting-patterns/` for your task
 4. **Generate** UI with the `ui-generation-structured` skill
 5. **Convert to code** with the `code-generation` skill
@@ -174,6 +219,7 @@ The framework comes with validation scripts:
 ```bash
 npm run validate-skill   # Check all SKILL.md files have required structure
 npm run validate-plugin  # Validate community plugins (manifest + skills)
+npm run skills:codex:check # Verify generated Codex skill entrypoints
 npm run test:skills      # Contract checks + golden snapshot drift (skills & examples)
 npm run test:plugins     # Plugin registry + manifest + golden snapshot checks
 npm run check-links      # Find broken internal links
@@ -194,9 +240,9 @@ CI runs all of these on every PR — see [`.github/workflows/ci.yml`](.github/wo
 - [ ] v2.1.0 — Visual regression integration (Chromatic / Percy)
 
 > **Note on versioning:** The numbers above are **product versions** (matching
-> `package.json`), not skill schema versions. Each skill's `version` field in its
-> YAML frontmatter tracks the **skill schema version** independently (currently
-> `2.1.0`). The two version tracks are unrelated.
+> `package.json`). Each skill's YAML `version` tracks its **content release**
+> (core skills: `2.2.0`); the validator's **schema version** remains `2.1.0`.
+> Product, skill content, and schema versions are independent.
 
 See [open issues](https://github.com/gamemun01/ai-design-engineer/issues) for the full list.
 

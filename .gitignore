@@ -46,3 +46,9 @@ Thumbs.db
 *.diff
 *.tar.gz
 *.zip
+
+# Skill Studio generated catalog and browser evidence
+apps/studio/public/catalog.json
+apps/studio/test-results/
+.impeccable/questions/
+.release-runtime/

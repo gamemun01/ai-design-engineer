@@ -1,0 +1,5 @@
+version: 1
+name: studio-custom-llm-fixture
+description: Local synthetic text-provider contract fixture; never a real model.
+interceptRequests: true
+mockSrc: default.js

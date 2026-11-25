@@ -9,11 +9,13 @@ compatibility entry points only and should not duplicate repository rules.
 
 ## Project Overview
 
-This is a documentation and knowledge framework, not an application. It defines
+This repository contains a documentation and knowledge framework and the local
+Skill Studio application in `apps/studio/`. The framework defines
 the AI Design Engineer methodology: Idea -> UX -> UI -> Component -> Code ->
 Review -> Production. AI provides speed and variations; humans provide product
 thinking, UX decisions, architecture, and quality judgment. Content is primarily
-Markdown; the only code is Node.js tooling for validation and local preview.
+Markdown. Studio adds a React/TypeScript UI and a dependency-free Node.js
+loopback API for canonical skill prompts and optional custom text providers.
 
 ## Project Structure & Module Organization
 
@@ -41,11 +43,22 @@ npm install              # Install markdownlint-cli and serve
 npm run lint             # Lint Markdown files
 npm run lint:md          # Same Markdown lint task
 npm run validate-skill   # Validate all active skills/*/SKILL.md files
-npm run docs             # Print the documentation entry point
+npm run test:skills      # Run skill integrity and golden contract checks
+npm run skills:codex:register # Generate project-local Codex skill pointers
+npm run skills:codex:check    # Verify native pointers and source references
+npm test                 # Run Node tooling, skill/example, and plugin tests
 npm run preview          # Serve the repository locally with npx serve .
+npm ci --prefix apps/studio # Install Studio's locked dependencies separately
+npm run studio:build     # Generate catalog, typecheck, build the Studio UI
+npm run studio:test      # Build and run app/provider/package contract checks
+npm run studio           # Open the built local app in a browser
+npm run studio:package   # Create the portable Node-required release ZIP
 ```
 
-There is no build, compile, or application test step. `npm run lint` uses the
+Framework content has no compile step. Studio requires its separate dependency
+install and build. See `docs/studio-guide.md`, `docs/studio-api.md`, and
+`docs/releases/v1.2.0.md` for usage, API boundaries and portable packaging.
+`npm run lint` uses the
 cross-platform `scripts/lint-all.js` wrapper, so it works on Windows as well as
 POSIX shells.
 
@@ -70,7 +83,7 @@ The `skills/` directory contains standard `skills/<category>/<skill>/SKILL.md` f
 agents acting as Senior Design Engineers. Skills are grouped into six categories:
 
 - `skills/foundation/` — `core-system-prompt`, `prompt-context-loading` (load first)
-- `skills/ux/` — `ux-decision-framework`
+- `skills/ux/` — `project-design-advisor`, `ux-decision-framework`
 - `skills/ui/` — `ui-generation-structured`, `design-system-governance`
 - `skills/code/` — `code-generation`
 - `skills/quality/` — `review-critique`, `refinement-workflow`, `anti-patterns-detector`
@@ -80,6 +93,16 @@ agents acting as Senior Design Engineers. Skills are grouped into six categories
 `skills/ANTI_PATTERNS.md` are the expanded reference guides; `skills/deprecated/`
 holds the archived flat-file skill prompts.
 
+Codex discovers generated native pointers under `.agents/skills/`. Edit the
+canonical source in `skills/` or `plugins/community/`, then run
+`npm run skills:codex:register` when discovery metadata changes. These short
+pointers use the host's minimum frontmatter; the seven-section repository
+schema below applies to canonical skills, not generated pointers. Check them
+with `npm run skills:codex:check`; do not duplicate skill bodies in adapters.
+The generator also owns `agents/openai.yaml` UI labels/default prompts. See
+`docs/codex-ui-guide.md` for desktop usage and `docs/codex-ui-smoke-results.md`
+for verification scope; UI discovery does not imply full behavioral validation.
+
 When creating or editing skill files, follow the v2.1.0 schema enforced by
 `scripts/validate-skill.js` (the previous v2.0.x validator is preserved at
 `scripts/validate-skill.legacy.js`):
@@ -87,10 +110,12 @@ When creating or editing skill files, follow the v2.1.0 schema enforced by
 - YAML frontmatter with required `name` and `description`; optional `version`,
   `author`, `license`, `stack_compat`, and a `metadata.hermes` block containing
   `tags` and `related_skills` arrays for skill graph routing.
+- `version` tracks skill content releases independently from the validator's
+  v2.1.0 schema and the root package/product version.
 - Required body sections: `## Trigger Description`, `## System Instruction`,
   `## Rules & Constraints`, `## Expected Output Format`, `## Example Usage
   (Few-Shot Example)`, `## Common Pitfalls`, `## Verification Checklist`.
-- Use repo-relative links (e.g., `../../../AGENTS.md`, `../ux/ux-decision-framework/SKILL.md`)
+- Use repo-relative links (e.g., `../../../AGENTS.md`, `../../ux/ux-decision-framework/SKILL.md`)
   — never absolute `file:///` paths.
 
 Start context-heavy sessions with `prompt-context-loading`, then load
@@ -110,11 +135,17 @@ Accessibility guidance should target WCAG 2.1 AA where applicable.
 
 ## Testing Guidelines
 
-There is no application test suite in this repository. Treat validation as
-documentation quality control: run `npm run lint` before submitting Markdown
+For framework content, treat validation as documentation quality control:
+run `npm run lint` before submitting Markdown
 changes and `npm run validate-skill` when changing any active
 `skills/*/SKILL.md` file or related skill conventions. Use `npm run preview`
 when reviewing rendered documentation or visual blueprint references.
+Run `npm run test:skills` for active skill changes and `npm test` when validation
+tooling changes. Validate community extensions with `npm run validate-plugin`.
+For Studio changes run `npm run studio:test`; its HTTP fixture checks require
+loopback networking. Keep keys server-side in memory, canonical sources outside
+the UI, and workspace export/import limits consistent. Browser checks and local
+simulations do not prove compatibility or answer quality of a real LLM provider.
 
 ## Commit & Pull Request Guidelines
 
@@ -128,8 +159,8 @@ visual blueprint assets.
 ## Agent-Specific Instructions
 
 When contributing as an agent, prefer small, targeted edits over broad rewrites.
-Do not invent runnable app behavior; this repository is primarily framework
-content, skills, assets, and validation tooling. Keep changes aligned with the
+Do not claim runnable behavior without verification. Keep Studio changes scoped
+to the user-authorized local app and framework tooling. Keep changes aligned with the
 existing learning path and avoid duplicating guidance across agent-specific
 files. If updating `CLAUDE.md` or `GEMINI.md`, keep them as short pointers to
 this file.

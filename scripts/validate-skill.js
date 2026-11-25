@@ -24,6 +24,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { missingSections: findMissingSections, checkLocalLinks } = require('./lib/skill-integrity');
 
 const repoRoot = path.resolve(__dirname, '..');
 const skillsDir = path.join(repoRoot, 'skills');
@@ -158,6 +159,17 @@ function parseInlineList(s) {
 
 const skillFiles = findSkillFiles(skillsDir);
 let hasErrors = false;
+const knownNames = new Set();
+for (const file of skillFiles) {
+  const { yaml } = parseFrontmatter(fs.readFileSync(file, 'utf8'));
+  if (yaml && typeof yaml.name === 'string') {
+    if (knownNames.has(yaml.name)) {
+      console.error(`Error: Duplicate skill name: ${yaml.name}`);
+      hasErrors = true;
+    }
+    knownNames.add(yaml.name);
+  }
+}
 
 if (skillFiles.length === 0) {
   console.error('Error: No SKILL.md files found under the skills/ directory.');
@@ -181,7 +193,7 @@ for (const filePath of skillFiles) {
   }
 
   const yaml = parsed.yaml;
-  const missingYamlKeys = requiredYamlKeys.filter((key) => !yaml[key]);
+  const missingYamlKeys = requiredYamlKeys.filter((key) => typeof yaml[key] !== 'string' || !yaml[key].trim());
   const extraYamlKeys = Object.keys(yaml).filter((key) => !allowedYamlKeys.includes(key));
 
   if (missingYamlKeys.length > 0) {
@@ -207,7 +219,7 @@ for (const filePath of skillFiles) {
   }
 
   // Name format
-  if (yaml.name) {
+  if (typeof yaml.name === 'string') {
     if (yaml.name.length > nameMaxLength) {
       console.error(
         `  Error: name "${yaml.name}" exceeds ${nameMaxLength} chars.`
@@ -219,6 +231,19 @@ for (const filePath of skillFiles) {
       );
       hasErrors = true;
     }
+  }
+
+  if (yaml.name !== path.basename(path.dirname(filePath))) {
+    console.error('  Error: name must match the skill directory name.');
+    hasErrors = true;
+  }
+  if (yaml.version && (typeof yaml.version !== 'string' || !/^\d+\.\d+\.\d+(?:-[\w.-]+)?(?:\+[\w.-]+)?$/.test(yaml.version))) {
+    console.error('  Error: version must be a semver string.');
+    hasErrors = true;
+  }
+  if (yaml.stack_compat && (!Array.isArray(yaml.stack_compat) || yaml.stack_compat.some((item) => typeof item !== 'string' || !item.trim()))) {
+    console.error('  Error: stack_compat must be an array of non-empty strings.');
+    hasErrors = true;
   }
 
   // metadata.hermes.* (recommended)
@@ -237,11 +262,16 @@ for (const filePath of skillFiles) {
       hasErrors = true;
     } else {
       console.log(`  OK: metadata.hermes.related_skills = [${hermes.related_skills.join(', ')}]`);
+      const dangling = hermes.related_skills.filter((name) => !knownNames.has(name));
+      if (dangling.length > 0) {
+        console.error(`  Error: Unknown related_skills: ${dangling.join(', ')}`);
+        hasErrors = true;
+      }
     }
   }
 
   // Required body sections
-  const missingSections = requiredSections.filter((section) => !content.includes(section));
+  const missingSections = findMissingSections(content, requiredSections);
   if (missingSections.length > 0) {
     console.error('  Error: Missing required sections:');
     missingSections.forEach((section) => console.error(`    - ${section}`));
@@ -252,6 +282,58 @@ for (const filePath of skillFiles) {
 
   console.log('');
 }
+
+// ---------- Index & Matrix sanity checks ----------
+// These two files route every skill decision, so they must exist and contain
+// their key sections. They are NOT subject to the v2.1.0 SKILL.md schema
+// (INDEX is a router, SKILL_MATRIX is a reference guide), but they should not
+// silently drift out of shape either.
+
+const indexFile = path.join(skillsDir, 'INDEX.md');
+const matrixFile = path.join(skillsDir, 'SKILL_MATRIX.md');
+
+const indexRequiredSections = ['## Pack Structure', '## Scenario → Skill Routing'];
+const matrixRequiredSections = ['## Skill Decision Guide', '## Quick Reference'];
+
+function checkReferenceFile(file, requiredSections, label) {
+  const rel = path.relative(repoRoot, file);
+  if (!fs.existsSync(file)) {
+    console.error(`Checking ${rel}...`);
+    console.error(`  Error: ${label} is missing — it is the canonical routing entry point.`);
+    hasErrors = true;
+    return;
+  }
+  console.log(`Checking ${rel}...`);
+  const content = fs.readFileSync(file, 'utf8');
+  const missing = requiredSections.filter((section) => !content.includes(section));
+  if (missing.length > 0) {
+    console.error(`  Error: Missing required sections:`);
+    missing.forEach((section) => console.error(`    - ${section}`));
+    hasErrors = true;
+  } else {
+    console.log(`  OK: All ${requiredSections.length} required section headings are present.`);
+  }
+  console.log('');
+}
+
+checkReferenceFile(indexFile, indexRequiredSections, 'skills/INDEX.md');
+checkReferenceFile(matrixFile, matrixRequiredSections, 'skills/SKILL_MATRIX.md');
+
+// Include supporting references and routers, not just SKILL.md entrypoints.
+function checkSkillLinks(dir) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (entry.name === 'deprecated') continue;
+    const file = path.join(dir, entry.name);
+    if (entry.isDirectory()) checkSkillLinks(file);
+    else if (entry.name.endsWith('.md')) {
+      for (const error of checkLocalLinks(file, repoRoot)) {
+        console.error(`Error in ${path.relative(repoRoot, file)}: ${error}`);
+        hasErrors = true;
+      }
+    }
+  }
+}
+checkSkillLinks(skillsDir);
 
 if (hasErrors) {
   console.error('Validation FAILED. Please fix the errors above.');

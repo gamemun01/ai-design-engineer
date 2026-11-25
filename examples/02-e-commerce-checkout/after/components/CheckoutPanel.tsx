@@ -114,7 +114,6 @@ export function CheckoutPanel({
   const isLocked = status === "submitting" || status === "loading";
 
   if (status === "loading") return <CheckoutLoadingSkeleton />;
-  if (status === "empty" || items.length === 0) return <CheckoutEmptyState />;
   if (status === "error")
     return (
       <CheckoutErrorState
@@ -122,6 +121,8 @@ export function CheckoutPanel({
         onRetry={onRetry}
       />
     );
+
+  if (status === "empty" || items.length === 0) return <CheckoutEmptyState />;
 
   return (
     <main className="grid gap-6 md:grid-cols-5">

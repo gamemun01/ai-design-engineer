@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Play, Star } from "lucide-react";
+import { Play } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -48,29 +48,6 @@ export function Hero(): React.JSX.Element {
             </Button>
           </div>
 
-          <div className="mt-8 flex items-center gap-3">
-            <div
-              className="flex"
-              role="img"
-              aria-label="Rated 4.8 out of 5 stars"
-            >
-              {[0, 1, 2, 3].map((i) => (
-                <Star
-                  key={i}
-                  className="h-4 w-4 fill-amber-400 text-amber-400"
-                  aria-hidden="true"
-                />
-              ))}
-              <Star
-                className="h-4 w-4 fill-amber-400/50 text-amber-400"
-                aria-hidden="true"
-              />
-            </div>
-            <p className="text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">4.8/5</span> ·{" "}
-              Trusted by 2,000+ product teams
-            </p>
-          </div>
         </div>
 
         <div className="relative">
@@ -81,12 +58,12 @@ export function Hero(): React.JSX.Element {
               <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
               <span className="ml-3 text-xs text-muted-foreground">
-                app.flowmetric.io/dashboard
+                Sample dashboard
               </span>
             </div>
             <Image
               src="/dashboard-screenshot.png"
-              alt="Flowmetric dashboard showing user retention funnel and cohort analysis"
+              alt="Sample Flowmetric dashboard showing user retention funnel and cohort analysis"
               width={1280}
               height={800}
               priority

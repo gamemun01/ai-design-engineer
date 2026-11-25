@@ -2,6 +2,118 @@
 
 # Skill Pack Review Report — AI Design Engineer
 
+## Readiness Update — 2026-10-08
+
+**Codex UI: VERIFIED for native discovery (12) and canonical loading (three
+task skills) in the current chat.** Bounded in-session routing/review outputs
+are recorded in [UI smoke results](codex-ui-smoke-results.md); they are not an
+independent evaluation of all skills. See the [Thai UI guide](codex-ui-guide.md).
+Independent CLI behavior remains NOT VERIFIED after model-access errors.
+
+Reviewed and updated ten core skills plus the two community extensions, keeping
+the existing work-in-progress reference extraction and router validation.
+Skill content release is now `2.2.0`; the repository schema stays `2.1.0`.
+The earlier 2026-06-25 report below is historical and its versioning notes are
+superseded by this update.
+
+| Finding | Correction |
+|---|---|
+| Mandatory hidden-thinking output in the baseline and examples | Short decision summaries; examples explicitly illustrative |
+| Old model IDs, inconsistent fixed budgets, and UI layers renamed from the canonical framework | Task-based profiles, configured-model preservation, canonical eight-layer names |
+| React 18/Tailwind v3-only defaults and v4-beta links | Version-aware React 18/19, App Router, Tailwind v3/v4 and shadcn integration reference; no automatic migration |
+| Source/screenshot reviews could claim production PASS without runtime evidence | PASS/FAIL/NOT VERIFIED/N/A with evidence, applicability, and bounded scores; docs use real validators |
+| TypeScript types and keyword filters described as security guarantees | Runtime trust-boundary validation, server authorization, scoped tools, and no automatic exception approval |
+| Inaccurate radius mappings, forced brand changes, universal empty-state CTAs | Actual project tokens/brand and applicable working recovery actions |
+| Malformed nested fences hid required headings | Correct outer fence lengths and regression checks that ignore example headings |
+| Stale copied props, no-op CTA, unnecessary memoization, duplicate Enter handling | Updated adaptable templates and targeted examples; native button activation |
+| WCAG target-size and motion criterion levels conflated | WCAG 2.1 AA baseline retained, WCAG 2.2 additions documented, 44px preference distinguished from AA minimum, AAA motion criterion corrected |
+| Structural validator missed missing references and bad routing metadata | Real headings, directory/name agreement, unique names, semver, related-skill resolution, and active local links checked |
+
+Validation completed:
+
+- `npm run validate-skill`: PASS, all ten core skills.
+- `npm run validate-plugin`: PASS, both community extensions.
+- `npm test`: PASS, 127 checks (7 scaffolder, 7 integrity regression,
+  8 Codex registration, 82 skill/example, 23 plugin).
+- `npm run lint`: PASS.
+- `npm run check-links`: PASS.
+- `git diff --check`: PASS.
+
+The initial skill tests failed on four existing snapshot differences; the
+reviewed content release and contract counts were regenerated, then ordinary
+tests passed. The new heading check also exposed malformed example fences in
+governance/review; both were repaired before final validation.
+
+Ready for path-based and project-local Codex use through
+[skills/README.md](../skills/README.md). Registration and live attempt details
+are below; see [platform integration](platform-integration-guide.md) and
+[behavioral scenarios](test-skill.md#behavioral-smoke-scenarios). Templates still
+require target-app imports/adapters/payment integration and runtime validation.
+The frontmatter validator supports the repo's simple YAML subset, not arbitrary
+YAML; local link checks do not validate remote availability or anchor targets.
+
+### Native Codex Follow-Up — 2026-10-08
+
+- Installed twelve generated pointers in `.agents/skills/`: ten core skills
+  and two community extensions. Native metadata has only `name`/`description`;
+  bodies load canonical repo sources with preserved relative references.
+- `npm run skills:codex:check`: PASS, twelve current pointers and their links.
+- Full YAML parsing with the already-installed `js-yaml`: PASS for twelve
+  native frontmatter blocks. This is not a successful model execution test.
+- Added eight isolated registration regression tests and a native-pointer CI
+  check. Registration refuses unmanaged-file overwrites and symlink redirects;
+  updating metadata is repeatable without duplicating canonical bodies.
+- Installed UI metadata for twelve skills: readable `AIDE ...` display names,
+  25–64 character descriptions, and default prompts explicitly naming the skill.
+  Full YAML parsing and registration checks pass; UI rendering/clicks were not
+  inspected visually.
+- Local checks: all 127 test checks passed; core/community validation, lint,
+  and all 147 Markdown files' local link checks passed.
+- Installed CLI `0.147.0` reports ChatGPT login. An attempted ephemeral,
+  read-only source-review run exited `1` with `turn.failed`: the service returned
+  HTTP 400, `The 'gpt-6.1-sol' model is not supported when using Codex with a
+  ChatGPT account.` No model answer or evidence of canonical-body loading was
+  produced. This records this client's result, not universal model availability.
+- Startup also reported incompatible cached model metadata and shortened skill
+  descriptions. Saved model settings, plugins, and caches were not modified.
+- Automatic approval review rejected the separate context/discovery run because
+  disclosure of private repo files to the model service was insufficiently
+  scoped. The user later approved the concrete scope in
+  [codex-live-smoke.md](codex-live-smoke.md). Two subsequent authorized
+  `gpt-6-luna` runs both exited `1` with HTTP 400 and no answer; no further
+  approval rejection occurred. Raw CLI evidence is saved outside the repo.
+- The current Codex UI chat's Available skills catalog exposes all twelve
+  native entrypoints. The agent read context/review/a11y pointers and canonical
+  bodies and produced the bounded outputs in [UI results](codex-ui-smoke-results.md).
+  This uses the current session, not an independent fresh model pass.
+- During the source-review smoke, contradictory few-shot examples were corrected:
+  source-only security/performance stay unverified, passing examples explicitly
+  assume supplied runtime evidence, score arithmetic is consistent, and native
+  form activation is used without duplicate Enter handlers.
+
+**UI discovery/loading: VERIFIED. Independent CLI behavior: NOT VERIFIED.**
+Native entrypoints and UI metadata are installed; use the UI guide to invoke
+them in this project. Full application runtime, WCAG conformance, and untested
+skill behavior are not covered by the in-session smoke.
+
+Primary sources checked on 2026-10-08:
+
+- [React versions](https://react.dev/versions) and
+  [React 19 upgrade guide](https://react.dev/blog/2024/04/25/react-19-upgrade-guide).
+- [Next.js server/client boundaries](https://nextjs.org/docs/app/getting-started/server-and-client-components),
+  [error handling](https://nextjs.org/docs/app/getting-started/error-handling),
+  and [version 16 upgrade guide](https://nextjs.org/docs/app/guides/upgrading/version-16).
+- [Tailwind upgrade guide](https://tailwindcss.com/docs/upgrade-guide),
+  [theme variables](https://tailwindcss.com/docs/theme), and
+  [shadcn Tailwind v4 guidance](https://ui.shadcn.com/docs/tailwind-v4).
+- [WCAG 2.2](https://www.w3.org/TR/WCAG22/) and
+  [target-size minimum](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html).
+- [OpenAI skill discovery](https://learn.chatgpt.com/docs/build-skills),
+  [non-interactive mode](https://learn.chatgpt.com/docs/non-interactive-mode),
+  and [model availability](https://learn.chatgpt.com/docs/models).
+
+## Historical Review — 2026-06-25
+
 **Date:** 2026-06-25
 **Scope:** All 10 active `SKILL.md` files plus supporting routing docs, versioning, and validation tooling.
 **Validation baseline:** `npm run validate-skill`, `npm run check-links`, `npm run lint` — all green before and after this review.

@@ -1,7 +1,7 @@
 ---
 name: motion-choreography
 description: Design motion and micro-interactions with token-based timing curves, entrance/exit choreography, scroll-driven motion, and mandatory reduced-motion fallbacks. Use when animation is part of the design language, for landing pages, onboarding flows, or any UI where motion carries meaning.
-version: 2.1.0
+version: 2.2.0
 author: ai-design-engineer-community
 license: MIT
 metadata:
@@ -54,8 +54,9 @@ reduced-motion fallback for every animated surface.
   or crossfade, never to a blank frame.
 - Choreographed sequences respect the 600ms attention budget for the first
   element; subsequent elements stagger by 50-100ms.
-- Scroll-driven motion never blocks the main thread (use `transform`/`opacity`,
-  never `top`/`left`/`width`).
+- Prefer `transform`/`opacity` over layout properties, then profile the real
+  animation. Those properties alone do not guarantee compositor execution or
+  absence of main-thread work. Treat duration budgets as tunable project defaults.
 
 ## Expected Output Format
 
@@ -89,7 +90,7 @@ prices. Make sure it degrades for reduced-motion users.
 ```
 
 Response:
-```
+````markdown
 # Motion Spec: Pricing Toggle
 
 ## Motion Tokens Used
@@ -115,7 +116,7 @@ Under `prefers-reduced-motion: reduce`:
 - Use CSS variables for tokens: `--motion-base: 250ms; --ease-enter: ...`.
 - Animate ONLY `transform` and `opacity` (compositor-only, no layout thrash).
 - Tailwind: `transition-transform duration-[var(--motion-fast)]` (token, not magic number).
-- Reduced motion: `@media (prefers-reduced-motion: reduce) { * { animation/transition-duration: 0ms !important; } }`.
+- Reduced motion: scope fallbacks to the animated components; avoid global overrides that break unrelated behavior.
 
 ```css
 .toggle-thumb { transition: transform var(--motion-fast) var(--ease-standard); }
@@ -125,7 +126,7 @@ Under `prefers-reduced-motion: reduce`:
   .toggle-thumb, .price-enter { transition:none; animation:none; }
 }
 ```
-```
+````
 
 ## Common Pitfalls
 
