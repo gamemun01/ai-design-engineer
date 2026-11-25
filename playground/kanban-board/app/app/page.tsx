@@ -1,23 +1,38 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BoardPanel, type Board, type Card } from "@/components/board-panel";
 import { initialBoard, initialCards } from "@/lib/mock-data";
 
 type Status = "ideal" | "loading" | "empty" | "error" | "partial";
 
 export default function Home() {
-  const [board] = useState<Board>(initialBoard);
+  const [board, setBoard] = useState<Board>(initialBoard);
   const [cards, setCards] = useState<Card[]>(initialCards);
-  const [status, setStatus] = useState<Status>("loading");
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [scenario, setStatus] = useState<Status | null>(null);
+  const status = scenario ?? (initialLoading ? "loading" : "ideal");
   const [error, setError] = useState<string | undefined>();
   const [conflictCardId, setConflictCardId] = useState<string | undefined>();
   // Simulated network: flip to true in dev tools to exercise the error branch.
   const [failNextMove, setFailNextMove] = useState(false);
 
-  // Simulate the initial fetch resolving.
-  if (status === "loading") {
-    queueMicrotask(() => setStatus("ideal"));
+  // Resolve the simulated initial fetch independently of the demo controls.
+  useEffect(() => {
+    const timer = window.setTimeout(() => setInitialLoading(false), 300);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  function createColumn() {
+    if (status !== "empty") return;
+    setBoard({ ...board, columns: [{ id: crypto.randomUUID(), title: "New column" }] });
+    setCards([]);
+    setStatus("ideal");
+  }
+
+  function addCard(columnId: string) {
+    const card = { id: crypto.randomUUID(), title: "New card", columnId };
+    setCards(previous => [...previous, card]);
   }
 
   const handleMoveCard = useCallback(
@@ -55,8 +70,8 @@ export default function Home() {
   return (
     <>
       <BoardPanel
-        board={board}
-        cards={cards}
+        board={status === "empty" ? { ...board, columns: [] } : board}
+        cards={status === "empty" ? [] : cards}
         status={status}
         error={error}
         conflictCardId={conflictCardId}
@@ -69,10 +84,8 @@ export default function Home() {
           setConflictCardId(undefined);
           setStatus("ideal");
         }}
-        onCreateColumn={() => {
-          // New board → demonstrate the Empty state until columns exist.
-          if (board.columns.length === 0) return;
-        }}
+        onCreateColumn={createColumn}
+        onAddCard={addCard}
       />
       {/* Dev-only harness: force the error branch to prove rollback works. */}
       <div className="fixed bottom-4 right-4 z-50 rounded-lg border border-border bg-card p-3 text-xs shadow-sm">
@@ -90,14 +103,13 @@ export default function Home() {
               <button
                 key={s}
                 type="button"
+                aria-pressed={status === s}
                 onClick={() => {
                   setStatus(s);
-                  if (s === "partial")
-                    setConflictCardId(cards[0]?.id);
-                  if (s === "error")
-                    setError("Couldn’t load board.");
+                  setConflictCardId(s === "partial" ? cards[0]?.id : undefined);
+                  setError(s === "error" ? "Couldn’t load board." : undefined);
                 }}
-                className="rounded border border-border px-2 py-1 text-xs hover:bg-muted"
+                className="rounded border border-border px-2 py-1 text-xs hover:bg-muted aria-pressed:bg-muted"
               >
                 {s}
               </button>

@@ -90,7 +90,12 @@ export function CustomersTable({ rows, status, onRetry }: CustomersTableProps) {
         <thead>
           <tr className="text-left text-muted-foreground">
             {(["name", "revenue", "joined"] as SortKey[]).map((key) => (
-              <th key={key} scope="col" aria-sort={ariaSort(key)} className="py-2 pr-4">
+              <th
+                key={key}
+                scope="col"
+                aria-sort={ariaSort(key)}
+                className={key === "revenue" ? "py-2 pr-4 text-right" : "py-2 pr-4"}
+              >
                 <button
                   onClick={() => toggleSort(key)}
                   className="inline-flex items-center gap-1 font-medium text-foreground capitalize focus-visible:ring-2 focus-visible:ring-ring focus:outline-none rounded"
@@ -111,7 +116,7 @@ export function CustomersTable({ rows, status, onRetry }: CustomersTableProps) {
                   {r.name}
                 </span>
               </td>
-              <td className="py-2 pr-4 text-foreground">${r.revenue.toLocaleString()}</td>
+              <td className="py-2 pr-4 text-right tabular-nums text-foreground">${r.revenue.toLocaleString()}</td>
               <td className="py-2 pr-4 text-muted-foreground">{r.joined}</td>
             </tr>
           ))}

@@ -50,6 +50,7 @@ export interface BoardPanelProps {
   onRetry: () => void;
   onRefresh: () => void;
   onCreateColumn: () => void;
+  onAddCard?: (columnId: string) => void;
 }
 
 // --- State subcomponents -------------------------------------------------
@@ -166,6 +167,7 @@ export function BoardPanel({
   onRetry,
   onRefresh,
   onCreateColumn,
+  onAddCard,
 }: BoardPanelProps) {
   const [submittingCardId, setSubmittingCardId] = useState<string | null>(null);
 
@@ -209,7 +211,9 @@ export function BoardPanel({
     <main aria-label="Kanban board" className="min-h-screen bg-background p-4 md:p-6">
       <header className="mb-4 flex items-center justify-between gap-4">
         <h1 className="text-xl text-foreground">{board.title}</h1>
-        <span className="text-sm text-muted-foreground">{totalCards} cards</span>
+        {status !== "loading" && (
+          <span className="text-sm text-muted-foreground">{totalCards} {totalCards === 1 ? "card" : "cards"}</span>
+        )}
       </header>
 
       {status === "loading" && <BoardLoadingSkeleton />}
@@ -244,7 +248,7 @@ export function BoardPanel({
                         ? "bg-destructive/10 text-destructive"
                         : "bg-muted text-muted-foreground",
                     )}
-                    aria-label={`${colCards.length} cards${overWip ? ", over WIP limit" : ""}`}
+                    aria-label={`${colCards.length} ${colCards.length === 1 ? "card" : "cards"}${overWip ? ", over WIP limit" : ""}`}
                   >
                     {overWip && <AlertTriangle className="h-3 w-3" aria-hidden="true" />}
                     {colCards.length}
@@ -283,14 +287,14 @@ export function BoardPanel({
                     );
                   })}
 
-                  <button
+                  {onAddCard && <button
                     type="button"
-                    onClick={() => onCreateColumn()}
+                    onClick={() => onAddCard(col.id)}
                     className="inline-flex h-11 items-center gap-2 rounded-md border border-dashed border-border text-sm text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     aria-label={`Add card to ${col.title}`}
                   >
                     <Plus className="h-4 w-4" aria-hidden="true" /> Add card
-                  </button>
+                  </button>}
                 </div>
               </div>
             );

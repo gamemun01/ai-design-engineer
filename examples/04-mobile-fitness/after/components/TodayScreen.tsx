@@ -2,19 +2,24 @@
 // Skills applied: 03 (UX thumb-zone), 04 (tokens), 06 (code), 07 (a11y)
 // Stack: Next.js PWA + Tailwind (declared). Adapts to React Native with NativeWind.
 
+"use client";
+
 import { useMemo } from "react";
 import { Flame, Play, WifiOff, RefreshCw, BedDouble, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type ScreenStatus = "ideal" | "loading" | "empty" | "error";
 
+type Workout = { title: string; duration: string };
+
 interface TodayScreenProps {
   streak: number;
-  workout?: { title: string; duration: string };
+  workout?: Workout;
   weekCompleted: boolean[]; // length 7
   status: ScreenStatus;
   lastSynced?: string;
   onRetry?: () => void;
+  onStartWorkout?: (workout: Workout) => void;
 }
 
 export function TodayScreen({
@@ -24,6 +29,7 @@ export function TodayScreen({
   status,
   lastSynced,
   onRetry,
+  onStartWorkout,
 }: TodayScreenProps) {
   // SR summary memoized — no recompute each render
   const weekSummary = useMemo(() => {
@@ -86,7 +92,10 @@ export function TodayScreen({
             </div>
             {/* PRIMARY CTA — 56px, in the lower third (thumb zone) */}
             <button
-              className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-lg bg-primary text-base font-semibold text-primary-foreground active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring focus:outline-none"
+              type="button"
+              disabled={!onStartWorkout}
+              onClick={() => onStartWorkout?.(workout)}
+              className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-lg bg-primary text-base font-semibold text-primary-foreground enabled:active:scale-[0.98] disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-ring focus:outline-none"
             >
               <Play className="h-5 w-5" aria-hidden="true" /> Start workout
             </button>

@@ -1,7 +1,7 @@
 // AFTER: DocsLayout — skip link, aria-current active nav, real headings, search states
 // Skills applied: 03 (UX a11y), 04 (tokens), 06 (code), 07 (a11y), 08 (refine)
 
-import { Search } from "lucide-react";
+import { DocsSearch } from "./DocsSearch";
 import { CodeBlock } from "./CodeBlock";
 
 interface NavItem {
@@ -48,7 +48,7 @@ export function DocsLayout() {
           <a href="/" className="text-lg font-bold tracking-tight text-foreground">
             Conduit
           </a>
-          <DocsSearch />
+          <DocsSearch pages={SECTIONS.flatMap(section => section.items)} />
         </div>
       </header>
 
@@ -121,33 +121,6 @@ export function DocsLayout() {
           </nav>
         </aside>
       </div>
-    </div>
-  );
-}
-
-// Search with states — Loading/Empty/Error (5-state contract applies to search)
-function DocsSearch() {
-  // In a real app this is wired to a search index; the contract is what matters.
-  const status: "ideal" | "loading" | "empty" | "error" = "ideal";
-  return (
-    <div className="relative w-full max-w-sm">
-      <label htmlFor="docs-search" className="sr-only">Search docs</label>
-      <Search
-        className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
-        aria-hidden="true"
-      />
-      <input
-        id="docs-search"
-        type="search"
-        placeholder="Search docs..."
-        className="h-9 w-full rounded-md border border-border bg-card pl-9 pr-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus:outline-none"
-      />
-      {status === "empty" && (
-        <p role="status" className="absolute mt-1 text-xs text-muted-foreground">No results</p>
-      )}
-      {status === "error" && (
-        <p role="alert" className="absolute mt-1 text-xs text-destructive">Search unavailable</p>
-      )}
     </div>
   );
 }
