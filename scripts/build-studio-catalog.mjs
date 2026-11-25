@@ -5,10 +5,10 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { createPlan } = require('./register-codex-skills.js');
 const { parseFrontmatter } = require('../tests/lib/contract-checks.js');
-const { proseOnly } = require('./lib/skill-integrity.js');
+const { withoutMarkdownComments, proseOnly } = require('./lib/skill-integrity.js');
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const allowed = /^(skills\/(?!deprecated\/)|plugins\/community\/|0[1-8]-[^/]+\/)/;
-const strip = value => value.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '').replace(/<!--[^]*?-->/g, '').trim();
+const strip = value => withoutMarkdownComments(value.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '')).trim();
 export function buildCatalog(repo = root) {
   const pkg = JSON.parse(fs.readFileSync(path.join(repo, 'package.json'), 'utf8'));
   const documents = {};

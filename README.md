@@ -6,7 +6,7 @@
 ### The open-source framework for AI-assisted design engineering
 **From idea → UX → UI → code → review → production**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](License)
 [![Version](https://img.shields.io/badge/version-1.2.0-brightgreen.svg)](CHANGELOG.md)
 [![Node 24 LTS](https://img.shields.io/badge/node-24_LTS-green.svg)](package.json)
 [![Skills](https://img.shields.io/badge/skills-13-blueviolet.svg)](skills/)

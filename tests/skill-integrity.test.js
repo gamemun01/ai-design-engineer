@@ -4,7 +4,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const { proseOnly, missingSections, checkLocalLinks } = require('../scripts/lib/skill-integrity');
+const { withoutMarkdownComments, proseOnly, missingSections, checkLocalLinks } = require('../scripts/lib/skill-integrity');
 
 const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'ai-design-skill-integrity-'));
 const doc = path.join(fixture, 'SKILL.md');
@@ -36,6 +36,10 @@ try {
   });
   check('code examples and comments do not create broken prose links', () => {
     assert.deepEqual(links('````markdown\n```json\n[example](not-real.md)\n```\n````\n<!-- [hidden](not-real.md) -->'), []);
+  });
+  check('removing comments keeps text and line boundaries separate', () => {
+    assert.equal(withoutMarkdownComments('before<!-- note -->after'), 'before after');
+    assert.equal(withoutMarkdownComments('before<!-- note\r\nmore -->after'), 'before \r\n after');
   });
   check('required headings must exist outside fenced examples', () => {
     const required = ['## Trigger Description', '## System Instruction'];

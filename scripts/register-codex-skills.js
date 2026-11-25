@@ -117,7 +117,7 @@ function register(root, mode) {
       if (fs.existsSync(file)) {
         const existing = fs.readFileSync(file, 'utf8');
         if (!existing.includes(managedMarker)) throw new Error(`Unmanaged skill file already exists: ${file}`);
-        if (mode === 'check' && existing !== content) throw new Error(`Stale native pointer or UI metadata: ${entry.name}`);
+        if (mode === 'check' && existing.replace(/\r\n/g, '\n') !== content) throw new Error(`Stale native pointer or UI metadata: ${entry.name}`);
       } else if (mode === 'check') throw new Error(`Native skill file missing: ${file}`);
     }
   }

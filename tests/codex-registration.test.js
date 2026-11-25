@@ -38,6 +38,14 @@ try {
     }
     register(root, 'check');
   });
+  check('check accepts generated files checked out with Windows line endings', () => {
+    for (const { file, content, uiFile, uiContent } of createPlan(root)) {
+      fs.writeFileSync(file, content.replace(/\n/g, '\r\n'));
+      fs.writeFileSync(uiFile, uiContent.replace(/\n/g, '\r\n'));
+    }
+    assert.doesNotThrow(() => register(root, 'check'));
+    register(root, 'write');
+  });
   check('repeat installation is idempotent', () => {
     const snapshot = () => createPlan(root).map(({ file, uiFile }) => [fs.readFileSync(file, 'utf8'), fs.readFileSync(uiFile, 'utf8')]);
     const before = snapshot();

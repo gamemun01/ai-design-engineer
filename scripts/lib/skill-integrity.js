@@ -3,11 +3,16 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
+// Preserve line boundaries and keep text on either side of a comment separated.
+function withoutMarkdownComments(content) {
+  return content.replace(/<!--[\s\S]*?-->/g, comment => comment.replace(/[^\r\n]+/g, ' '));
+}
+
 // Ignore instructional code examples when checking actual prose links/headings.
 // Closing fences must use the opening character and at least its length.
 function proseOnly(content) {
   let fence = null;
-  return content.replace(/<!--[\s\S]*?-->/g, '').split(/\r?\n/).map((line) => {
+  return withoutMarkdownComments(content).split(/\r?\n/).map((line) => {
     const match = line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
     if (match) {
       if (!fence) fence = { char: match[1][0], length: match[1].length };
@@ -55,4 +60,4 @@ function checkLocalLinks(filePath, repoRoot) {
   return errors;
 }
 
-module.exports = { proseOnly, missingSections, checkLocalLinks };
+module.exports = { withoutMarkdownComments, proseOnly, missingSections, checkLocalLinks };

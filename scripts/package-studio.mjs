@@ -33,7 +33,7 @@ export function packageStudio({ outputDir = path.join(repo, 'dist/releases'), ru
     }
   };
   collect(path.join(app, 'dist'), 'dist'); collect(path.join(app, 'server'), 'server'); collect(path.join(app, 'shared'), 'shared');
-  files.LICENSE = fs.readFileSync(path.join(repo, 'LICENSE'));
+  files.LICENSE = fs.readFileSync(path.join(repo, 'License'));
   // Advisor prose carries its own CC BY attribution and legal text.
   if (catalog.skills.some(s => s.id === 'project-design-advisor')) {
     files['licenses/project-design-advisor-CC-BY-4.0.txt'] = fs.readFileSync(path.join(repo, 'skills/ux/project-design-advisor/LICENSE.txt'));
